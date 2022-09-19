@@ -42,8 +42,13 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 				this.userProfilesRepository.findOneBy({ userId: ps.userId }),
 			]);
 
-			if (user == null || profile == null) {
-				throw new Error('user not found');
+			if (!_me.isAdmin) {
+				return {
+					isModerator: user.isModerator,
+					isAdmin: user.isAdmin,
+					isSilenced: user.isSilenced,
+					isSuspended: user.isSuspended,
+				};
 			}
 
 			const _me = await this.usersRepository.findOneByOrFail({ id: me.id });
