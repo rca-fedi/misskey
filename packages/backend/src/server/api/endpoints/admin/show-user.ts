@@ -40,6 +40,7 @@ export default define(meta, paramDef, async (ps, me) => {
 	if (!_me.isAdmin) {
 		return {
 			isModerator: user.isModerator,
+			isAdmin: user.isAdmin,
 			isSilenced: user.isSilenced,
 			isSuspended: user.isSuspended,
 		};
