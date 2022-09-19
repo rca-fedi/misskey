@@ -68,6 +68,7 @@ export default define(meta, paramDef, async (ps, me) => {
 		mutedInstances: profile.mutedInstances,
 		mutingNotificationTypes: profile.mutingNotificationTypes,
 		isModerator: user.isModerator,
+		isAdmin: user.isAdmin,
 		isSilenced: user.isSilenced,
 		isSuspended: user.isSuspended,
 		lastActiveDate: user.lastActiveDate,
