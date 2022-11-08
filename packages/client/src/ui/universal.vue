@@ -323,7 +323,7 @@ const wallpaper = localStorage.getItem('wallpaper') != null;
 				bottom: 12px;
 			}
 		}
-		> .fa-pencil-alt {
+		.fa-pencil-alt {
 			margin-left: 12px;
 			margin-right: 12px;
 		}
