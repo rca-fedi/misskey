@@ -185,6 +185,13 @@ const wallpaper = localStorage.getItem('wallpaper') != null;
 function reloadPage() {
   window.location.reload();
 }
+
+const hasDisconnected = ref(false);
+
+stream.on('_disconnected_', async () => {
+	hasDisconnected.value = true;
+});
+
 </script>
 
 <style lang="scss" scoped>
