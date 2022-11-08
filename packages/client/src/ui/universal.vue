@@ -19,17 +19,19 @@
 	<button v-if="!isDesktop && !isMobile" class="widgetButton _button" @click="widgetsShowing = true"><i class="fas fa-layer-group"></i></button>
 
 	<div v-if="isMobile" class="buttons">
-		<div class="tabs">
+		<div class="tabs_area">
 			<button class="button nav _button" @click="drawerMenuShowing = true"><i class="fas fa-bars"></i><span v-if="menuIndicated" class="indicator"><i class="fas fa-circle"></i></span></button>
 			<button class="button home _button" @click="mainRouter.currentRoute.value.name === 'index' ? top() : mainRouter.push('/')"><i class="fas fa-home"></i></button>
 			<button class="button notifications _button" @click="mainRouter.push('/my/notifications')"><i class="fas fa-bell"></i><span v-if="$i?.hasUnreadNotification" class="indicator"><i class="fas fa-circle"></i></span></button>
 			<button class="button widget _button" @click="widgetsShowing = true"><i class="fas fa-layer-group"></i></button>
 		</div>
-		<div class="post_button">
-			<!-- <button class="button post _button" @click="os.post()"><i class="fas fa-pencil-alt"></i></button> -->
-			<button class="button post _button" data-cy-open-post-form @click="os.post">
-				<i class="icon fas fa-pencil-alt fa-fw"></i><span class="text">{{ i18n.ts.note }}</span>
-			</button>
+		<div class="post_area">
+			<div class="post_button">
+				<!-- <button class="button post _button" @click="os.post()"><i class="fas fa-pencil-alt"></i></button> -->
+				<button class="button post _button" data-cy-open-post-form @click="os.post">
+					<i class="icon fas fa-pencil-alt fa-fw"></i><span class="text">{{ i18n.ts.note }}</span>
+				</button>
+			</div>
 		</div>
 	</div>
 
@@ -303,19 +305,27 @@ const wallpaper = localStorage.getItem('wallpaper') != null;
 		background-color: var(--header);
 		border-top: solid 0.5px var(--divider);
 
-		> .tabs {
+		> .tabs_area {
 			width: 61.8%;
 			display: flex;
 			justify-content: space-around;
 		}
+
+		> .post_area {
+			width: 38.2%;
+		}
 		> .post_button {
 			width: 38.2%;
-    	background: linear-gradient(90deg,var(--buttonGradateA),var(--buttonGradateB));
-    	border-radius: 999px;
-    	height: 32px;
-    	position: absolute;
-    	bottom: 32px;
+			background: linear-gradient(90deg,var(--buttonGradateA),var(--buttonGradateB));
+			border-radius: 999px;
+			height: 48px;
+			position: absolute;
+			bottom: 12px;
 		}
+
+		//.fa-pencil-alt {
+		//	position: absolute
+		//}
 
 		> .button {
 			position: relative;
