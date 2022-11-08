@@ -20,12 +20,12 @@
 
 	<div v-if="isMobile" class="buttons">
 		<div class="tabs_area">
-			<button class="button nav _button" @click="drawerMenuShowing = true"><i class="fas fa-bars"></i><span v-if="menuIndicated" class="indicator"><i class="fas fa-circle"></i></span></button>
+			<button class="button nav _button" @click="drawerMenuShowing = true"><i class="fas fa-bars"></i><span v-if="menuIndicated" class="indicator navbar"><i class="fas fa-circle"></i></span></button>
 			<button class="button home _button" @click="mainRouter.currentRoute.value.name === 'index' ? top() : mainRouter.push('/')"><i class="fas fa-home"></i></button>
-			<button class="button notifications _button" @click="mainRouter.push('/my/notifications')"><i class="fas fa-bell"></i><span v-if="$i?.hasUnreadNotification" class="indicator"><i class="fas fa-circle"></i></span></button>
-			<button class="button messaging _button" @click="mainRouter.push('/my/messaging')"><i class="fas fa-comments"></i><span v-if="$i?.hasUnreadMessagingMessage" class="indicator"><i class="fas fa-circle"></i></span></button>
+			<button class="button notifications _button" @click="mainRouter.push('/my/notifications')"><i class="fas fa-bell"></i><span v-if="$i?.hasUnreadNotification" class="indicator navbar"><i class="fas fa-circle"></i></span></button>
+			<button class="button messaging _button" @click="mainRouter.push('/my/messaging')"><i class="fas fa-comments"></i><span v-if="$i?.hasUnreadMessagingMessage" class="indicator navbar"><i class="fas fa-circle"></i></span></button>
 			<!-- <button class="button widget _button" @click="widgetsShowing = true"><i class="fas fa-layer-group"></i></button> -->
-			<button class="button reload _button" @click="reloadPage()"><i class="fas fa-redo"></i><span v-if="hasDisconnected" class="indicator"><i class="fas fa-circle"></i></span></button>
+			<button class="button reload _button" @click="reloadPage()"><i class="fas fa-redo"></i><span v-if="hasDisconnected" class="indicator navbar"><i class="fas fa-circle"></i></span></button>
 		</div>
 		<div class="post_area">
 			<div class="post_button">
@@ -361,6 +361,14 @@ stream.on('_disconnected_', async () => {
 			}
 			&.reload {
 				padding: 12px;
+			}
+		}
+
+		.indicator {
+			&.navbar {
+				font-size: 8px;
+				position: relative;
+				bottom: 40%;
 			}
 		}
 
