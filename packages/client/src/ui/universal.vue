@@ -310,7 +310,7 @@ stream.on('_disconnected_', async () => {
 		z-index: 1000;
 		bottom: 0;
 		left: 0;
-		padding: 8px 8px calc(env(safe-area-inset-bottom, 0px) + 8px) 8px;
+		padding: 4px 4px calc(env(safe-area-inset-bottom, 0px) + 4px) 4px;
 		display: flex;
 		width: 100%;
 		box-sizing: border-box;
