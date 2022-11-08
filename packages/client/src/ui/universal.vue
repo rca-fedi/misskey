@@ -310,7 +310,7 @@ stream.on('_disconnected_', async () => {
 		z-index: 1000;
 		bottom: 0;
 		left: 0;
-		padding: 16px 16px calc(env(safe-area-inset-bottom, 0px) + 16px) 16px;
+		padding: 8px 8px calc(env(safe-area-inset-bottom, 0px) + 8px) 8px;
 		display: flex;
 		width: 100%;
 		box-sizing: border-box;
@@ -344,6 +344,24 @@ stream.on('_disconnected_', async () => {
 
 		.button.post {
 			height: 100%;
+		}
+
+		.button {
+			&.nav {
+				padding: 12px;
+			}
+			&.home {
+				padding: 12px;
+			}
+			&.notifications {
+				padding: 12px;
+			}
+			&.messaging {
+				padding: 12px;
+			}
+			&.reload {
+				padding: 12px;
+			}
 		}
 
 		> .button {
