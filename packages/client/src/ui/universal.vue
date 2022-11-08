@@ -313,19 +313,24 @@ const wallpaper = localStorage.getItem('wallpaper') != null;
 
 		> .post_area {
 			width: 38.2%;
+		
+			> .post_button {
+				width: 38.2%;
+				background: linear-gradient(90deg,var(--buttonGradateA),var(--buttonGradateB));
+				border-radius: 999px;
+				height: 48px;
+				position: absolute;
+				bottom: 12px;
+			}
 		}
-		> .post_button {
-			width: 38.2%;
-			background: linear-gradient(90deg,var(--buttonGradateA),var(--buttonGradateB));
-			border-radius: 999px;
-			height: 48px;
-			position: absolute;
-			bottom: 12px;
+		> .fa-pencil-alt {
+			margin-left: 12px;
+			margin-right: 12px;
 		}
 
-		//.fa-pencil-alt {
-		//	position: absolute
-		//}
+		.button.post {
+			height: 100%;
+		}
 
 		> .button {
 			position: relative;
