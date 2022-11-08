@@ -23,7 +23,9 @@
 			<button class="button nav _button" @click="drawerMenuShowing = true"><i class="fas fa-bars"></i><span v-if="menuIndicated" class="indicator"><i class="fas fa-circle"></i></span></button>
 			<button class="button home _button" @click="mainRouter.currentRoute.value.name === 'index' ? top() : mainRouter.push('/')"><i class="fas fa-home"></i></button>
 			<button class="button notifications _button" @click="mainRouter.push('/my/notifications')"><i class="fas fa-bell"></i><span v-if="$i?.hasUnreadNotification" class="indicator"><i class="fas fa-circle"></i></span></button>
-			<button class="button widget _button" @click="widgetsShowing = true"><i class="fas fa-layer-group"></i></button>
+			<button class="button messaging _button" @click="mainRouter.push('/my/messaging')"><i class="fas fa-comments"></i><span v-if="$i?.hasUnreadMessagingMessage" class="indicator"><i class="fas fa-circle"></i></span></button>
+			<!-- <button class="button widget _button" @click="widgetsShowing = true"><i class="fas fa-layer-group"></i></button> -->
+			<button class="button reload _button" @click="reloadPage()"><i class="fas fa-redo"></i><span v-if="hasDisconnected" class="indicator"><i class="fas fa-circle"></i></span></button>
 		</div>
 		<div class="post_area">
 			<div class="post_button">
@@ -80,6 +82,7 @@ import { Router } from '@/nirax';
 import { mainRouter } from '@/router';
 import { PageMetadata, provideMetadataReceiver, setPageMetadata } from '@/scripts/page-metadata';
 import { deviceKind } from '@/scripts/device-kind';
+import { stream } from '@/stream';
 const XWidgets = defineAsyncComponent(() => import('./universal.widgets.vue'));
 const XSidebar = defineAsyncComponent(() => import('@/ui/_common_/navbar.vue'));
 const XStatusBars = defineAsyncComponent(() => import('@/ui/_common_/statusbars.vue'));
@@ -178,6 +181,10 @@ function top() {
 }
 
 const wallpaper = localStorage.getItem('wallpaper') != null;
+
+function reloadPage() {
+  window.location.reload();
+}
 </script>
 
 <style lang="scss" scoped>
