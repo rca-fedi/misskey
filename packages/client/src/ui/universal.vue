@@ -323,10 +323,12 @@ stream.on('_disconnected_', async () => {
 			width: 61.8%;
 			display: flex;
 			justify-content: space-around;
+			padding-right: 12px;
 		}
 
 		> .post_area {
 			width: 38.2%;
+			padding-right: 12px;
 		
 			> .post_button {
 				width: 38.2%;
