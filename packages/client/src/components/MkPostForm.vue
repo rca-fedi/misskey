@@ -15,13 +15,6 @@
 		<div class="right">
 			<span class="text-count" :class="{ over: textLength > maxTextLength }">{{ maxTextLength - textLength }}</span>
 			<span v-if="localOnly" class="local-only"><i class="fas fa-biohazard"></i></span>
-			<button ref="visibilityButton" v-tooltip="i18n.ts.visibility" class="_button visibility" :disabled="channel != null" @click="setVisibility">
-				<span v-if="visibility === 'public'"><i class="fas fa-globe"></i></span>
-				<span v-if="visibility === 'home'"><i class="fas fa-home"></i></span>
-				<span v-if="visibility === 'followers'"><i class="fas fa-unlock"></i></span>
-				<span v-if="visibility === 'specified'"><i class="fas fa-envelope"></i></span>
-			</button>
-			<button v-tooltip="i18n.ts.previewNoteText" class="_button preview" :class="{ active: showPreview }" @click="showPreview = !showPreview"><i class="fas fa-file-code"></i></button>
 			<button class="submit _buttonGradate" :disabled="!canPost" data-cy-open-post-form-submit @click="post">{{ submitText }}<i :class="reply ? 'fas fa-reply' : renote ? 'fas fa-quote-right' : 'fas fa-paper-plane'"></i></button>
 		</div>
 	</header>
@@ -47,15 +40,20 @@
 		<XPollEditor v-if="poll" v-model="poll" @destroyed="poll = null"/>
 		<XNotePreview v-if="showPreview" class="preview" :text="text"/>
 		<footer>
-			<!-- <div class="footer-area"> -->
-				<button v-tooltip="i18n.ts.attachFile" class="_button" @click="chooseFileFrom"><i class="fas fa-photo-video"></i></button>
-				<button v-tooltip="i18n.ts.poll" class="_button" :class="{ active: poll }" @click="togglePoll"><i class="fas fa-poll-h"></i></button>
-				<button v-tooltip="i18n.ts.useCw" class="_button" :class="{ active: useCw }" @click="useCw = !useCw"><i class="fas fa-eye-slash"></i></button>
-				<button v-tooltip="i18n.ts.mention" class="_button" @click="insertMention"><i class="fas fa-at"></i></button>
-				<button v-tooltip="i18n.ts.hashtags" class="_button" :class="{ active: withHashtags }" @click="withHashtags = !withHashtags"><i class="fas fa-hashtag"></i></button>
-				<button v-tooltip="i18n.ts.emoji" class="_button" @click="insertEmoji"><i class="fas fa-laugh-squint"></i></button>
-				<button v-if="postFormActions.length > 0" v-tooltip="i18n.ts.plugin" class="_button" @click="showActions"><i class="fas fa-plug"></i></button>
-			<!-- </div> -->
+			<button v-tooltip="i18n.ts.attachFile" class="_button" @click="chooseFileFrom"><i class="fas fa-photo-video"></i></button>
+			<button v-tooltip="i18n.ts.poll" class="_button" :class="{ active: poll }" @click="togglePoll"><i class="fas fa-poll-h"></i></button>
+			<button v-tooltip="i18n.ts.useCw" class="_button" :class="{ active: useCw }" @click="useCw = !useCw"><i class="fas fa-eye-slash"></i></button>
+			<button v-tooltip="i18n.ts.mention" class="_button" @click="insertMention"><i class="fas fa-at"></i></button>
+			<button v-tooltip="i18n.ts.hashtags" class="_button" :class="{ active: withHashtags }" @click="withHashtags = !withHashtags"><i class="fas fa-hashtag"></i></button>
+			<button v-tooltip="i18n.ts.emoji" class="_button" @click="insertEmoji"><i class="fas fa-laugh-squint"></i></button>
+			<button v-if="postFormActions.length > 0" v-tooltip="i18n.ts.plugin" class="_button" @click="showActions"><i class="fas fa-plug"></i></button>
+			<button ref="visibilityButton" v-tooltip="i18n.ts.visibility" class="_button visibility" :disabled="channel != null" @click="setVisibility">
+				<span v-if="visibility === 'public'"><i class="fas fa-globe"></i></span>
+				<span v-if="visibility === 'home'"><i class="fas fa-home"></i></span>
+				<span v-if="visibility === 'followers'"><i class="fas fa-unlock"></i></span>
+				<span v-if="visibility === 'specified'"><i class="fas fa-envelope"></i></span>
+			</button>
+			<button v-tooltip="i18n.ts.previewNoteText" class="_button preview" :class="{ active: showPreview }" @click="showPreview = !showPreview"><i class="fas fa-file-code"></i></button>
 		</footer>
 		<datalist id="hashtags">
 			<option v-for="hashtag in recentHashtags" :key="hashtag" :value="hashtag"/>
@@ -743,7 +741,6 @@ onMounted(() => {
 				margin: auto;
 			}
 		}
-
 		> .right {
 			position: absolute;
 			top: 0;
