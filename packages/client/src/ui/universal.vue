@@ -347,6 +347,8 @@ stream.on('_disconnected_', async () => {
 		.button.post {
 			height: 100%;
 			color: var(--bg);
+			width: 100%;
+    	text-align: left;
 		}
 
 		.button {
