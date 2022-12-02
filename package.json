@@ -1,10 +1,10 @@
 {
 	"name": "misskey",
-	"version": "12.119.0_rcamod-v3-release",
+	"version": "12.119.0_rcamod-v5b1",
 	"codename": "indigo",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/romne-co/misskey.git"
+		"url": "https://github.com/rca-fedi/misskey.git"
 	},
 	"private": true,
 	"scripts": {
