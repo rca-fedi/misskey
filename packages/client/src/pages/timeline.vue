@@ -126,6 +126,11 @@ const headerTabs = $computed(() => [{
 	title: i18n.ts._timelines.social,
 	icon: 'fas fa-share-alt',
 	iconOnly: true,
+}, {
+	key: 'admin',
+	title: "Admin Timeline(仮置き)",
+	icon: 'fas fa-share-alt',
+	iconOnly: true,
 }] : []), ...(isGlobalTimelineAvailable ? [{
 	key: 'global',
 	title: i18n.ts._timelines.global,

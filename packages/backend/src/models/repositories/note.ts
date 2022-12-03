@@ -11,14 +11,19 @@ import { NoteReaction } from '@/models/entities/note-reaction.js';
 import { aggregateNoteEmojis, populateEmojis, prefetchEmojis } from '@/misc/populate-emojis.js';
 import { db } from '@/db/postgre.js';
 
-async function hideNote(packedNote: Packed<'Note'>, meId: User['id'] | null) {
+async function hideNote(packedNote: Packed<'Note'>, meId: User['id'] | null, user: User | undefined) { //iId→meIdはnull入っちゃってだめらしいので(?)
 	// TODO: isVisibleForMe を使うようにしても良さそう(型違うけど)
 	let hide = false;
-
+	
 	// visibility が specified かつ自分が指定されていなかったら非表示
 	if (packedNote.visibility === 'specified') {
 		if (meId == null) {
-			hide = true;
+			if (isAdmin) { //admin-timeline用に例外
+				hide = false;
+			}
+			else {
+				hide = true;
+			}
 		} else if (meId === packedNote.userId) {
 			hide = false;
 		} else {
@@ -28,7 +33,12 @@ async function hideNote(packedNote: Packed<'Note'>, meId: User['id'] | null) {
 			if (specified) {
 				hide = false;
 			} else {
-				hide = true;
+				if (isAdmin) { //admin-timeline用に例外
+					hide = false;
+				}
+				else {
+					hide = true;
+				}
 			}
 		}
 	}
@@ -36,7 +46,12 @@ async function hideNote(packedNote: Packed<'Note'>, meId: User['id'] | null) {
 	// visibility が followers かつ自分が投稿者のフォロワーでなかったら非表示
 	if (packedNote.visibility === 'followers') {
 		if (meId == null) {
-			hide = true;
+			if (isAdmin) { //admin-timeline用に例外
+				hide = false;
+			}
+			else {
+				hide = true;
+			}
 		} else if (meId === packedNote.userId) {
 			hide = false;
 		} else if (packedNote.reply && (meId === packedNote.reply.userId)) {
@@ -53,7 +68,12 @@ async function hideNote(packedNote: Packed<'Note'>, meId: User['id'] | null) {
 			});
 
 			if (following == null) {
-				hide = true;
+				if (isAdmin) { //admin-timeline用に例外
+					hide = false;
+				}
+				else {
+					hide = true;
+				}
 			} else {
 				hide = false;
 			}
@@ -135,12 +155,18 @@ async function populateMyReaction(note: Note, meId: User['id'], _hint_?: {
 }
 
 export const NoteRepository = db.getRepository(Note).extend({
-	async isVisibleForMe(note: Note, meId: User['id'] | null): Promise<boolean> {
+	async isVisibleForMe(note: Note, meId: User['id'] | null, isAdmin: User['isAdmin']): Promise<boolean> {
 		// This code must always be synchronized with the checks in generateVisibilityQuery.
 		// visibility が specified かつ自分が指定されていなかったら非表示
+
 		if (note.visibility === 'specified') {
 			if (meId == null) {
-				return false;
+				if (isAdmin) { //admin-timeline用に例外
+					return true;
+				}
+				else {
+					return false;
+				}
 			} else if (meId === note.userId) {
 				return true;
 			} else {
@@ -152,7 +178,12 @@ export const NoteRepository = db.getRepository(Note).extend({
 		// visibility が followers かつ自分が投稿者のフォロワーでなかったら非表示
 		if (note.visibility === 'followers') {
 			if (meId == null) {
-				return false;
+				if (isAdmin) { //admin-timeline用に例外
+					return true;
+				}
+				else {
+					return false;
+				}
 			} else if (meId === note.userId) {
 				return true;
 			} else if (note.reply && (meId === note.reply.userId)) {
@@ -222,6 +253,7 @@ export const NoteRepository = db.getRepository(Note).extend({
 
 		const reactionEmojiNames = Object.keys(note.reactions).filter(x => x?.startsWith(':')).map(x => decodeReaction(x).reaction).map(x => x.replace(/:/g, ''));
 
+
 		const packed: Packed<'Note'> = await awaitAll({
 			id: note.id,
 			createdAt: note.createdAt.toISOString(),
@@ -233,6 +265,7 @@ export const NoteRepository = db.getRepository(Note).extend({
 			cw: note.cw,
 			visibility: note.visibility,
 			localOnly: note.localOnly || undefined,
+
 			visibleUserIds: note.visibility === 'specified' ? note.visibleUserIds : undefined,
 			renoteCount: note.renoteCount,
 			repliesCount: note.repliesCount,
@@ -283,7 +316,7 @@ export const NoteRepository = db.getRepository(Note).extend({
 		}
 
 		if (!opts.skipHide) {
-			await hideNote(packed, meId);
+			await hideNote(packed, meId, Users);
 		}
 
 		return packed;

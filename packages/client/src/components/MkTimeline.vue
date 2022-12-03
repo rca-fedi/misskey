@@ -85,6 +85,10 @@ if (props.src === 'antenna') {
 	endpoint = 'notes/global-timeline';
 	connection = stream.useChannel('globalTimeline');
 	connection.on('note', prepend);
+} else if (props.src === 'admin') {
+	endpoint = 'notes/admin-timeline';
+	connection = stream.useChannel('adminTimeline');
+	connection.on('note', prepend);
 } else if (props.src === 'mentions') {
 	endpoint = 'notes/mentions';
 	connection = stream.useChannel('main');

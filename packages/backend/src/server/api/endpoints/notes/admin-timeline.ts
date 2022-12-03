@@ -15,6 +15,9 @@ import { generateBlockedUserQuery } from '../../common/generate-block-query.js';
 export const meta = {
 	tags: ['notes'],
 
+	requireCredential: true,
+	requireAdmin: true,
+
 	res: {
 		type: 'array',
 		optional: false, nullable: false,
@@ -58,16 +61,14 @@ export const paramDef = {
 // eslint-disable-next-line import/no-default-export
 export default define(meta, paramDef, async (ps, user) => {
 	const m = await fetchMeta();
-	if (m.disableLocalTimeline) {
-		if (user == null || (!user.isAdmin && !user.isModerator)) {
-			throw new ApiError(meta.errors.atlNotAllowed);
-		}
+	if (user == null || !user.isAdmin) {
+		throw new ApiError(meta.errors.atlNotAllowed);
 	}
 
 	//#region Construct query
 	const query = makePaginationQuery(Notes.createQueryBuilder('note'),
 		ps.sinceId, ps.untilId, ps.sinceDate, ps.untilDate)
-		.andWhere('(note.visibility = \'public\') AND (note.userHost IS NULL)')
+		.andWhere('note.userHost IS NULL')
 		.innerJoinAndSelect('note.user', 'user')
 		.leftJoinAndSelect('user.avatar', 'avatar')
 		.leftJoinAndSelect('user.banner', 'banner')
