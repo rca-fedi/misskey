@@ -11,7 +11,7 @@ import { NoteReaction } from '@/models/entities/note-reaction.js';
 import { aggregateNoteEmojis, populateEmojis, prefetchEmojis } from '@/misc/populate-emojis.js';
 import { db } from '@/db/postgre.js';
 
-async function hideNote(packedNote: Packed<'Note'>, meId: User['id'] | null, user: User | undefined) { //iId→meIdはnull入っちゃってだめらしいので(?)
+async function hideNote(packedNote: Packed<'Note'>, meId: User['id'] | null, isAdmin: boolean) { 
 	// TODO: isVisibleForMe を使うようにしても良さそう(型違うけど)
 	let hide = false;
 	
@@ -155,7 +155,7 @@ async function populateMyReaction(note: Note, meId: User['id'], _hint_?: {
 }
 
 export const NoteRepository = db.getRepository(Note).extend({
-	async isVisibleForMe(note: Note, meId: User['id'] | null, isAdmin: User['isAdmin']): Promise<boolean> {
+	async isVisibleForMe(note: Note, meId: User['id'] | null, isAdmin: boolean): Promise<boolean> {
 		// This code must always be synchronized with the checks in generateVisibilityQuery.
 		// visibility が specified かつ自分が指定されていなかったら非表示
 
@@ -236,6 +236,7 @@ export const NoteRepository = db.getRepository(Note).extend({
 		}, options);
 
 		const meId = me ? me.id : null;
+		const iId = me ? me.id : undefined; //null入ってちゃだめらしいので（絶対間違ってそう）
 		const note = typeof src === 'object' ? src : await this.findOneByOrFail({ id: src });
 		const host = note.userHost;
 
@@ -316,7 +317,8 @@ export const NoteRepository = db.getRepository(Note).extend({
 		}
 
 		if (!opts.skipHide) {
-			await hideNote(packed, meId, Users);
+			const user = await Users.findOneBy({ id: iId });
+			await hideNote(packed, meId, user?.isAdmin);
 		}
 
 		return packed;

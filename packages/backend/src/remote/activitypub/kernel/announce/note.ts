@@ -10,6 +10,7 @@ import { getApLock } from '@/misc/app-lock.js';
 import { parseAudience } from '../../audience.js';
 import { StatusError } from '@/misc/fetch.js';
 import { Notes } from '@/models/index.js';
+import { User } from '@/models/entities/user.js';
 
 const logger = apLogger;
 
@@ -52,8 +53,8 @@ export default async function(resolver: Resolver, actor: CacheableRemoteUser, ac
 			}
 			throw e;
 		}
-
-		if (!await Notes.isVisibleForMe(renote, actor.id)) return 'skip: invalid actor for this activity';
+		const user = await Users.findOneBy({ id: iId });
+		if (!await Notes.isVisibleForMe(renote, actor.id, user.isAdmin)) return 'skip: invalid actor for this activity';
 
 		logger.info(`Creating the (Re)Note: ${uri}`);
 
