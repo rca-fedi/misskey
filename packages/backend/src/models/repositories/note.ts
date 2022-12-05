@@ -11,7 +11,7 @@ import { NoteReaction } from '@/models/entities/note-reaction.js';
 import { aggregateNoteEmojis, populateEmojis, prefetchEmojis } from '@/misc/populate-emojis.js';
 import { db } from '@/db/postgre.js';
 
-async function hideNote(packedNote: Packed<'Note'>, meId: User['id'] | null, isAdmin: boolean) { 
+async function hideNote(packedNote: Packed<'Note'>, meId: User['id'] | null, isAdmin: boolean | null) { 
 	// TODO: isVisibleForMe を使うようにしても良さそう(型違うけど)
 	let hide = false;
 	
@@ -155,7 +155,7 @@ async function populateMyReaction(note: Note, meId: User['id'], _hint_?: {
 }
 
 export const NoteRepository = db.getRepository(Note).extend({
-	async isVisibleForMe(note: Note, meId: User['id'] | null, isAdmin: boolean): Promise<boolean> {
+	async isVisibleForMe(note: Note, meId: User['id'] | null, isAdmin: boolean | null): Promise<boolean> {
 		// This code must always be synchronized with the checks in generateVisibilityQuery.
 		// visibility が specified かつ自分が指定されていなかったら非表示
 
