@@ -11,19 +11,21 @@
 	@ok="ok()"
 >
 	<template #header>{{ title || $ts.generateAccessToken }}</template>
-	<div v-if="information" class="_section">
+	<div v-if="information" class="hfsdhfa _section">
 		<MkInfo warn>{{ information }}</MkInfo>
 	</div>
-	<div class="_section">
+	<div class="hfsdhfa _section">
 		<MkInput v-model="name">
 			<template #label>{{ $ts.name }}</template>
 		</MkInput>
 	</div>
-	<div class="_section">
-		<div style="margin-bottom: 16px;"><b>{{ $ts.permission }}</b></div>
-		<MkButton inline @click="disableAll">{{ $ts.disableAll }}</MkButton>
-		<MkButton inline @click="enableAll">{{ $ts.enableAll }}</MkButton>
-		<MkSwitch v-for="kind in (initialPermissions || kinds)" :key="kind" v-model="permissions[kind]">{{ $t(`_permissions.${kind}`) }}</MkSwitch>
+	<div class="hfsdhfa _section">
+		<div class="hfdusff">
+			<b>{{ $ts.permission }}</b>
+				<MkButton class="dhsafu" inline @click="disableAll">{{ $ts.disableAll }}</MkButton>
+				<MkButton class="dhsafu" inline @click="enableAll">{{ $ts.enableAll }}</MkButton>
+		</div>
+		<MkSwitch class="fahufd" v-for="kind in (initialPermissions || kinds)" :key="kind" v-model="permissions[kind]">{{ $t(`_permissions.${kind}`) }}</MkSwitch>
 	</div>
 </XModalWindow>
 </template>
@@ -88,3 +90,21 @@ function enableAll(): void {
 	}
 }
 </script>
+<style lang="scss" scoped>
+.hfsdhfa {
+	padding: 12px;
+}
+
+.dhsafu {
+	padding: 6px;
+	margin-left: 12px;
+}
+
+.hfdusff {
+	display: inline-block;
+}
+
+.fahufd {
+	margin-top: 4px;
+}
+</style>
