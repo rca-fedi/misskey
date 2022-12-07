@@ -93,7 +93,7 @@ useTooltip(buttonRef, async (showing) => {
 <style lang="scss" scoped>
 .hkzvhatu {
 	display: inline-block;
-	height: 32px;
+	height: 42px;
 	margin: 2px;
 	padding: 0 6px;
 	border-radius: 4px;
@@ -130,6 +130,16 @@ useTooltip(buttonRef, async (showing) => {
 		font-size: 0.9em;
 		line-height: 32px;
 		margin: 0 0 0 4px;
+	}
+	.mk-emoji {
+		height: 1.5em;
+		vertical-align: -0.5em;
+		
+		&.custom {
+			height: 1.7em;
+			vertical-align: middle;
+			transition: transform 0.2s ease;
+		}
 	}
 }
 </style>
