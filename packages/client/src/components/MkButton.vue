@@ -1,7 +1,13 @@
 <template>
 <button
+<<<<<<< HEAD:packages/client/src/components/MkButton.vue
 	v-if="!link" class="bghgjjyj _button"
 	:class="{ inline, primary, gradate, danger, rounded, full }"
+=======
+	v-if="!link"
+	ref="el" class="bghgjjyj _button"
+	:class="{ inline, primary, gradate, danger, rounded, full, small, large, asLike }"
+>>>>>>> ebe340d51 (MisskeyPlay (#9467)):packages/frontend/src/components/MkButton.vue
 	:type="type"
 	@click="emit('click', $event)"
 	@mousedown="onMousedown"
@@ -39,6 +45,12 @@ const props = defineProps<{
 	wait?: boolean;
 	danger?: boolean;
 	full?: boolean;
+<<<<<<< HEAD:packages/client/src/components/MkButton.vue
+=======
+	small?: boolean;
+	large?: boolean;
+	asLike?: boolean;
+>>>>>>> ebe340d51 (MisskeyPlay (#9467)):packages/frontend/src/components/MkButton.vue
 }>();
 
 const emit = defineEmits<{
@@ -124,6 +136,19 @@ function onMousedown(evt: MouseEvent): void {
 		background: var(--buttonHoverBg);
 	}
 
+<<<<<<< HEAD:packages/client/src/components/MkButton.vue
+=======
+	&.small {
+		font-size: 90%;
+		padding: 6px 12px;
+	}
+
+	&.large {
+		font-size: 100%;
+		padding: 8px 16px;
+	}
+
+>>>>>>> ebe340d51 (MisskeyPlay (#9467)):packages/frontend/src/components/MkButton.vue
 	&.full {
 		width: 100%;
 	}
@@ -143,6 +168,37 @@ function onMousedown(evt: MouseEvent): void {
 
 		&:not(:disabled):active {
 			background: var(--X8);
+		}
+	}
+
+	&.asLike {
+		background: rgba(255, 86, 125, 0.07);
+		color: #ff002f;
+
+		&:not(:disabled):hover {
+			background: rgba(255, 74, 116, 0.11);
+		}
+
+		&:not(:disabled):active {
+			background: rgba(224, 57, 96, 0.125);
+		}
+
+		> .ripples {
+			::v-deep(div) {
+				background: rgba(255, 60, 106, 0.15);
+			}
+		}
+
+		&.primary {
+			background: rgb(241 97 132);
+
+			&:not(:disabled):hover {
+				background: rgb(241 92 128);
+			}
+
+			&:not(:disabled):active {
+				background: rgb(241 92 128);
+			}
 		}
 	}
 
