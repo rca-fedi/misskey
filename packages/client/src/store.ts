@@ -277,7 +277,7 @@ export const defaultStore = markRaw(new Storage('base', {
 	},
 	assetImageInfo: {
 		where: 'device',
-		default: '$store.state.assetImageInfo',
+		default: 'https://xn--931a.moe/assets/info.jpg',
 	}
 }));
 
