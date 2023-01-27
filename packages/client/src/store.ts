@@ -266,6 +266,18 @@ export const defaultStore = markRaw(new Storage('base', {
 	navBarReloadIcon: {
 		where: 'device',
 		default: true,
+	},
+	assetImageError: {
+		where: 'device',
+		default: 'https://xn--931a.moe/assets/error.jpg',
+	},
+	assetImageNotFound: {
+		where: 'device',
+		default: 'https://xn--931a.moe/assets/not-found.jpg',
+	},
+	assetImageInfo: {
+		where: 'device',
+		default: '$store.state.assetImageInfo',
 	}
 }));
 
