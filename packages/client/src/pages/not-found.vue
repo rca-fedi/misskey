@@ -1,7 +1,7 @@
 <template>
 <div class="ipledcug">
 	<div class="_fullinfo">
-		<img src="$store.state.assetImageNotFound" class="_ghost"/>
+		<img src="require($store.state.assetImageNotFound)" class="_ghost"/>
 		<div>{{ i18n.ts.notFoundDescription }}</div>
 	</div>
 </div>

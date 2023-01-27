@@ -33,7 +33,7 @@
 				</MkA>
 			</div>
 			<div v-if="!fetching && messages.length == 0" class="_fullinfo">
-				<img src="$store.state.assetImageInfo" class="_ghost"/>
+				<img src="require($store.state.assetImageInfo)" class="_ghost"/>
 				<div>{{ $ts.noHistory }}</div>
 			</div>
 			<MkLoading v-if="fetching"/>

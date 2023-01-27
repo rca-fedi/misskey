@@ -5,7 +5,7 @@
 		<MkPagination ref="paginationComponent" :pagination="pagination">
 			<template #empty>
 				<div class="_fullinfo">
-					<img src="$store.state.assetImageInfo" class="_ghost"/>
+					<img src="require($store.state.assetImageInfo)" class="_ghost"/>
 					<div>{{ i18n.ts.noFollowRequests }}</div>
 				</div>
 			</template>
