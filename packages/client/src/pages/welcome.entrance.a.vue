@@ -223,6 +223,7 @@ function showMenu(ev) {
 				margin-top: -47px;
 				border-radius: 100%;
 				vertical-align: bottom;
+				margin: 24px 340px 0 0;
 			}
 
 			> .menu {
@@ -250,7 +251,6 @@ function showMenu(ev) {
 						vertical-align: bottom;
 						max-height: 120px;
 						max-width: min(100%, 300px);
-						margin: 24px 340px 0 0;
 					}
 				}
 
