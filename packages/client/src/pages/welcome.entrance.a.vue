@@ -229,7 +229,7 @@ function showMenu(ev) {
 			> .main {
 				position: relative;
 				width: min(480px, 100%);
-				margin: auto auto auto 128px;
+				// margin: auto auto auto 128px;
 				background: var(--panel);
 				border-radius: var(--radius);
 				box-shadow: 0 12px 32px rgb(0 0 0 / 25%);
@@ -285,6 +285,27 @@ function showMenu(ev) {
 	
 						> * {
 							line-height: 28px;
+						}
+					}
+				}
+			}
+			> .announcement {
+
+				> .item {
+					position: relative;
+					width: min(480px, 100%);
+					// margin: auto auto auto 128px;
+					background: var(--panel);
+					border-radius: var(--radius);
+					box-shadow: 0 12px 32px rgb(0 0 0 / 25%);
+					> .title {
+						padding: 16px;
+						font-size: 1em;
+					}
+					
+					> .content{
+						> .img{
+							width: min(384px, 80%);
 						}
 					}
 				}
