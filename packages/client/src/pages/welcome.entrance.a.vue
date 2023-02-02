@@ -244,20 +244,24 @@ function showMenu(ev) {
 					margin: 0;
 					padding: 16px 32px 24px 32px;
 					font-size: 1.4em;
+					text-align: left;
 
 					> .logo {
 						vertical-align: bottom;
 						max-height: 120px;
 						max-width: min(100%, 300px);
+						margin: 24px 340px 0 0;
 					}
 				}
 
 				> .about {
 					padding: 0 32px;
+					text-align: left;
 				}
 
 				> .action {
 					padding: 32px;
+					text-align: right;
 
 					> * {
 						line-height: 28px;
