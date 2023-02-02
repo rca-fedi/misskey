@@ -73,7 +73,6 @@ export default defineComponent({
 		MkButton,
 		XNote,
 		MkFeaturedPhotos,
-		XTimeline,
 	},
 
 	data() {
