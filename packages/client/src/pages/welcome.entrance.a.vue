@@ -78,7 +78,7 @@ let instances = $ref();
 
 let announcements: any[] = $ref([]);
 
-os.api('admin/announcements/list').then(announcementResponse => {
+os.api('meta/announcements').then(announcementResponse => {
 	announcements = announcementResponse;
 });
 
