@@ -31,19 +31,17 @@
 					<MkButton inline rounded data-cy-signin @click="signin()">{{ i18n.ts.login }}</MkButton>
 				</div>
 			</div>
-		</div>
-		<div class="announcements panel">
-					<header>{{ $ts.announcements }}</header>
-					<MkPagination v-slot="{items}" :pagination="announcements" class="list">
-						<section v-for="announcement in items" :key="announcement.id" class="item">
-							<div class="title">{{ announcement.title }}</div>
-							<div class="content">
-								<Mfm :text="announcement.text"/>
-								<img v-if="announcement.imageUrl" :src="announcement.imageUrl" alt="announcement image"/>
+			<div class="announcement">
+				<h1>あなうんすすすすすす(仮置き)</h1>
+				<div v-for="announcement in announcements" :key="announcement.id" class="item">
+								<div class="title">{{ announcement.title }}</div>
+								<div class="content">
+									<Mfm :text="announcement.text"/>
+									<img v-if="announcement.imageUrl" :src="announcement.imageUrl" alt="announcement image"/>
+								</div>
 							</div>
-						</section>
-					</MkPagination>
-				</div>
+			</div>
+		</div>
 		<div v-if="instances" class="federation">
 			<MarqueeText :duration="40">
 				<MkA v-for="instance in instances" :key="instance.id" :class="$style.federationInstance" :to="`/instance-info/${instance.host}`" behavior="window">
@@ -77,6 +75,12 @@ let stats = $ref();
 let tags = $ref();
 let onlineUsersCount = $ref();
 let instances = $ref();
+
+let announcements: any[] = $ref([]);
+
+os.api('admin/announcements/list').then(announcementResponse => {
+	announcements = announcementResponse;
+});
 
 os.api('meta', { detail: true }).then(_meta => {
 	meta = _meta;
