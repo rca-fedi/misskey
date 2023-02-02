@@ -32,6 +32,18 @@
 				</div>
 			</div>
 		</div>
+		<div class="announcements panel">
+					<header>{{ $ts.announcements }}</header>
+					<MkPagination v-slot="{items}" :pagination="announcements" class="list">
+						<section v-for="announcement in items" :key="announcement.id" class="item">
+							<div class="title">{{ announcement.title }}</div>
+							<div class="content">
+								<Mfm :text="announcement.text"/>
+								<img v-if="announcement.imageUrl" :src="announcement.imageUrl" alt="announcement image"/>
+							</div>
+						</section>
+					</MkPagination>
+				</div>
 		<div v-if="instances" class="federation">
 			<MarqueeText :duration="40">
 				<MkA v-for="instance in instances" :key="instance.id" :class="$style.federationInstance" :to="`/instance-info/${instance.host}`" behavior="window">
