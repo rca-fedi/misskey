@@ -34,7 +34,7 @@
 				</div>
 			</div>
 			<div class="announcement">
-				<h1>あなうんすすすすすす(仮置き)</h1>
+				<title>ｱﾅｳﾝｽaaaaaaaa</title>
 				<div v-for="announcement in announcements" :key="announcement.id" class="item">
 								<div class="title">{{ announcement.title }}</div>
 								<div class="content">
@@ -298,13 +298,13 @@ function showMenu(ev) {
 					background: var(--panel);
 					border-radius: var(--radius);
 					box-shadow: 0 12px 32px rgb(0 0 0 / 25%);
-					> .title {
+					> title {
 						padding: 16px;
 						font-size: 1em;
 					}
 					
 					> .content{
-						> .img{
+						> img{
 							width: min(384px, 80%);
 						}
 					}
