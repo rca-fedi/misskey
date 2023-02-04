@@ -13,35 +13,23 @@
 			<MkEmoji :normal="true" :no-style="true" emoji="🎉"/>
 			<MkEmoji :normal="true" :no-style="true" emoji="🍮"/>
 		</div>
-		<div class="mainList">
-			<div class="main">
-				<img :src="$instance.iconUrl || $instance.faviconUrl || '/favicon.ico'" alt="" class="icon"/>
-				<button class="_button _acrylic menu" @click="showMenu"><i class="fas fa-ellipsis-h"></i></button>
-				<div class="fg">
-					<h1>
-						<!-- 背景色によってはロゴが見えなくなるのでとりあえず無効に -->
-						<!-- <img class="logo" v-if="meta.logoImageUrl" :src="meta.logoImageUrl"><span v-else class="text">{{ instanceName }}</span> -->
-						<span class="text">{{ instanceName }}</span>
-					</h1>
-					<div class="about">
-						<!-- eslint-disable-next-line vue/no-v-html -->
-						<div class="desc" v-html="meta.description || i18n.ts.headlineMisskey"></div>
-					</div>
-					<div class="action">
-						<MkButton inline rounded gradate data-cy-signup style="margin-right: 12px;" @click="signup()">{{ i18n.ts.signup }}</MkButton>
-						<MkButton inline rounded data-cy-signin @click="signin()">{{ i18n.ts.login }}</MkButton>
-					</div>
+		<div class="main">
+			<img :src="$instance.iconUrl || $instance.faviconUrl || '/favicon.ico'" alt="" class="icon"/>
+			<button class="_button _acrylic menu" @click="showMenu"><i class="fas fa-ellipsis-h"></i></button>
+			<div class="fg">
+				<h1>
+					<!-- 背景色によってはロゴが見えなくなるのでとりあえず無効に -->
+					<!-- <img class="logo" v-if="meta.logoImageUrl" :src="meta.logoImageUrl"><span v-else class="text">{{ instanceName }}</span> -->
+					<span class="text">{{ instanceName }}</span>
+				</h1>
+				<div class="about">
+					<!-- eslint-disable-next-line vue/no-v-html -->
+					<div class="desc" v-html="meta.description || i18n.ts.headlineMisskey"></div>
 				</div>
-			</div>
-			<div class="announcement">
-				<title>ｱﾅｳﾝｽaaaaaaaa</title>
-				<div v-for="announcement in announcements" :key="announcement.id" class="item">
-								<div class="title">{{ announcement.title }}</div>
-								<div class="content">
-									<Mfm :text="announcement.text"/>
-									<img v-if="announcement.imageUrl" :src="announcement.imageUrl" alt="announcement image"/>
-								</div>
-							</div>
+				<div class="action">
+					<MkButton inline rounded gradate data-cy-signup style="margin-right: 12px;" @click="signup()">{{ i18n.ts.signup }}</MkButton>
+					<MkButton inline rounded data-cy-signin @click="signin()">{{ i18n.ts.login }}</MkButton>
+				</div>
 			</div>
 		</div>
 		<div v-if="instances" class="federation">
@@ -224,89 +212,65 @@ function showMenu(ev) {
 			}
 		}
 
-		> .mainList {
+		> .main {
 			position: relative;
-			> .main {
-				position: relative;
-				width: min(480px, 100%);
-				// margin: auto auto auto 128px;
-				background: var(--panel);
-				border-radius: var(--radius);
-				box-shadow: 0 12px 32px rgb(0 0 0 / 25%);
-	
-				@media (max-width: 1200px) {
-					margin: auto;
-				}
-	
-				> .icon {
-					width: 85px;
-					margin-top: -47px;
-					border-radius: 100%;
-					vertical-align: bottom;
-					margin: 24px 340px 0 0;
-				}
-	
-				> .menu {
-					position: absolute;
-					top: 16px;
-					right: 16px;
-					width: 32px;
-					height: 32px;
-					border-radius: 8px;
-					font-size: 18px;
-				}
-	
-				> .fg {
-					position: relative;
-					z-index: 1;
-	
-					> h1 {
-						display: block;
-						margin: 0;
-						padding: 16px 32px 24px 32px;
-						font-size: 1.4em;
-						text-align: left;
-	
-						> .logo {
-							vertical-align: bottom;
-							max-height: 120px;
-							max-width: min(100%, 300px);
-						}
-					}
-	
-					> .about {
-						padding: 0 32px;
-						text-align: left;
-					}
-	
-					> .action {
-						padding: 32px;
-						text-align: right;
-	
-						> * {
-							line-height: 28px;
-						}
-					}
-				}
-			}
-			> .announcement {
+			width: min(480px, 100%);
+			// margin: auto auto auto 128px;
+			background: var(--panel);
+			border-radius: var(--radius);
+			box-shadow: 0 12px 32px rgb(0 0 0 / 25%);
 
-				> .item {
-					position: relative;
-					width: min(480px, 100%);
-					// margin: auto auto auto 128px;
-					background: var(--panel);
-					border-radius: var(--radius);
-					box-shadow: 0 12px 32px rgb(0 0 0 / 25%);
-					> title {
-						padding: 16px;
-						font-size: 1em;
+			@media (max-width: 1200px) {
+				margin: auto;
+			}
+
+			> .icon {
+				width: 85px;
+				margin-top: -47px;
+				border-radius: 100%;
+				vertical-align: bottom;
+				margin: 24px 340px 0 0;
+			}
+
+			> .menu {
+				position: absolute;
+				top: 16px;
+				right: 16px;
+				width: 32px;
+				height: 32px;
+				border-radius: 8px;
+				font-size: 18px;
+			}
+
+			> .fg {
+				position: relative;
+				z-index: 1;
+
+				> h1 {
+					display: block;
+					margin: 0;
+					padding: 16px 32px 24px 32px;
+					font-size: 1.4em;
+					text-align: left;
+
+					> .logo {
+						vertical-align: bottom;
+						max-height: 120px;
+						max-width: min(100%, 300px);
 					}
-					
-					> .content{
-						> img{
-							width: min(384px, 80%);
-						}
+				}
+
+				> .about {
+					padding: 0 32px;
+					text-align: left;
+				}
+
+				> .action {
+					padding: 32px;
+					text-align: right;
+
+					> * {
+						line-height: 28px;
 					}
 				}
 			}
