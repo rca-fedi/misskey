@@ -32,6 +32,14 @@
 				</div>
 			</div>
 		</div>
+		<div class="tl _block">
+				<XTimeline
+					ref="tl" :key="src"
+					class="tl"
+					:src="src"
+					:sound="true"
+				/>
+			</div>
 		<div v-if="instances" class="federation">
 			<MarqueeText :duration="40">
 				<MkA v-for="instance in instances" :key="instance.id" :class="$style.federationInstance" :to="`/instance-info/${instance.host}`" behavior="window">
@@ -48,7 +56,7 @@
 <script lang="ts" setup>
 import { } from 'vue';
 import { toUnicode } from 'punycode/';
-import XTimeline from './welcome.timeline.vue';
+import XTimeline from '@/components/MkTimeline.vue';
 import MarqueeText from '@/components/MkMarquee.vue';
 import XSigninDialog from '@/components/MkSigninDialog.vue';
 import XSignupDialog from '@/components/MkSignupDialog.vue';
@@ -66,11 +74,7 @@ let tags = $ref();
 let onlineUsersCount = $ref();
 let instances = $ref();
 
-let announcements: any[] = $ref([]);
-
-os.api('announcements').then(announcementResponse => {
-	announcements = announcementResponse;
-});
+const src = 'global'
 
 os.api('meta', { detail: true }).then(_meta => {
 	meta = _meta;
@@ -219,6 +223,7 @@ function showMenu(ev) {
 			background: var(--panel);
 			border-radius: var(--radius);
 			box-shadow: 0 12px 32px rgb(0 0 0 / 25%);
+			height: fit-content;
 
 			@media (max-width: 1200px) {
 				margin: auto;
