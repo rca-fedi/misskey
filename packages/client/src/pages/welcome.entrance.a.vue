@@ -32,13 +32,15 @@
 				</div>
 			</div>
 		</div>
-		<div class="tl _block">
-				<XTimeline
-					ref="tl" :key="src"
-					class="tl"
-					:src="src"
-					:sound="true"
-				/>
+			<div v-if="queue > 0" class="new"><button class="_buttonPrimary" @click="top()">{{ i18n.ts.newNoteRecived }}</button></div>
+			<div class="tl _block">
+					<XTimeline
+						ref="tl" :key="src"
+						class="tl"
+						:src="src"
+						:sound="false"
+						@queue="queueUpdated"
+					/>
 			</div>
 		<div v-if="instances" class="federation">
 			<MarqueeText :duration="40">
@@ -54,7 +56,7 @@
 </template>
 
 <script lang="ts" setup>
-import { } from 'vue';
+import { defineAsyncComponent, computed, watch } from 'vue';
 import { toUnicode } from 'punycode/';
 import XTimeline from '@/components/MkTimeline.vue';
 import MarqueeText from '@/components/MkMarquee.vue';
@@ -67,6 +69,7 @@ import { host, instanceName } from '@/config';
 import * as os from '@/os';
 import number from '@/filters/number';
 import { i18n } from '@/i18n';
+import { scroll } from '@/scripts/scroll';
 
 let meta = $ref();
 let stats = $ref();
@@ -74,7 +77,21 @@ let tags = $ref();
 let onlineUsersCount = $ref();
 let instances = $ref();
 
+const rootEl = $ref<HTMLElement>();
+
 const src = 'global'
+let queue = $ref(0);
+watch ($$(src), () => queue = 0);
+
+function queueUpdated(q: number): void {
+	queue = q;
+}
+
+function top(): void {
+	scroll(rootEl, { top: 0 });
+}
+
+
 
 os.api('meta', { detail: true }).then(_meta => {
 	meta = _meta;
@@ -162,14 +179,24 @@ function showMenu(ev) {
 			margin: auto;
 			width: 500px;
 			height: calc(100% - 128px);
-			overflow: hidden;
+			// overflow: hidden;
 			-webkit-mask-image: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 128px, rgba(0,0,0,1) calc(100% - 128px), rgba(0,0,0,0) 100%);
 			mask-image: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 128px, rgba(0,0,0,1) calc(100% - 128px), rgba(0,0,0,0) 100%);
+			background: var(--bg);
+			border-radius: var(--radius);
+			overflow: scroll;
+			text-align: left;
+
+
 
 			@media (max-width: 1200px) {
 				display: none;
 			}
 		}
+
+		>.tl.mjndxjcg{
+				visibility: hidden; //とりあえず見なかったことにする、動いてるので
+			}
 
 		> .shape1 {
 			position: absolute;
@@ -223,6 +250,7 @@ function showMenu(ev) {
 			background: var(--panel);
 			border-radius: var(--radius);
 			box-shadow: 0 12px 32px rgb(0 0 0 / 25%);
+			margin: auto auto auto 128px;
 			height: fit-content;
 
 			@media (max-width: 1200px) {
