@@ -22,7 +22,7 @@ import { Meta } from '@/models/entities/meta.js';
 import { Following } from '@/models/entities/following.js';
 import { Instance } from '@/models/entities/instance.js';
 import { Muting } from '@/models/entities/muting.js';
-import { MutingReaction } from '@/models/entities/muting-reaction';
+import { MutingReaction } from '@/models/entities/muting-reaction.js';
 import { SwSubscription } from '@/models/entities/sw-subscription.js';
 import { Blocking } from '@/models/entities/blocking.js';
 import { UserList } from '@/models/entities/user-list.js';
