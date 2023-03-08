@@ -1,6 +1,4 @@
-const { MigrationInterface, QueryRunner } = require("typeorm");
-
-module.exports = class mutingReaction1678262866797 {
+export class mutingReaction1678262866797 {
     name = 'mutingReaction1678262866797'
 
     async up(queryRunner) {
