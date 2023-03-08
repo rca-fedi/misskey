@@ -29,8 +29,9 @@
 	- 現在認識している追従インスタンスはありません
 
 # Links
-- [リリースノート / Release note](yoiyami-beta-releasenote.md)
-	- 実装されている機能などに関してはこちらをご覧ください
+- ~~[リリースノート / Release note](yoiyami-beta-releasenote.md)~~
+	- ~~実装されている機能などに関してはこちらをご覧ください~~
+		- 現在Masterではリリースノートが作成された時点まで追いついていません...
 - [寄付 / Donate](https://www.patreon.com/syuilo)
 	- 寄付はこちら(Misskey本家開発者syuiloさんのPatreonへ飛びます)
 - [本家リポジトリ / Original repository](https://github.com/misskey-dev/misskey)
