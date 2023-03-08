@@ -224,6 +224,9 @@ import * as ep___miauth_genToken from './endpoints/miauth/gen-token.js';
 import * as ep___mute_create from './endpoints/mute/create.js';
 import * as ep___mute_delete from './endpoints/mute/delete.js';
 import * as ep___mute_list from './endpoints/mute/list.js';
+import * as ep___reaction_mute_create from './endpoints/reaction-mute/create.js';
+import * as ep___reaction_mute_delete from './endpoints/reaction-mute/delete.js';
+import * as ep___reaction_mute_list from './endpoints/reaction-mute/list.js';
 import * as ep___my_apps from './endpoints/my/apps.js';
 import * as ep___notes from './endpoints/notes.js';
 import * as ep___notes_children from './endpoints/notes/children.js';
@@ -543,6 +546,9 @@ const eps = [
 	['mute/create', ep___mute_create],
 	['mute/delete', ep___mute_delete],
 	['mute/list', ep___mute_list],
+	['reaction-mute/create', ep___reaction_mute_create],
+	['reaction-mute/delete', ep___reaction_mute_delete],
+	['reaction-mute/list', ep___reaction_mute_list],
 	['my/apps', ep___my_apps],
 	['notes', ep___notes],
 	['notes/children', ep___notes_children],
