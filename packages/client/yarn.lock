@@ -268,6 +268,17 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@r-ca/aiscript-yy@0.11.1":
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/@r-ca/aiscript-yy/-/aiscript-yy-0.11.1.tgz#420b29c0c969c171f3eb9fd491d76d816e1f7e48"
+  integrity sha512-sSLCgLAnZ5vqJSdh04zUfN7j/r04gbxo/OJJvu5RbkQjEIDmrDYOPEzC3RsxFhxxsDc4oYk1GjQXbw8KjwCeCg==
+  dependencies:
+    autobind-decorator "2.4.0"
+    chalk "4.0.0"
+    seedrandom "3.0.5"
+    stringz "2.1.0"
+    uuid "7.0.3"
+
 "@r-ca/yoiyami-js@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@r-ca/yoiyami-js/-/yoiyami-js-1.0.0.tgz#09a0bfd2a9f4290efad34976a89e01ab9a0516db"
@@ -1054,6 +1065,14 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
+
+chalk@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.0.0.tgz#6e98081ed2d17faab615eb52ac66ec1fe6209e72"
+  integrity sha512-N9oWFcegS0sFr9oh1oz2d7Npos6vNoWW9HvtCg5N1KRFpUhaAhvTv5Y58g880fZaEYSNm3qDz8SU1UrGvp+n7A==
+  dependencies:
+    ansi-styles "^4.1.0"
+    supports-color "^7.1.0"
 
 chalk@^4.0.0, chalk@^4.1.0:
   version "4.1.0"
@@ -3948,6 +3967,11 @@ util-deprecate@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
+
+uuid@7.0.3:
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.3.tgz#c5c9f2c8cf25dc0a372c4df1441c41f5bd0c680b"
+  integrity sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==
 
 uuid@9.0.0:
   version "9.0.0"
