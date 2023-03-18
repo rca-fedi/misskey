@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
 import { onMounted, onUnmounted, ref, watch } from 'vue';
-import { AiScript, parse, utils } from '@syuilo/aiscript';
+import { AiScript, parse, utils } from '@r-ca/aiscript-yy';
 import { useWidgetPropsManager, Widget, WidgetComponentEmits, WidgetComponentExpose, WidgetComponentProps } from './widget';
 import { GetFormResultType } from '@/scripts/form';
 import * as os from '@/os';

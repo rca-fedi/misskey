@@ -27,7 +27,7 @@ import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism-okaidia.css';
 import { PrismEditor } from 'vue-prism-editor';
 import 'vue-prism-editor/dist/prismeditor.min.css';
-import { AiScript, parse, utils } from '@syuilo/aiscript';
+import { AiScript, parse, utils } from '@r-ca/aiscript-yy';
 import MkContainer from '@/components/MkContainer.vue';
 import MkButton from '@/components/MkButton.vue';
 import { createAiScriptEnv } from '@/scripts/aiscript/api';

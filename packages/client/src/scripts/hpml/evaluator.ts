@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import { PageVar, envVarsDef, Fn, HpmlScope, HpmlError } from '.';
 import { version } from '@/config';
-import { AiScript, utils, values } from '@syuilo/aiscript';
+import { AiScript, utils, values } from '@r-ca/aiscript-yy';
 import { createAiScriptEnv } from '../aiscript/api';
 import { collectPageVars } from '../collect-page-vars';
 import { initHpmlLib, initAiLib } from './lib';

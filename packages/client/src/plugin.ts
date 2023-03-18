@@ -1,6 +1,6 @@
-import { AiScript, utils, values } from '@syuilo/aiscript';
-import { deserialize } from '@syuilo/aiscript/built/serializer';
-import { jsToVal } from '@syuilo/aiscript/built/interpreter/util';
+import { AiScript, utils, values } from '@r-ca/aiscript-yy';
+import { deserialize } from '@r-ca/aiscript-yy/built/serializer';
+import { jsToVal } from '@r-ca/aiscript-yy/built/interpreter/util';
 import { createAiScriptEnv } from '@/scripts/aiscript/api';
 import { inputText } from '@/os';
 import { noteActions, notePostInterruptors, noteViewInterruptors, postFormActions, userActions } from '@/store';

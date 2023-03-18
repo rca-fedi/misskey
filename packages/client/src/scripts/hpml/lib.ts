@@ -1,6 +1,6 @@
 import tinycolor from 'tinycolor2';
 import { Hpml } from './evaluator';
-import { values, utils } from '@syuilo/aiscript';
+import { values, utils } from '@r-ca/aiscript-yy';
 import { Fn, HpmlScope } from '.';
 import { Expr } from './expr';
 import seedrandom from 'seedrandom';
