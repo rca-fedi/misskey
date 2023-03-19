@@ -322,6 +322,7 @@ import * as ep___admin_entrance_add from './endpoints/admin/entrance/add.js';
 import * as ep___admin_entrance_delete from './endpoints/admin/entrance/delete.js';
 import * as ep___admin_entrance_list from './endpoints/admin/entrance/list.js';
 import * as ep___admin_entrance_detail from './endpoints/admin/entrance/detail.js';
+import * as ep___admin_compatible_modules from './endpoints/admin/compatible-modules.js';
 
 const eps = [
 	['admin/meta', ep___admin_meta],
@@ -646,6 +647,7 @@ const eps = [
 	['admin/entrance/delete', ep___admin_entrance_delete],
 	['admin/entrance/list', ep___admin_entrance_list],
 	['admin/entrance/detail', ep___admin_entrance_detail],
+	['admin/compatible-modules', ep___admin_compatible_modules],
 ];
 
 export interface IEndpointMeta {
