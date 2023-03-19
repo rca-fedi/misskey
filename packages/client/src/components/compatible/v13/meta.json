@@ -1,6 +1,6 @@
 {
-	"name": "misskey-vanilla-v13",
+	"module_name": "misskey-vanilla-v13",
 	"repository": "https://github.com/misskey-dev/misskey.git",
-	"version": "13.10.0",
-	"commit": "7699b49d33e3d6072cba27022ae35e17cc6dfcce"
+	"compatible_version": "13.10.0",
+	"compatible_commit": "7699b49d33e3d6072cba27022ae35e17cc6dfcce"
 }
