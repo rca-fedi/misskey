@@ -355,6 +355,7 @@ function focus() {
 function chooseFileFrom(ev) {
 	selectFiles(ev.currentTarget ?? ev.target, i18n.ts.attachFile, files).then(files_ => {
 		for (const file of files_) {
+			console.log('chooseFileFrom', file);
 			replacePlaceHolder(file[0], file[1]);
 		}
 	});

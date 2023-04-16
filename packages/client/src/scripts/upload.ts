@@ -92,6 +92,9 @@ export function uploadFile(
 					// TODO: 消すのではなくて(ネットワーク的なエラーなら)再送できるようにしたい
 					uploads.value = uploads.value.filter(x => x.id !== id);
 
+					console.log("Upload failed", ev.target?.response, xhr.response);
+					reject(id);
+
 					if (ev.target?.response) {
 						const res = JSON.parse(ev.target.response);
 						if (res.error?.id === 'bec5bd69-fba3-43c9-b4fb-2894b66ad5d2') {
@@ -120,8 +123,6 @@ export function uploadFile(
 							text: `${JSON.stringify(ev.target?.response)}, ${JSON.stringify(xhr.response)}`,
 						});
 					}
-
-					reject();
 					return;
 				}
 
@@ -135,6 +136,7 @@ export function uploadFile(
 				else {
 					resolve([driveFile, id]);
 				}
+
 				checkQueue(id, driveFile.id); //アップロードが完了したら投稿キューをチェックさせる
 				uploads.value = uploads.value.filter(x => x.id !== id);
 			};

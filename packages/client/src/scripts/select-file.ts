@@ -27,6 +27,11 @@ function select(src: any, label: string | null, multiple: boolean, files?: any):
 					res(multiple ? driveFiles : driveFiles[0]);
 				}).catch(err => {
 					// アップロードのエラーは uploadFile 内でハンドリングされているためアラートダイアログを出したりはしてはいけない
+					
+					console.log('rejected: ' + err);
+					if (files !== undefined) { // filesがundefinedなときはPostFormから呼び出されてないのでPlaceHolder自体ないはず
+						deletePlaherHolder(files, err[0]);
+					}
 				});
 
 				// 一応廃棄
@@ -109,6 +114,8 @@ export function selectFiles(src: any, label: string | null = null, files?: any):
 }
 
 // UploadId生成して、それをファイルIDとして持ったPlaceHolderつくってからそのUploadIdを返すやつ
+// PostFormにPlaceHolderつくるやつ
+// TODO: ここにあるべきじゃない
 function createPlaceHolder(files): string {
 	const uploadId = Math.random().toString();
 	files.push({
@@ -127,3 +134,9 @@ function createPlaceHolder(files): string {
 
 	return uploadId;
 }
+
+function deletePlaherHolder(files, uploadId): void { //rejectされたときにPlaceHolderけすやつ
+	console.log('deletePlaherHolder' + uploadId);
+	files.splice(files.findIndex(file => file.id === uploadId), 1);
+}
+
