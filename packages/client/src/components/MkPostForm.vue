@@ -92,6 +92,7 @@ import { i18n } from '@/i18n';
 import { instance } from '@/instance';
 import { $i, getAccounts, openAccountMenu as openAccountMenu_ } from '@/account';
 import { uploadFile } from '@/scripts/upload';
+import { addPostQueue } from '@/scripts/post-queue';
 
 const modal = inject('modal');
 
@@ -380,9 +381,27 @@ function updateFileToCropped(file, cropped) {
 }
 
 function upload(file: File, name?: string) {
+	// console.log('upload', file.name, name);
+	// files.push({ // placeholder
+	// 	id: file.name,
+	// 	name: 'Uploading...',
+	// 	type: 'placeholder',
+	// 	isSensitive: false,
+	// 	createdAt: '',
+	// 	thumbnailUrl: '',
+	// 	url: '',
+	// 	size: 0,
+	// 	md5: '',
+	// 	blurhash: '',
+	// 	properties: {},
+	// });
 	uploadFile(file, defaultStore.state.uploadFolder, name).then(res => {
-		files.push(res);
+		replacePlaceHolder(res);
 	});
+}
+
+function replacePlaceHolder(res) {
+	files[files.findIndex(x => x.id === res.id)] = res;
 }
 
 function setVisibility() {
@@ -594,6 +613,11 @@ async function post() {
 	}
 
 	posting = true;
+
+	if (true) { //debug
+		addPostQueue(postData, token);
+	}
+
 	os.api('notes/create', postData, token).then(() => {
 		clear();
 		nextTick(() => {

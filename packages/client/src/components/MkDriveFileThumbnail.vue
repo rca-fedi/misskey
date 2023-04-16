@@ -8,6 +8,7 @@
 	<i v-else-if="is === 'pdf'" class="fas fa-file-pdf icon"></i>
 	<i v-else-if="is === 'textfile'" class="fas fa-file-alt icon"></i>
 	<i v-else-if="is === 'archive'" class="fas fa-file-archive icon"></i>
+	<i v-else-if="is === 'placeholder'" class="fas fa-spinner icon"></i>
 	<i v-else class="fas fa-file icon"></i>
 
 	<i v-if="isThumbnailAvailable && is === 'video'" class="fas fa-film icon-sub"></i>
@@ -43,6 +44,7 @@ const is = computed(() => {
 		'application/gzip',
 		'application/x-7z-compressed',
 	].some(archiveType => archiveType === props.file.type)) return 'archive';
+	if (props.file.type === 'placeholder') return 'placeholder';
 	return 'unknown';
 });
 
