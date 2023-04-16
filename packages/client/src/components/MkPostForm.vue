@@ -353,9 +353,9 @@ function focus() {
 }
 
 function chooseFileFrom(ev) {
-	selectFiles(ev.currentTarget ?? ev.target, i18n.ts.attachFile).then(files_ => {
+	selectFiles(ev.currentTarget ?? ev.target, i18n.ts.attachFile, files).then(files_ => {
 		for (const file of files_) {
-			files.push(file);
+			replacePlaceHolder(file[0], file[1]);
 		}
 	});
 }
@@ -387,7 +387,7 @@ function upload(file: File, name?: string) {
 	console.log('id', id);
 	files.push({ // placeholder
 		id: id,
-		name: file.name,
+		name: 'Uploading...',
 		type: 'placeholder',
 		isSensitive: false,
 		createdAt: '',
@@ -616,32 +616,35 @@ async function post() {
 		token = storedAccounts.find(x => x.id === postAccount.id)?.token;
 	}
 
-	posting = true;
-
-	if (true) { //debug
+	if (files.some(x => x.type.includes('placeholder'))) { //PlaceHolderが1個以上ある場合はキューに入れたいので
 		addPostQueue(postData, token);
-	}
-
-	os.api('notes/create', postData, token).then(() => {
 		clear();
-		nextTick(() => {
-			deleteDraft();
-			emit('posted');
-			if (postData.text && postData.text !== '') {
-				const hashtags_ = mfm.parse(postData.text).filter(x => x.type === 'hashtag').map(x => x.props.hashtag);
-				const history = JSON.parse(localStorage.getItem('hashtags') || '[]') as string[];
-				localStorage.setItem('hashtags', JSON.stringify(unique(hashtags_.concat(history))));
-			}
+		postAccount = null;
+		emit('posted'); //そんなことないけど
+	}
+	else {
+		posting = true;
+		os.api('notes/create', postData, token).then(() => {
+			clear();
+			nextTick(() => {
+				deleteDraft();
+				emit('posted');
+				if (postData.text && postData.text !== '') {
+					const hashtags_ = mfm.parse(postData.text).filter(x => x.type === 'hashtag').map(x => x.props.hashtag);
+					const history = JSON.parse(localStorage.getItem('hashtags') || '[]') as string[];
+					localStorage.setItem('hashtags', JSON.stringify(unique(hashtags_.concat(history))));
+				}
+				posting = false;
+				postAccount = null;
+			});
+		}).catch(err => {
 			posting = false;
-			postAccount = null;
+			os.alert({
+				type: 'error',
+				text: err.message + '\n' + (err as any).id,
+			});
 		});
-	}).catch(err => {
-		posting = false;
-		os.alert({
-			type: 'error',
-			text: err.message + '\n' + (err as any).id,
-		});
-	});
+	}
 }
 
 function cancel() {

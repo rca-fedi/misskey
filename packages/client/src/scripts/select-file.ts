@@ -6,7 +6,7 @@ import { i18n } from '@/i18n';
 import { defaultStore } from '@/store';
 import { uploadFile } from '@/scripts/upload';
 
-function select(src: any, label: string | null, multiple: boolean): Promise<DriveFile | DriveFile[]> {
+function select(src: any, label: string | null, multiple: boolean, files?: any): Promise<DriveFile | DriveFile[]> {
 	return new Promise((res, rej) => {
 		const keepOriginal = ref(defaultStore.state.keepOriginalUploading);
 
@@ -15,8 +15,14 @@ function select(src: any, label: string | null, multiple: boolean): Promise<Driv
 			input.type = 'file';
 			input.multiple = multiple;
 			input.onchange = () => {
-				const promises = Array.from(input.files).map(file => uploadFile(file, defaultStore.state.uploadFolder, undefined, keepOriginal.value));
-
+				let promises;
+				if (files !== undefined) { // filesがundefinedなときはPostFormから呼び出されてないのでPlaceHolderを作る必要もIDを事前指定する必要もない
+					promises = Array.from(input.files).map(file => uploadFile(file, defaultStore.state.uploadFolder, undefined, keepOriginal.value, createPlaceHolder(files)));
+				}
+				else {
+					promises = Array.from(input.files).map(file => uploadFile(file, defaultStore.state.uploadFolder, undefined, keepOriginal.value));
+				}
+				
 				Promise.all(promises).then(driveFiles => {
 					res(multiple ? driveFiles : driveFiles[0]);
 				}).catch(err => {
@@ -94,10 +100,30 @@ function select(src: any, label: string | null, multiple: boolean): Promise<Driv
 	});
 }
 
-export function selectFile(src: any, label: string | null = null): Promise<DriveFile> {
-	return select(src, label, false) as Promise<DriveFile>;
+export function selectFile(src: any, label: string | null = null, files?: any): Promise<DriveFile> {
+	return select(src, label, false, files) as Promise<DriveFile>;
 }
 
-export function selectFiles(src: any, label: string | null = null): Promise<DriveFile[]> {
-	return select(src, label, true) as Promise<DriveFile[]>;
+export function selectFiles(src: any, label: string | null = null, files?: any): Promise<DriveFile[]> {
+	return select(src, label, true, files) as Promise<DriveFile[]>;
+}
+
+// UploadId生成して、それをファイルIDとして持ったPlaceHolderつくってからそのUploadIdを返すやつ
+function createPlaceHolder(files): string {
+	const uploadId = Math.random().toString();
+	files.push({
+		id: uploadId,
+		name: 'Uploading...',
+		type: 'placeholder',
+		isSensitive: false,
+		createdAt: '',
+		thumbnailUrl: '',
+		url: '',
+		size: 0,
+		md5: '',
+		blurhash: '',
+		properties: {},
+	});
+
+	return uploadId;
 }

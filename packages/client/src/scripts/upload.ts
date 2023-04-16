@@ -6,6 +6,7 @@ import { apiUrl } from '@/config';
 import { $i } from '@/account';
 import { alert } from '@/os';
 import { i18n } from '@/i18n';
+import { checkQueue } from './post-queue';
 
 type Uploading = {
 	id: string;
@@ -134,6 +135,7 @@ export function uploadFile(
 				else {
 					resolve([driveFile, id]);
 				}
+				checkQueue(id, driveFile.id); //アップロードが完了したら投稿キューをチェックさせる
 				uploads.value = uploads.value.filter(x => x.id !== id);
 			};
 
