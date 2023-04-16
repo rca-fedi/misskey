@@ -91,6 +91,7 @@
 import { markRaw, nextTick, onActivated, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import * as Misskey from '@r-ca/yoiyami-js';
 import MkButton from './MkButton.vue';
+import FormSwitch from '@/components/form/switch.vue';
 import XNavFolder from '@/components/MkDrive.navFolder.vue';
 import XFolder from '@/components/MkDrive.folder.vue';
 import XFile from '@/components/MkDrive.file.vue';
@@ -141,6 +142,10 @@ const draghover = ref(false);
 const isDragSource = ref(false);
 
 const fetching = ref(true);
+
+const orderby_asc = ref(false);
+
+watch(orderby_asc, () => fetch());
 
 const ilFilesObserver = new IntersectionObserver(
 	(entries) => entries.some((entry) => entry.isIntersecting) && !fetching.value && moreFiles.value && fetchMoreFiles(),
@@ -524,6 +529,7 @@ async function fetch() {
 		folderId: folder.value ? folder.value.id : null,
 		type: props.type,
 		limit: filesMax + 1,
+		orderby: orderby_asc.value ? 'asc' : 'desc',
 	}).then(fetchedFiles => {
 		if (fetchedFiles.length === filesMax + 1) {
 			moreFiles.value = true;
@@ -549,8 +555,10 @@ function fetchMoreFiles() {
 	os.api('drive/files', {
 		folderId: folder.value ? folder.value.id : null,
 		type: props.type,
-		untilId: files.value[files.value.length - 1].id,
+		untilId: orderby_asc.value ? undefined : files.value[files.value.length - 1].id,
+		sinceId: orderby_asc.value ? files.value[files.value.length - 1].id : undefined,
 		limit: max + 1,
+		orderby: orderby_asc.value ? 'asc' : 'desc',
 	}).then(files => {
 		if (files.length === max + 1) {
 			moreFiles.value = true;
@@ -594,6 +602,10 @@ function getMenu() {
 		text: i18n.ts.createFolder,
 		icon: 'fas fa-folder-plus',
 		action: () => { createFolder(); },
+	}, {
+		type: 'switch',
+		text: 'ASC',
+		ref: orderby_asc,
 	}];
 }
 
