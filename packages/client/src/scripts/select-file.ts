@@ -28,7 +28,6 @@ function select(src: any, label: string | null, multiple: boolean, files?: any):
 				}).catch(err => {
 					// アップロードのエラーは uploadFile 内でハンドリングされているためアラートダイアログを出したりはしてはいけない
 					
-					console.log('rejected: ' + err);
 					if (files !== undefined) { // filesがundefinedなときはPostFormから呼び出されてないのでPlaceHolder自体ないはず
 						deletePlaherHolder(files, err[0]);
 					}
@@ -136,7 +135,6 @@ function createPlaceHolder(files): string {
 }
 
 function deletePlaherHolder(files, uploadId): void { //rejectされたときにPlaceHolderけすやつ
-	console.log('deletePlaherHolder' + uploadId);
 	files.splice(files.findIndex(file => file.id === uploadId), 1);
 }
 

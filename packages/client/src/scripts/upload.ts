@@ -91,8 +91,6 @@ export function uploadFile(
 				if (xhr.status !== 200 || ev.target == null || ev.target.response == null) {
 					// TODO: 消すのではなくて(ネットワーク的なエラーなら)再送できるようにしたい
 					uploads.value = uploads.value.filter(x => x.id !== id);
-
-					console.log("Upload failed", ev.target?.response, xhr.response);
 					reject(id);
 					uploadFailed(id);
 

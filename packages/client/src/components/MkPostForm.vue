@@ -355,7 +355,6 @@ function focus() {
 function chooseFileFrom(ev) {
 	selectFiles(ev.currentTarget ?? ev.target, i18n.ts.attachFile, files).then(files_ => {
 		for (const file of files_) {
-			console.log('chooseFileFrom', file);
 			replacePlaceHolder(file[0], file[1]);
 		}
 	});
@@ -367,7 +366,6 @@ function detachFile(id) {
 
 function updateFiles(_files) {
 	files = _files;
-	console.log ('updateFiles', files);
 }
 
 function updateFileSensitive(file, sensitive) {
@@ -383,9 +381,7 @@ function updateFileToCropped(file, cropped) {
 }
 
 function upload(file: File, name?: string) {
-	console.log('upload', file.name, name);
 	const id = Math.random().toString();
-	console.log('id', id);
 	files.push({ // placeholder
 		id: id,
 		name: 'Uploading...',
@@ -405,7 +401,6 @@ function upload(file: File, name?: string) {
 }
 
 function replacePlaceHolder(file: misskey.entities.DriveFile, id: string) {
-	console.log('replacePlaceHolder', file);
 	files[files.findIndex(x => x.id === id)] = file;
 }
 
