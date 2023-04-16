@@ -6,7 +6,7 @@ import { apiUrl } from '@/config';
 import { $i } from '@/account';
 import { alert } from '@/os';
 import { i18n } from '@/i18n';
-import { checkQueue } from './post-queue';
+import { checkQueue, uploadFailed } from './post-queue';
 
 type Uploading = {
 	id: string;
@@ -94,6 +94,7 @@ export function uploadFile(
 
 					console.log("Upload failed", ev.target?.response, xhr.response);
 					reject(id);
+					uploadFailed(id);
 
 					if (ev.target?.response) {
 						const res = JSON.parse(ev.target.response);
@@ -138,7 +139,7 @@ export function uploadFile(
 				}
 
 				checkQueue(id, driveFile.id); //アップロードが完了したら投稿キューをチェックさせる
-				uploads.value = uploads.value.filter(x => x.id !== id);
+				uploads.value = uploads.value.filter(x => x.id !== id)
 			};
 
 			xhr.upload.onprogress = ev => {

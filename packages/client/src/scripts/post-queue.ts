@@ -1,6 +1,8 @@
 import { apiUrl } from '@/config';
 import { defaultStore } from '@/store';
 import { reactive, ref } from 'vue';
+import { uploads } from '@/scripts/upload';
+import { alert } from '@/os';
 import * as Misskey from '@r-ca/yoiyami-js';
 import * as os from '@/os';
 
@@ -47,6 +49,16 @@ export function checkQueue(id: string, driveFileId: string): void { //upload.ts�
 			post(postQueues.value[i].id, postQueues.value[i].postData, postQueues.value[i].token);
 		}
 	}
+	//ここで書くべきじゃないかも
+	//すべてのアップロードキューが完了しても投稿キューが残っている場合は必要なファイルがアップロードされなかったと判断して投稿キューを削除する
+	if (uploads.value.length === 0) {
+		postQueues.value.length = 0;
+		alert({
+			type: 'error',
+			title: 'Post failed',
+			text: 'All files uploaded, but post queue is not empty. \n Maybe some files are failed to upload.',
+		});
+	}
 }
 
 async function post(id, postData, token): Promise<void> {
@@ -59,4 +71,18 @@ async function post(id, postData, token): Promise<void> {
 	});
 
 	postQueues.value = postQueues.value.filter(x => x.id !== id);
+}
+
+export function uploadFailed(uploadId): void {
+	for ( const i in postQueues.value ) {
+		const postData = postQueues.value[i].postData;
+		if (postData.fileIds.some((fileId: string) => fileId.startsWith(uploadId))) { //失敗したUploadIDを含む投稿キューがあれば削除する 
+			postQueues.value = postQueues.value.filter(x => x.id !== postQueues.value[i].id);
+			alert({
+				type: 'error',
+				title: 'Post failed',
+				text: 'Some files are failed to upload. \n Post queue is deleted.',
+			});
+		}
+	}
 }
