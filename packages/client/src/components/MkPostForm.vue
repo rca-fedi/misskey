@@ -366,6 +366,7 @@ function detachFile(id) {
 
 function updateFiles(_files) {
 	files = _files;
+	console.log ('updateFiles', files);
 }
 
 function updateFileSensitive(file, sensitive) {
@@ -381,27 +382,30 @@ function updateFileToCropped(file, cropped) {
 }
 
 function upload(file: File, name?: string) {
-	// console.log('upload', file.name, name);
-	// files.push({ // placeholder
-	// 	id: file.name,
-	// 	name: 'Uploading...',
-	// 	type: 'placeholder',
-	// 	isSensitive: false,
-	// 	createdAt: '',
-	// 	thumbnailUrl: '',
-	// 	url: '',
-	// 	size: 0,
-	// 	md5: '',
-	// 	blurhash: '',
-	// 	properties: {},
-	// });
-	uploadFile(file, defaultStore.state.uploadFolder, name).then(res => {
-		replacePlaceHolder(res);
+	console.log('upload', file.name, name);
+	const id = Math.random().toString();
+	console.log('id', id);
+	files.push({ // placeholder
+		id: id,
+		name: file.name,
+		type: 'placeholder',
+		isSensitive: false,
+		createdAt: '',
+		thumbnailUrl: '',
+		url: '',
+		size: 0,
+		md5: '',
+		blurhash: '',
+		properties: {},
+	});
+	uploadFile(file, defaultStore.state.uploadFolder, name, false, id).then(res => {
+		replacePlaceHolder(res[0], res[1]);
 	});
 }
 
-function replacePlaceHolder(res) {
-	files[files.findIndex(x => x.id === res.id)] = res;
+function replacePlaceHolder(file: misskey.entities.DriveFile, id: string) {
+	console.log('replacePlaceHolder', file);
+	files[files.findIndex(x => x.id === id)] = file;
 }
 
 function setVisibility() {
