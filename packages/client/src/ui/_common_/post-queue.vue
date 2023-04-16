@@ -28,14 +28,15 @@ const zIndex = os.claimZIndex('high');
 
 <style lang="scss" scoped>
 .yy-post-queue {
-	position: fixed;
-	right: 16px;
-	width: 260px;
-	top: 32px;
-	padding: 16px 20px;
-	pointer-events: none;
-	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-	border-radius: 8px;
+	// position: fixed;
+	// right: 16px;
+	// width: 260px;
+	// top: 32px;
+	// padding: 16px 20px;
+	// pointer-events: none;
+	// box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+	// border-radius: 8px;
+	position: static;
 }
 .yy-post-queue:empty {
   display: none;
@@ -63,13 +64,13 @@ const zIndex = os.claimZIndex('high');
   box-shadow: none;
   border-top: none;
 }
-.yy-post-queue > ol > li > .img {
-  display: block;
-  background-size: cover;
-  background-position: center center;
-  grid-column: 1/2;
-  grid-row: 1/3;
-}
+// .yy-post-queue > ol > li > .img {
+//   display: block;
+//   background-size: cover;
+//   background-position: center center;
+//   grid-column: 1/2;
+//   grid-row: 1/3;
+// }
 .yy-post-queue > ol > li > .top {
   display: flex;
   grid-column: 2/3;

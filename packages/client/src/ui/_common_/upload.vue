@@ -28,14 +28,15 @@ const zIndex = os.claimZIndex('high');
 
 <style lang="scss" scoped>
 .mk-uploader {
-	position: fixed;
-	right: 16px;
-	width: 260px;
-	top: 32px;
-	padding: 16px 20px;
-	pointer-events: none;
-	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-	border-radius: 8px;
+	// position: fixed;
+	// right: 16px;
+	// width: 260px;
+	// top: 32px;
+	// padding: 16px 20px;
+	// pointer-events: none;
+	// box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+	// border-radius: 8px;
+	position: static;
 }
 .mk-uploader:empty {
   display: none;

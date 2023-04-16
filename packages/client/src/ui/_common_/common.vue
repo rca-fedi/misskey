@@ -7,9 +7,10 @@
 	v-on="popup.events"
 />
 
-<div>
-	<XUpload v-if="uploads.length > 0"/>
+<div v-if="uploads.length > 0 || postQueues.length > 0" class="sdjhfuei _acrylic">
 	<XPostQueue v-if="postQueues.length > 0"/>
+	<hr v-if="uploads.length > 0 && postQueues.length > 0"/>
+	<XUpload v-if="uploads.length > 0"/>
 </div>
 
 <XStreamIndicator/>
@@ -76,6 +77,17 @@ if ($i) {
 	100% {
 		transform: rotate(360deg);
 	}
+}
+
+.sdjhfuei {
+	position: fixed;
+	right: 16px;
+	width: 260px;
+	top: 32px;
+	padding: 16px 20px;
+	pointer-events: none;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+	border-radius: 8px;
 }
 
 #wait {
