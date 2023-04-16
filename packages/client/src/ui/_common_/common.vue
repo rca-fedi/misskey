@@ -7,9 +7,10 @@
 	v-on="popup.events"
 />
 
-<XUpload v-if="uploads.length > 0"/>
-
-<XPostQueue v-if="postQueues.length > 0"/>
+<div>
+	<XUpload v-if="uploads.length > 0"/>
+	<XPostQueue v-if="postQueues.length > 0"/>
+</div>
 
 <XStreamIndicator/>
 
