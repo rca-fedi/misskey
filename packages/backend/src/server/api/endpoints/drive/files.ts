@@ -28,6 +28,7 @@ export const paramDef = {
 		untilId: { type: 'string', format: 'misskey:id' },
 		folderId: { type: 'string', format: 'misskey:id', nullable: true, default: null },
 		type: { type: 'string', nullable: true, pattern: /^[a-zA-Z\/\-*]+$/.toString().slice(1, -1) },
+		orderby: { type: 'string', nullable: true, default: 'createdAt', enum: ['desc', 'asc'] },
 	},
 	required: [],
 } as const;
@@ -49,6 +50,10 @@ export default define(meta, paramDef, async (ps, user) => {
 		} else {
 			query.andWhere('file.type = :type', { type: ps.type });
 		}
+	}
+
+	if (ps.orderby === 'asc') {
+		query.orderBy('file.createdAt', 'ASC');
 	}
 
 	const files = await query.take(ps.limit).getMany();
