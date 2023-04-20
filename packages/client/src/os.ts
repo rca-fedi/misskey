@@ -9,6 +9,7 @@ import MkPostFormDialog from '@/components/MkPostFormDialog.vue';
 import MkWaitingDialog from '@/components/MkWaitingDialog.vue';
 import { MenuItem } from '@/types/menu';
 import { $i } from '@/account';
+import { DriveFile, DriveFolder } from '@r-ca/yoiyami-js/built/entities';
 
 export const pendingApiRequestsCount = ref(0);
 
@@ -387,7 +388,9 @@ export function waiting(): Promise<void> {
 	});
 }
 
-export function form(title, form_): Promise<void> {
+// Resultはフォームによってかわるくない...？
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function form(title, form_): any {
 	return new Promise((resolve, reject) => {
 		popup(defineAsyncComponent(() => import('@/components/MkFormDialog.vue')), { title, form_ }, {
 			done: result => {
@@ -398,7 +401,7 @@ export function form(title, form_): Promise<void> {
 	});
 }
 
-export async function selectUser(): Promise<void> {
+export async function selectUser(): Promise<Misskey.entities.UserDetailed> {
 	return new Promise((resolve, reject) => {
 		popup(defineAsyncComponent(() => import('@/components/MkUserSelectDialog.vue')), {}, {
 			ok: user => {
@@ -409,7 +412,7 @@ export async function selectUser(): Promise<void> {
 	});
 }
 
-export async function selectDriveFile(multiple: boolean): Promise<any> {
+export async function selectDriveFile(multiple: boolean): Promise<Misskey.entities.DriveFile | Misskey.entities.DriveFile[]> {
 	return new Promise((resolve, reject) => {
 		popup(defineAsyncComponent(() => import('@/components/MkDriveSelectDialog.vue')), {
 			type: 'file',
@@ -425,7 +428,7 @@ export async function selectDriveFile(multiple: boolean): Promise<any> {
 	});
 }
 
-export async function selectDriveFolder(multiple: boolean): Promise<void> {
+export async function selectDriveFolder(multiple: boolean): Promise<Misskey.entities.DriveFolder> {
 	return new Promise((resolve, reject) => {
 		popup(defineAsyncComponent(() => import('@/components/MkDriveSelectDialog.vue')), {
 			type: 'folder',
@@ -441,7 +444,7 @@ export async function selectDriveFolder(multiple: boolean): Promise<void> {
 	});
 }
 
-export async function pickEmoji(src: HTMLElement | null, opts): Promise<void> {
+export async function pickEmoji(src: HTMLElement | null, opts): Promise<string> {
 	return new Promise((resolve, reject) => {
 		popup(defineAsyncComponent(() => import('@/components/MkEmojiPickerDialog.vue')), {
 			src,
@@ -493,12 +496,12 @@ export async function openEmojiPicker(src?: HTMLElement, opts, initialTextarea: 
 
 	const observer = new MutationObserver(records => {
 		for (const record of records) {
-			for (const node of Array.from(record.addedNodes).filter(node_ => node_ instanceof HTMLElement) as HTMLElement[]) {
-				const textareas_ = node.querySelectorAll('textarea, input') as NodeListOf<NonNullable<typeof activeTextarea>>;
-				for (const textarea_ of Array.from(textareas_).filter(textarea__ => textarea__.dataset.preventEmojiInsert == null)) {
-					if (document.activeElement === textarea_) activeTextarea = textarea_;
-					textarea_.addEventListener('focus', () => {
-						activeTextarea = textarea_;
+			for (const node of Array.from(record.addedNodes).filter(node => node instanceof HTMLElement) as HTMLElement[]) {
+				const textareas = node.querySelectorAll('textarea, input') as NodeListOf<NonNullable<typeof activeTextarea>>;
+				for (const textarea of Array.from(textareas).filter(textarea => textarea.dataset.preventEmojiInsert == null)) {
+					if (document.activeElement === textarea) activeTextarea = textarea;
+					textarea.addEventListener('focus', () => {
+						activeTextarea = textarea;
 					});
 				}
 			}
@@ -531,7 +534,7 @@ export function popupMenu(items: MenuItem[] | Ref<MenuItem[]>, src?: HTMLElement
 	align?: string;
 	width?: number;
 	viaKeyboard?: boolean;
-}) {
+}):Promise<void> {
 	return new Promise((resolve, reject) => {
 		let dispose;
 		popup(defineAsyncComponent(() => import('@/components/MkPopupMenu.vue')), {
@@ -552,7 +555,7 @@ export function popupMenu(items: MenuItem[] | Ref<MenuItem[]>, src?: HTMLElement
 	});
 }
 
-export function contextMenu(items: MenuItem[] | Ref<MenuItem[]>, ev: MouseEvent) {
+export function contextMenu(items: MenuItem[] | Ref<MenuItem[]>, ev: MouseEvent):Promise<void> {
 	ev.preventDefault();
 	return new Promise((resolve, reject) => {
 		let dispose;

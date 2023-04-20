@@ -51,12 +51,12 @@ const emit = defineEmits<{
 const modal = ref<InstanceType<typeof MkModal>>();
 const picker = ref<InstanceType<typeof MkEmojiPicker>>();
 
-function chosen(emoji: any) {
+function chosen(emoji: string):void {
 	emit('done', emoji);
 	modal.value?.close();
 }
 
-function opening() {
+function opening():void {
 	picker.value?.reset();
 	picker.value?.focus();
 }
