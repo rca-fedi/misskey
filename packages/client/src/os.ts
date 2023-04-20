@@ -193,7 +193,7 @@ export function pageWindow(path: string): void {
 	}, {}, 'closed');
 }
 
-export function modalPageWindow(path: string): void {
+export function modalPageWindow(path: string) {
 	popup(defineAsyncComponent(() => import('@/components/MkModalPageWindow.vue')), {
 		initialPath: path,
 	}, {}, 'closed');
@@ -390,9 +390,9 @@ export function waiting(): Promise<void> {
 
 // Resultはフォームによってかわるくない...？
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function form(title, form_): any {
+export function form(title, form): any {
 	return new Promise((resolve, reject) => {
-		popup(defineAsyncComponent(() => import('@/components/MkFormDialog.vue')), { title, form_ }, {
+		popup(defineAsyncComponent(() => import('@/components/MkFormDialog.vue')), { title, form }, {
 			done: result => {
 				resolve(result);
 				reject(new Error('Rejected: 26292ffe-b93a-4ce7-a1ef-fd1271fcc70a'));
