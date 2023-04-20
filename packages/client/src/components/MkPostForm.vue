@@ -355,7 +355,12 @@ function focus() {
 function chooseFileFrom(ev) {
 	selectFiles(ev.currentTarget ?? ev.target, i18n.ts.attachFile, files).then(files_ => {
 		for (const file of files_) {
-			replacePlaceHolder(file[0], file[1]);
+			if (file[1] === undefined) {
+				replacePlaceHolder(file);
+			}
+			else {
+				replacePlaceHolder(file[0], file[1]);
+			}
 		}
 	});
 }
@@ -401,8 +406,17 @@ function upload(file: File, name?: string) {
 	});
 }
 
-function replacePlaceHolder(file: misskey.entities.DriveFile, id: string) {
-	files[files.findIndex(x => x.id === id)] = file;
+function replacePlaceHolder(file: misskey.entities.DriveFile, id?: string) {
+	if (typeof id === 'undefined') { //ドライブから追加の場合は見つからないはずなので
+		files.push(file);
+		console.log('replace PlaceHolder: called by :' + arguments.length);
+		console.log(file);
+	}
+	else {
+		console.log("replace PlaceHolder: else");
+		console.log('replace PlaceHolder: called by :' + arguments.length);
+		files[files.findIndex(x => x.id === id)] = file;
+	}
 }
 
 function setVisibility() {

@@ -409,7 +409,7 @@ export async function selectUser(): Promise<void> {
 	});
 }
 
-export async function selectDriveFile(multiple: boolean): Promise<void> {
+export async function selectDriveFile(multiple: boolean): Promise<any> {
 	return new Promise((resolve, reject) => {
 		popup(defineAsyncComponent(() => import('@/components/MkDriveSelectDialog.vue')), {
 			type: 'file',

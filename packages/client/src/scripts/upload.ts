@@ -137,7 +137,7 @@ export function uploadFile(
 				}
 
 				checkQueue(id, driveFile.id); //アップロードが完了したら投稿キューをチェックさせる
-				uploads.value = uploads.value.filter(x => x.id !== id)
+				uploads.value = uploads.value.filter(x => x.id !== id);
 			};
 
 			xhr.upload.onprogress = ev => {

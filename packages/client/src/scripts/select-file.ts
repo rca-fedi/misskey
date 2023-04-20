@@ -6,7 +6,7 @@ import { i18n } from '@/i18n';
 import { defaultStore } from '@/store';
 import { uploadFile } from '@/scripts/upload';
 
-function select(src: any, label: string | null, multiple: boolean, files?: any): Promise<DriveFile | DriveFile[]> {
+function select(src: any, label: string | null, multiple: boolean, files?: any): Promise<DriveFile | DriveFile[] | []> {
 	return new Promise((res, rej) => {
 		const keepOriginal = ref(defaultStore.state.keepOriginalUploading);
 
@@ -30,7 +30,7 @@ function select(src: any, label: string | null, multiple: boolean, files?: any):
 					
 					if (files !== undefined) { // filesがundefinedなときはPostFormから呼び出されてないのでPlaceHolder自体ないはず
 						deletePlaherHolder(files, err[0]);
-					}
+					} //そもそも呼ばれてないかもしれない
 				});
 
 				// 一応廃棄
@@ -45,8 +45,10 @@ function select(src: any, label: string | null, multiple: boolean, files?: any):
 		};
 
 		const chooseFileFromDrive = () => {
-			os.selectDriveFile(multiple).then(files => {
-				res(files);
+			os.selectDriveFile(multiple).then(files_ => {
+				res(files_);
+				console.log("at select-file.ts :");
+				console.log(files_);
 			});
 		};
 
@@ -104,11 +106,11 @@ function select(src: any, label: string | null, multiple: boolean, files?: any):
 	});
 }
 
-export function selectFile(src: any, label: string | null = null, files?: any): Promise<DriveFile> {
+export function selectFile(src: any, label: string | null = null, files?: any): Promise<DriveFile> | Promise<[]> {
 	return select(src, label, false, files) as Promise<DriveFile>;
 }
 
-export function selectFiles(src: any, label: string | null = null, files?: any): Promise<DriveFile[]> {
+export function selectFiles(src: any, label: string | null = null, files?: any): Promise<DriveFile[]> | Promise<[]> {
 	return select(src, label, true, files) as Promise<DriveFile[]>;
 }
 
@@ -136,5 +138,6 @@ function createPlaceHolder(files): string {
 
 function deletePlaherHolder(files, uploadId): void { //rejectされたときにPlaceHolderけすやつ
 	files.splice(files.findIndex(file => file.id === uploadId), 1);
+	console.log("deletePlaceHolder called!");
 }
 
