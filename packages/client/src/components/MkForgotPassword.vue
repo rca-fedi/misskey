@@ -1,6 +1,5 @@
 <template>
-<XModalWindow 
-	ref="dialog"
+<XModalWindow ref="dialog"
 	:width="370"
 	:height="400"
 	@close="dialog.close()"
@@ -52,7 +51,7 @@ let username = $ref('');
 let email = $ref('');
 let processing = $ref(false);
 
-async function onSubmit(): Promise<void> {
+async function onSubmit() {
 	processing = true;
 	await os.apiWithDialog('request-reset-password', {
 		username,

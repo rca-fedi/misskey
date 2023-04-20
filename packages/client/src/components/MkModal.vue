@@ -77,14 +77,14 @@ const type = $computed(() => {
 
 let contentClicking = false;
 
-const close = (): void => {
+const close = () => {
 	// eslint-disable-next-line vue/no-mutating-props
 	if (props.src) props.src.style.pointerEvents = 'auto';
 	showing = false;
 	emit('close');
 };
 
-const onBgClick = (): void => {
+const onBgClick = () => {
 	if (contentClicking) return;
 	emit('click');
 };
@@ -94,12 +94,12 @@ if (type === 'drawer') {
 }
 
 const keymap = {
-	'esc': (): void => emit('esc'),
+	'esc': () => emit('esc'),
 };
 
 const MARGIN = 16;
 
-const align = (): void => {
+const align = () => {
 	if (props.src == null) return;
 	if (type === 'drawer') return;
 	if (type === 'dialog') return;
@@ -108,86 +108,80 @@ const align = (): void => {
 
 	const srcRect = props.src.getBoundingClientRect();
 
-	const width = content.offsetWidth;
-	const height = content.offsetHeight;
+	const width = content!.offsetWidth;
+	const height = content!.offsetHeight;
 
 	let left;
 	let top;
 
-	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 	const x = srcRect.left + (fixed ? 0 : window.pageXOffset);
-	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 	const y = srcRect.top + (fixed ? 0 : window.pageYOffset);
 
-	if (props.anchor !== undefined) { //undefinedな時は実行されないように(エラー潰し)
-		if (props.anchor.x === 'center') {
-			left = x + (props.src.offsetWidth / 2) - (width / 2);
-		} else if (props.anchor.x === 'left') {
-			// TODO
-		} else if (props.anchor.x === 'right') {
-			left = x + props.src.offsetWidth;
-		}
-	
-		if (props.anchor.y === 'center') {
-			top = (y - (height / 2));
-		} else if (props.anchor.y === 'top') {
-			// TODO
-		} else if (props.anchor.y === 'bottom') {
-			top = y + props.src.offsetHeight;
-		}
-	
-		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-		if (fixed) {
-			// 画面から横にはみ出る場合
-			if (left + width > window.innerWidth) {
-				left = window.innerWidth - width;
-			}
-	
-			const underSpace = (window.innerHeight - MARGIN) - top;
-			const upperSpace = (srcRect.top - MARGIN);
-	
-			// 画面から縦にはみ出る場合
-			if (top + height > (window.innerHeight - MARGIN)) {
-				if (props.noOverlap && props.anchor.x === 'center') {
-					if (underSpace >= (upperSpace / 3)) {
-						maxHeight = underSpace;
-					} else {
-						maxHeight = upperSpace;
-						top = (upperSpace + MARGIN) - height;
-					}
-				} else {
-					top = (window.innerHeight - MARGIN) - height;
-				}
-			} else {
-				maxHeight = underSpace;
-			}
-		} else {
-			// 画面から横にはみ出る場合
-			if (left + width - window.pageXOffset > window.innerWidth) {
-				left = window.innerWidth - width + window.pageXOffset - 1;
-			}
-	
-			const underSpace = (window.innerHeight - MARGIN) - (top - window.pageYOffset);
-			const upperSpace = (srcRect.top - MARGIN);
-	
-			// 画面から縦にはみ出る場合
-			if (top + height - window.pageYOffset > (window.innerHeight - MARGIN)) {
-				if (props.noOverlap && props.anchor.x === 'center') {
-					if (underSpace >= (upperSpace / 3)) {
-						maxHeight = underSpace;
-					} else {
-						maxHeight = upperSpace;
-						top = window.pageYOffset + ((upperSpace + MARGIN) - height);
-					}
-				} else {
-					top = (window.innerHeight - MARGIN) - height + window.pageYOffset - 1;
-				}
-			} else {
-				maxHeight = underSpace;
-			}
-		}
+	if (props.anchor.x === 'center') {
+		left = x + (props.src.offsetWidth / 2) - (width / 2);
+	} else if (props.anchor.x === 'left') {
+		// TODO
+	} else if (props.anchor.x === 'right') {
+		left = x + props.src.offsetWidth;
 	}
 
+	if (props.anchor.y === 'center') {
+		top = (y - (height / 2));
+	} else if (props.anchor.y === 'top') {
+		// TODO
+	} else if (props.anchor.y === 'bottom') {
+		top = y + props.src.offsetHeight;
+	}
+
+	if (fixed) {
+		// 画面から横にはみ出る場合
+		if (left + width > window.innerWidth) {
+			left = window.innerWidth - width;
+		}
+
+		const underSpace = (window.innerHeight - MARGIN) - top;
+		const upperSpace = (srcRect.top - MARGIN);
+
+		// 画面から縦にはみ出る場合
+		if (top + height > (window.innerHeight - MARGIN)) {
+			if (props.noOverlap && props.anchor.x === 'center') {
+				if (underSpace >= (upperSpace / 3)) {
+					maxHeight = underSpace;
+				} else {
+					maxHeight = upperSpace;
+					top = (upperSpace + MARGIN) - height;
+				}
+			} else {
+				top = (window.innerHeight - MARGIN) - height;
+			}
+		} else {
+			maxHeight = underSpace;
+		}
+	} else {
+		// 画面から横にはみ出る場合
+		if (left + width - window.pageXOffset > window.innerWidth) {
+			left = window.innerWidth - width + window.pageXOffset - 1;
+		}
+
+		const underSpace = (window.innerHeight - MARGIN) - (top - window.pageYOffset);
+		const upperSpace = (srcRect.top - MARGIN);
+
+		// 画面から縦にはみ出る場合
+		if (top + height - window.pageYOffset > (window.innerHeight - MARGIN)) {
+			if (props.noOverlap && props.anchor.x === 'center') {
+				if (underSpace >= (upperSpace / 3)) {
+					maxHeight = underSpace;
+				} else {
+					maxHeight = upperSpace;
+					top = window.pageYOffset + ((upperSpace + MARGIN) - height);
+				}
+			} else {
+				top = (window.innerHeight - MARGIN) - height + window.pageYOffset - 1;
+			}
+		} else {
+			maxHeight = underSpace;
+		}
+	}
 
 	if (top < 0) {
 		top = MARGIN;
@@ -218,19 +212,11 @@ const align = (): void => {
 	content.style.top = top + 'px';
 };
 
-const onOpened = (): void => {
+const onOpened = () => {
 	emit('opened');
 
 	// モーダルコンテンツにマウスボタンが押され、コンテンツ外でマウスボタンが離されたときにモーダルバックグラウンドクリックと判定させないためにマウスイベントを監視しフラグ管理する
-	if (content === undefined) { //undefined
-		os.alert({
-			type: 'error',
-			title: 'Internal Error!',
-			text: '7d664a9c-2c53-45af-b343-b684769297a7', 
-		});
-		return;
-	}
-	const el = content.children[0];
+	const el = content!.children[0];
 	el.addEventListener('mousedown', ev => {
 		contentClicking = true;
 		window.addEventListener('mouseup', ev => {
@@ -256,17 +242,9 @@ onMounted(() => {
 	}, { immediate: true });
 
 	nextTick(() => {
-		if (content === undefined) { //undefined
-			os.alert({
-				type: 'error',
-				title: 'Internal Error!',
-				text: '6280e753-f7b6-48dc-87cf-e52eaf3a07e1', 
-			});
-			return;
-		}
 		new ResizeObserver((entries, observer) => {
 			align();
-		}).observe(content);
+		}).observe(content!);
 	});
 });
 
