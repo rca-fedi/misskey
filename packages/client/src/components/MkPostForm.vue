@@ -292,7 +292,7 @@ if (defaultStore.state.keepCw && props.reply && props.reply.cw) {
 	cw = props.reply.cw;
 }
 
-function watchForDraft() {
+function watchForDraft():void {
 	watch($$(text), () => saveDraft());
 	watch($$(useCw), () => saveDraft());
 	watch($$(cw), () => saveDraft());
@@ -302,7 +302,7 @@ function watchForDraft() {
 	watch($$(localOnly), () => saveDraft());
 }
 
-function checkMissingMention() {
+function checkMissingMention():void {
 	if (visibility === 'specified') {
 		const ast = mfm.parse(text);
 
@@ -316,7 +316,7 @@ function checkMissingMention() {
 	}
 }
 
-function addMissingMention() {
+function addMissingMention():void {
 	const ast = mfm.parse(text);
 
 	for (const x of extractMentions(ast)) {
@@ -328,7 +328,7 @@ function addMissingMention() {
 	}
 }
 
-function togglePoll() {
+function togglePoll():void {
 	if (poll) {
 		poll = null;
 	} else {
@@ -341,18 +341,18 @@ function togglePoll() {
 	}
 }
 
-function addTag(tag: string) {
+function addTag(tag: string):void {
 	insertTextAtCursor(textareaEl, ` #${tag} `);
 }
 
-function focus() {
+function focus():void {
 	if (textareaEl) {
 		textareaEl.focus();
 		textareaEl.setSelectionRange(textareaEl.value.length, textareaEl.value.length);
 	}
 }
 
-function chooseFileFrom(ev) {
+function chooseFileFrom(ev):void {
 	selectFiles(ev.currentTarget ?? ev.target, i18n.ts.attachFile, files).then(files_ => {
 		for (const file of files_) {
 			if (file[1] === undefined) {
@@ -365,28 +365,27 @@ function chooseFileFrom(ev) {
 	});
 }
 
-function detachFile(id) {
+function detachFile(id):void {
 	files = files.filter(x => x.id !== id);
 }
 
-function updateFiles(_files) {
+function updateFiles(_files):void {
 	files = _files;
-	console.log ('updateFiles', files);
 }
 
-function updateFileSensitive(file, sensitive) {
+function updateFileSensitive(file, sensitive):void {
 	files[files.findIndex(x => x.id === file.id)].isSensitive = sensitive;
 }
 
-function updateFileName(file, name) {
+function updateFileName(file, name):void {
 	files[files.findIndex(x => x.id === file.id)].name = name;
 }
 
-function updateFileToCropped(file, cropped) {
+function updateFileToCropped(file, cropped):void {
 	files[files.findIndex(x => x.id === file.id)] = cropped;
 }
 
-function upload(file: File, name?: string) {
+function upload(file: File, name?: string):void {
 	const id = Math.random().toString();
 	files.push({ // placeholder
 		id: id,
@@ -406,20 +405,16 @@ function upload(file: File, name?: string) {
 	});
 }
 
-function replacePlaceHolder(file: misskey.entities.DriveFile, id?: string) {
+function replacePlaceHolder(file: misskey.entities.DriveFile, id?: string):void {
 	if (typeof id === 'undefined') { //ドライブから追加の場合は見つからないはずなので
 		files.push(file);
-		console.log('replace PlaceHolder: called by :' + arguments.length);
-		console.log(file);
 	}
 	else {
-		console.log("replace PlaceHolder: else");
-		console.log('replace PlaceHolder: called by :' + arguments.length);
 		files[files.findIndex(x => x.id === id)] = file;
 	}
 }
 
-function setVisibility() {
+function setVisibility():void {
 	if (props.channel) {
 		// TODO: information dialog
 		return;
@@ -445,45 +440,45 @@ function setVisibility() {
 	}, 'closed');
 }
 
-function pushVisibleUser(user) {
+function pushVisibleUser(user):void {
 	if (!visibleUsers.some(u => u.username === user.username && u.host === user.host)) {
 		visibleUsers.push(user);
 	}
 }
 
-function addVisibleUser() {
+function addVisibleUser():void {
 	os.selectUser().then(user => {
 		pushVisibleUser(user);
 	});
 }
 
-function removeVisibleUser(user) {
+function removeVisibleUser(user):void {
 	visibleUsers = erase(user, visibleUsers);
 }
 
-function clear() {
+function clear():void {
 	text = '';
 	files = [];
 	poll = null;
 	quoteId = null;
 }
 
-function onKeydown(ev: KeyboardEvent) {
+function onKeydown(ev: KeyboardEvent):void {
 	if ((ev.which === 10 || ev.which === 13) && (ev.ctrlKey || ev.metaKey) && canPost) post();
 	if (ev.which === 27) emit('esc');
 	typing();
 }
 
-function onCompositionUpdate(ev: CompositionEvent) {
+function onCompositionUpdate(ev: CompositionEvent):void {
 	imeText = ev.data;
 	typing();
 }
 
-function onCompositionEnd(ev: CompositionEvent) {
+function onCompositionEnd(ev: CompositionEvent):void {
 	imeText = '';
 }
 
-async function onPaste(ev: ClipboardEvent) {
+async function onPaste(ev: ClipboardEvent):void {
 	for (const { item, i } of Array.from(ev.clipboardData.items).map((item, i) => ({ item, i }))) {
 		if (item.kind === 'file') {
 			const file = item.getAsFile();
@@ -513,7 +508,7 @@ async function onPaste(ev: ClipboardEvent) {
 	}
 }
 
-function onDragover(ev) {
+function onDragover(ev):void {
 	if (!ev.dataTransfer.items[0]) return;
 	const isFile = ev.dataTransfer.items[0].kind === 'file';
 	const isDriveFile = ev.dataTransfer.types[0] === _DATA_TRANSFER_DRIVE_FILE_;
@@ -539,11 +534,11 @@ function onDragover(ev) {
 	}
 }
 
-function onDragenter(ev) {
+function onDragenter(ev):void {
 	draghover = true;
 }
 
-function onDragleave(ev) {
+function onDragleave(ev):void {
 	draghover = false;
 }
 
@@ -567,7 +562,7 @@ function onDrop(ev): void {
 	//#endregion
 }
 
-function saveDraft() {
+function saveDraft():void {
 	const draftData = JSON.parse(localStorage.getItem('drafts') || '{}');
 
 	draftData[draftKey] = {
@@ -586,7 +581,7 @@ function saveDraft() {
 	localStorage.setItem('drafts', JSON.stringify(draftData));
 }
 
-function deleteDraft() {
+function deleteDraft():void {
 	const draftData = JSON.parse(localStorage.getItem('drafts') || '{}');
 
 	delete draftData[draftKey];
@@ -594,7 +589,7 @@ function deleteDraft() {
 	localStorage.setItem('drafts', JSON.stringify(draftData));
 }
 
-async function post() {
+async function post():Promise<void> {
 	let postData = {
 		text: text === '' ? undefined : text,
 		fileIds: files.length > 0 ? files.map(f => f.id) : undefined,
@@ -658,21 +653,21 @@ async function post() {
 	}
 }
 
-function cancel() {
+function cancel():void {
 	emit('cancel');
 }
 
-function insertMention() {
+function insertMention():void {
 	os.selectUser().then(user => {
 		insertTextAtCursor(textareaEl, '@' + Acct.toString(user) + ' ');
 	});
 }
 
-async function insertEmoji(ev: MouseEvent) {
+async function insertEmoji(ev: MouseEvent):Promise<void> {
 	os.openEmojiPicker(ev.currentTarget ?? ev.target, {}, textareaEl);
 }
 
-function showActions(ev) {
+function showActions(ev):void {
 	os.popupMenu(postFormActions.map(action => ({
 		text: action.title,
 		action: () => {
@@ -687,7 +682,7 @@ function showActions(ev) {
 
 let postAccount = $ref<misskey.entities.UserDetailed | null>(null);
 
-function openAccountMenu(ev: MouseEvent) {
+function openAccountMenu(ev: MouseEvent):void {
 	openAccountMenu_({
 		withExtraOperation: false,
 		includeCurrentAccount: true,
@@ -757,7 +752,7 @@ onMounted(() => {
 	});
 });
 
-function emojiChosen(emoji: any) {
+function emojiChosen(emoji: any):void {
 	insertTextAtCursor(textareaEl, emoji);
 }
 </script>
