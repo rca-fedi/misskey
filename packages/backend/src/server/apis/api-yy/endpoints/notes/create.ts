@@ -7,7 +7,7 @@ import { DriveFile } from '@/models/entities/drive-file.js';
 import { Note } from '@/models/entities/note.js';
 import { Channel } from '@/models/entities/channel.js';
 import { MAX_NOTE_TEXT_LENGTH } from '@/const.js';
-import { noteVisibilities } from '../../../../types.js';
+import { noteVisibilities } from '../../../../../types.js';
 import { ApiError } from '../../error.js';
 import define from '../../define.js';
 
