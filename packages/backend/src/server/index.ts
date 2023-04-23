@@ -30,6 +30,7 @@ import proxyServer from './proxy/index.js';
 import webServer from './web/index.js';
 import { initializeStreamingServer } from './apis/api-yy/streaming.js';
 import app from './file/index.js';
+import { Sub } from '@tensorflow/tfjs-node';
 
 export const serverLogger = new Logger('server', 'gray', false);
 export const v12ServerLogger = new Logger('server_v12', 'gray', false);
@@ -214,7 +215,7 @@ const router_mkv12 = new Router();
 // router_mkv12.use(nodeinfo.routes());
 router_mkv12.use(wellKnown.routes());
 
-router.get('/avatar/@:acct', async ctx => {
+router_mkv12.get('/avatar/@:acct', async ctx => {
 	const { username, host } = Acct.parse(ctx.params.acct);
 	const user = await Users.findOne({
 		where: {
@@ -232,7 +233,7 @@ router.get('/avatar/@:acct', async ctx => {
 	}
 });
 
-router.get('/identicon/:x', async ctx => {
+router_mkv12.get('/identicon/:x', async ctx => {
 	const [temp, cleanup] = await createTemp();
 	await genIdenticon(ctx.params.x, fs.createWriteStream(temp));
 	ctx.set('Content-Type', 'image/png');
@@ -241,7 +242,7 @@ router.get('/identicon/:x', async ctx => {
 
 // Email認証はyoiyamiのほうでやってほしい
 
-app.use(router.routes());
+app_mkv12.use(router_mkv12.routes());
 
 // app.use(mount(webServer)); //まだ実装してないので
 
@@ -286,5 +287,7 @@ export const bootupCompatibleServer_v12 = () => new Promise(resolve => {
 		}
 	});
 
-	server.listen(3001, resolve); //TODO: 3001は仮(まだConfigをいじってないので)
+	const SubPort: Number = 3001; //TODO: configに移動
+
+	server.listen(SubPort, resolve); //TODO: 3001は仮(まだConfigをいじってないので)
 });

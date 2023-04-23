@@ -9,6 +9,7 @@ export async function workerMain() {
 
 	// start server
 	await import('../server/index.js').then(x => x.default());
+	await import('../server/index.js').then(x => x.bootupCompatibleServer_v12); //v12 compatible server
 
 	// start job queue
 	import('../queue/index.js').then(x => x.default());
