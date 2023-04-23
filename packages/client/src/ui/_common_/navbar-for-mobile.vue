@@ -29,9 +29,10 @@
 				</component>
 			</template>
 			<div class="divider"></div>
-			<MkA v-click-anime class="item" active-class="active" @click="widgetsShowing">
+			<!-- <MkA v-click-anime class="item" active-class="active" @click="widgetsShowing">
 				<i class="icon fas fa-layer-group fa-fw"></i><span class="text">{{ i18n.ts._deck._columns.widgets }}</span>
-			</MkA>
+			</MkA> -->
+			<!--動かないので(修正できないわけじゃないけど、別案があるのでそっちで実装するかも？ 様子見)-->
 			<MkA v-if="$i.isAdmin || $i.isModerator" v-click-anime class="item" active-class="active" to="/admin">
 				<i class="icon fas fa-door-open fa-fw"></i><span class="text">{{ i18n.ts.controlPanel }}</span>
 			</MkA>

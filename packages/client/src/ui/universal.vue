@@ -18,7 +18,7 @@
 
 	<button v-if="!isDesktop && !isMobile" class="widgetButton _button" @click="widgetsShowing = true"><i class="fas fa-layer-group"></i></button>
 
-	<div v-if="isMobile">
+	<div v-if="isMobile"> <!--もうちょっとましな書き方考えるべきかもしれない-->
 		<div v-if="$store.state.navBarStyle === 'style1'">
 			<YyMobileNavbarStyle1
 				@drawer-menu-showing-change="drawerMenuShowing = true"
