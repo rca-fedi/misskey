@@ -18,8 +18,20 @@ const ev = new Xev();
  * Init process
  */
 export default async function() {
+
+	//TOOD: configファイルに移す(メモ用)
+	const singleProcessMode: boolean = false;
+
 	process.title = `Misskey (${cluster.isPrimary ? 'master' : 'worker'})`;
 
+	// if(singleProcessMode) {
+	// 	process.title = `yoiyami_sp (${cluster.isPrimary ? 'master' : 'worker'})`; //Single Process Mode //未実装
+	// }
+	// else {
+	// 	if(cluster.)
+	// }
+
+	
 	if (cluster.isPrimary || envOption.disableClustering) {
 		await masterMain();
 

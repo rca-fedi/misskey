@@ -15,6 +15,8 @@ import { envOption } from '../env.js';
 import { showMachineInfo } from '@/misc/show-machine-info.js';
 import { db, initDb } from '../db/postgre.js';
 
+import { redisClient } from '@/db/redis.js';
+
 const _filename = fileURLToPath(import.meta.url);
 const _dirname = dirname(_filename);
 
@@ -87,9 +89,12 @@ export async function masterMain() {
 
 	bootLogger.succ('yoiyami initialized!');
 
-	if (!envOption.disableClustering) {
-		await spawnWorkers(config.clusterLimit);
-	}
+
+	// とりあえず隠しとく（最終的にはここでconfigを読み込む)
+	// if (!envOption.disableClustering) { 
+	// 	await spawnWorkers(config.clusterLimit);
+	// }
+	await spawnWorkers(); //ワーカー起動するやつ
 
 	bootLogger.succ(`Now listening on port ${config.port} on ${config.url}`, null, true);
 
@@ -162,11 +167,42 @@ async function connectDb(): Promise<void> {
 	}
 }
 
-async function spawnWorkers(limit: number = 1) {
-	const workers = Math.min(limit, os.cpus().length);
-	bootLogger.info(`Starting ${workers} worker${workers === 1 ? '' : 's'}...`);
-	await Promise.all([...Array(workers)].map(spawnWorker));
-	bootLogger.succ('All workers started');
+const mainworkers:number = 2; //TODO: ハードコーディングをやめる
+const v12compatibleworkers:number = 1;
+
+// async function spawnWorkers(limit: number = 1) { //TODO
+// 	const workers = Math.min(limit, os.cpus().length);
+// 	bootLogger.info(`Starting ${workers} worker${workers === 1 ? '' : 's'}...`);
+// 	await Promise.all([...Array(workers)].map(spawnWorker));
+// 	bootLogger.succ('All workers started');
+// }
+
+async function spawnWorkers() {
+	bootLogger.info(`Loaded worker configuration:`);
+	bootLogger.info(`  Main worker          : ${mainworkers}`);
+	bootLogger.info(`  v12 compatible worker: ${v12compatibleworkers}`);
+	// 設定値の有効性チェック
+	bootLogger.info(`Detected: ${os.cpus().length} CPU thread(s)`);
+	const totalWorkers = mainworkers + v12compatibleworkers;
+	if (os.cpus().length < totalWorkers) {
+		bootLogger.error(`Invalid Configuretion detected!!`);
+		bootLogger.error(`The number of configured Workers exceeds the number of CPU threads detected.`);
+		if (2 <= os.cpus().length) { // CPU threadが2つ以上あったら最低限の設定で起動する(MainWorker:1, v12CompatibleWorker:1)
+			bootLogger.warn(`Please change the number of workers in the configuration file.`);
+			bootLogger.info(`yoiyami starts in a minimum configuration of multi-worker mode.`);
+		}
+		else { // CPU threadが1以下の場合はマルチワーカーで起動できないので終了する(シングルワーカーモードの場合はリバースプロキシの設定を変える必要があるので)
+			bootLogger.error(`Cannot start yoiyami in this environment.`);
+			bootLogger.error(`Please change the number of workers in the configuration file.`);
+			bootLogger.error(`Or, use single-worker mode.`);
+			process.exit(1);
+		}
+	}
+	else { //ワーカー起動するやつ
+		// MainWorkerの起動
+		bootLogger.info(`Starting Main Worker(s)...`);
+		await Promise.all([...Array(mainworkers)].map(spawnWorker));
+	}
 }
 
 function spawnWorker(): Promise<void> {
@@ -177,7 +213,7 @@ function spawnWorker(): Promise<void> {
 				bootLogger.error(`The server Listen failed due to the previous error.`);
 				process.exit(1);
 			}
-			if (message !== 'ready') return;
+			if (message !== 'yoiyami server ready' || message !== 'v12 compatible server ready') return;
 			res();
 		});
 	});
