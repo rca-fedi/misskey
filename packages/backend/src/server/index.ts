@@ -28,7 +28,7 @@ import apiServer_mkv12 from './apis/api-mkv12/index.js'
 import fileServer from './file/index.js';
 import proxyServer from './proxy/index.js';
 import webServer from './web/index.js';
-import { initializeStreamingServer } from './api/streaming.js';
+import { initializeStreamingServer } from './apis/api_yy/streaming.js';
 import app from './file/index.js';
 
 export const serverLogger = new Logger('server', 'gray', false);
