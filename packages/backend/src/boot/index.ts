@@ -1,8 +1,11 @@
 import cluster from 'node:cluster';
+import * as child_process from 'child_process';
 import chalk from 'chalk';
 import Xev from 'xev';
+import * as os from 'node:os';
 
 import Logger from '@/services/logger.js';
+import * as MasterPrimary from '@/boot/master/primary.js';
 import { envOption } from '../env.js';
 
 // for typeorm
@@ -10,46 +13,50 @@ import 'reflect-metadata';
 import { masterMain } from './master.js';
 import { initializeWorkers } from './worker.js';
 import { redisClient } from '@/db/redis.js';
+import { osInfo } from 'systeminformation';
+import { ChildProcess } from 'node:child_process';
 
 const logger = new Logger('core', 'cyan');
 const clusterLogger = logger.createSubLogger('cluster', 'orange', false);
+const masterLogger = new Logger('master', 'blue');
 const ev = new Xev();
 
-/**
- * Init process
- */
+// Start Manager process
 export default async function() {
 
-	//TOOD: configファイルに移す(メモ用)
-	const singleProcessMode: boolean = false;
+	// 検証用Config (TODO: Configファイルに移す)
+	const v12Compatible = true;
 
-	process.title = `Misskey (${cluster.isPrimary ? 'master' : 'worker'})`;
+	greet();
+	envInfo();
 
-	// if(singleProcessMode) {
-	// 	process.title = `yoiyami_sp (${cluster.isPrimary ? 'master' : 'worker'})`; //Single Process Mode //未実装
-	// }
-	// else {
-	// 	if(cluster.)
-	// }
+	// 各プライマリプロセスの起動
 
+	// const child_process = require('child_process');
+
+	// Master-Primary
+	const master = child_process.fork('./built/boot/master/primary.js', [], {});
 	
-	if (cluster.isPrimary || envOption.disableClustering) {
-		await masterMain();
-
-		if (cluster.isPrimary) {
-			ev.mount();
+	// Message Listener
+	master.on('message', (msg) => {
+		if (msg == 'master_ready') {
+			masterLogger.info('Master-Primary is ready!');
 		}
+	});
+
+	// 起動ログ
+	function greet() {
+		console.log(chalk.green("Starting yoiyami master process..."));
+		// いい感じのロゴを出したい
 	}
 
-	if (cluster.isWorker || envOption.disableClustering) {
-		await initializeWorkers();
+	// システム情報
+	function envInfo() {
+		logger.info("Environment Info:");
+		logger.info(`		CPU: `+os.cpus()[0].model);
+		//  もうちょっといろいろだしたい
 	}
-
-	// ユニットテスト時にMisskeyが子プロセスで起動された時のため
-	// それ以外のときは process.send は使えないので弾く
-	if (process.send) {
-		process.send('ok');
-	}
+	
 }
 
 //#region Events
