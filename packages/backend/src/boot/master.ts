@@ -169,6 +169,8 @@ async function connectDb(): Promise<void> {
 
 const mainworkers:number = 2; //TODO: ハードコーディングをやめる
 const v12compatibleworkers:number = 1;
+let mainworkers_booted:number = 0;
+let v12compatibleworkers_booted:number = 0;
 
 // async function spawnWorkers(limit: number = 1) { //TODO
 // 	const workers = Math.min(limit, os.cpus().length);
@@ -183,13 +185,19 @@ async function spawnWorkers() {
 	bootLogger.info(`  v12 compatible worker: ${v12compatibleworkers}`);
 	// 設定値の有効性チェック
 	bootLogger.info(`Detected: ${os.cpus().length} CPU thread(s)`);
-	const totalWorkers = mainworkers + v12compatibleworkers;
+	let totalWorkers = mainworkers + v12compatibleworkers;
 	if (os.cpus().length < totalWorkers) {
 		bootLogger.error(`Invalid Configuretion detected!!`);
 		bootLogger.error(`The number of configured Workers exceeds the number of CPU threads detected.`);
 		if (2 <= os.cpus().length) { // CPU threadが2つ以上あったら最低限の設定で起動する(MainWorker:1, v12CompatibleWorker:1)
 			bootLogger.warn(`Please change the number of workers in the configuration file.`);
 			bootLogger.info(`yoiyami starts in a minimum configuration of multi-worker mode.`);
+
+			//Redis操作
+			redisClient.set(mainworkers, 1);
+			redisClient.set(v12compatibleworkers, 1);
+			totalWorkers = 2;
+
 		}
 		else { // CPU threadが1以下の場合はマルチワーカーで起動できないので終了する(シングルワーカーモードの場合はリバースプロキシの設定を変える必要があるので)
 			bootLogger.error(`Cannot start yoiyami in this environment.`);
@@ -198,10 +206,18 @@ async function spawnWorkers() {
 			process.exit(1);
 		}
 	}
-	else { //ワーカー起動するやつ
+	else { //起動シーケンス
+
+		//Redis操作
+		redisClient.set('mainworkers', mainworkers);
+		redisClient.set('v12compatibleworkers', v12compatibleworkers);
+		redisClient.set(mainworkers_booted, 0); //初期化
+		redisClient.set(v12compatibleworkers_booted, 0); //初期化
+
 		// MainWorkerの起動
-		bootLogger.info(`Starting Main Worker(s)...`);
-		await Promise.all([...Array(mainworkers)].map(spawnWorker));
+		bootLogger.info(`Starting Worker(s)...`);
+		await Promise.all([...Array(totalWorkers)].map(spawnWorker));
+		bootLogger.succ('All workers started!');
 	}
 }
 

@@ -8,7 +8,8 @@ import { envOption } from '../env.js';
 // for typeorm
 import 'reflect-metadata';
 import { masterMain } from './master.js';
-import { workerMain } from './worker.js';
+import { initializeWorkers } from './worker.js';
+import { redisClient } from '@/db/redis.js';
 
 const logger = new Logger('core', 'cyan');
 const clusterLogger = logger.createSubLogger('cluster', 'orange', false);
@@ -41,7 +42,7 @@ export default async function() {
 	}
 
 	if (cluster.isWorker || envOption.disableClustering) {
-		await workerMain();
+		await initializeWorkers();
 	}
 
 	// ユニットテスト時にMisskeyが子プロセスで起動された時のため
@@ -55,12 +56,12 @@ export default async function() {
 
 // Listen new workers
 cluster.on('fork', worker => {
-	clusterLogger.debug(`Process forked: [${worker.id}]`);
+	clusterLogger.debug(`Process forked: [WorkerID:${worker.id}]`);
 });
 
 // Listen online workers
 cluster.on('online', worker => {
-	clusterLogger.debug(`Process is now online: [${worker.id}]`);
+	clusterLogger.debug(`Process is now online: [WorkerID:${worker.id}]`);
 });
 
 // Listen for dying workers
