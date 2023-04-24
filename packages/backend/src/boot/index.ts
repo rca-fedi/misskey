@@ -29,19 +29,27 @@ export default async function() {
 	greet();
 	envInfo();
 
-	// 各プライマリプロセスの起動
-
-	// const child_process = require('child_process');
-
+	// 各プライマリプロセスの起動-------------------------------------------
 	// Master-Primary
 	const master = child_process.fork('./built/boot/master/primary.js', [], {});
-	
+
+	// v12c-Primary
+	const v12c = child_process.fork('./built/boot/v12-compatible/primary.js', [], {});
+
 	// Message Listener
 	master.on('message', (msg) => {
-		if (msg === 'master_ready') {
+		if (msg === 'primary-ready') {
 			masterLogger.info('Master-Primary is ready!');
 		}
 	});
+
+	v12c.on('message', (msg) => {
+		if (msg === 'primary-ready') {
+			masterLogger.info('v12c-Primary is ready!');
+		}
+	});
+
+	//--------------------------------------------------------------------
 
 	// 起動ログ
 	function greet() {

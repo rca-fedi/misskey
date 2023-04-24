@@ -19,7 +19,7 @@ import * as workerMain from './worker.js';
 import { redisClient } from '@/db/redis.js';
 
 // Start primary process
-const logger = new Logger('master', 'cyan');
+const logger = new Logger('v12c', 'cyan');
 const bootLogger = logger.createSubLogger('boot', 'magenta', false);
 const masterLogger = new Logger('master', 'blue');
 
@@ -52,11 +52,9 @@ export async function masterMain() {
 		await cluster.fork();
 	}
 	if (cluster.isWorker) {
-		bootLogger.info("initializing master-worker...");
+		bootLogger.info("initializing v12c-worker...");
 		await workerMain.workerMain();
 	}
-
-	bootLogger.succ(`Now listening on port ${config.port} on ${config.url}`, null, true);
 
 	if (!envOption.noDaemons) {
 		import('../../daemons/server-stats.js').then(x => x.default());
@@ -106,9 +104,9 @@ async function connectDb(): Promise<void> {
 
 async function spawnWorkers(limit: number = 1) { //TODO
 	const workers = Math.min(limit, os.cpus().length);
-	bootLogger.info(`Starting ${workers} worker${workers === 1 ? '' : 's'}...`);
+	bootLogger.info(`!Starting ${workers} worker${workers === 1 ? '' : 's'}...`);
 	await Promise.all([...Array(workers)].map(spawnWorker));
-	bootLogger.succ('All workers started');
+	bootLogger.succ('!All workers started');
 }
 
 function spawnWorker(): Promise<void> {
@@ -116,10 +114,10 @@ function spawnWorker(): Promise<void> {
 		const worker = cluster.fork();
 		worker.on('message', message => {
 			if (message === 'listenFailed') {
-				bootLogger.error(`The server Listen failed due to the previous error.`);
+				bootLogger.error(`!The server Listen failed due to the previous error.`);
 				process.exit(1);
 			}
-			if (message !== 'yoiyami server ready' || message !== 'v12 compatible server ready') return;
+			if (message !== 'ready') return;
 			res();
 		});
 	});
