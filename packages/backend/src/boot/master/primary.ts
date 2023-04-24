@@ -14,6 +14,7 @@ import { lessThan } from '@/prelude/array.js';
 import { envOption } from '../../env.js';
 import { showMachineInfo } from '@/misc/show-machine-info.js';
 import { db, initDb } from '../../db/postgre.js';
+import * as workerMain from './worker.js'
 
 import { redisClient } from '@/db/redis.js';
 
@@ -22,11 +23,14 @@ const logger = new Logger('master', 'cyan');
 const bootLogger = logger.createSubLogger('boot', 'magenta', false);
 const masterLogger = new Logger('master', 'blue');
 
-export default async function() {
+masterMain();
+
+export async function masterMain() {
 	let config!: Config;
 
 	// initialize app
 	try {
+		masterLogger.info('Initialize master process...');
 		config = loadConfigBoot();
 		await connectDb();
 	} catch (e) {
@@ -42,7 +46,15 @@ export default async function() {
 	// 	await spawnWorkers(config.clusterLimit);
 	// }
 
-	await spawnWorkers(); //ワーカー起動するやつ
+	// await spawnWorkers(); //ワーカー起動するやつ
+
+	if (cluster.isPrimary) {
+		masterLogger.debug("Master-primary*");
+		await cluster.fork();
+	}
+	if (cluster.isWorker) {
+		workerMain.workerMain();
+	}
 
 	bootLogger.succ(`Now listening on port ${config.port} on ${config.url}`, null, true);
 

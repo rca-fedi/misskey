@@ -23,8 +23,7 @@ const ev = new Xev();
 
 // Start Manager process
 export default async function() {
-
-	// 検証用Config (TODO: Configファイルに移す)
+// 検証用Config (TODO: Configファイルに移す)
 	const v12Compatible = true;
 
 	greet();
@@ -39,7 +38,7 @@ export default async function() {
 	
 	// Message Listener
 	master.on('message', (msg) => {
-		if (msg == 'master_ready') {
+		if (msg === 'master_ready') {
 			masterLogger.info('Master-Primary is ready!');
 		}
 	});
