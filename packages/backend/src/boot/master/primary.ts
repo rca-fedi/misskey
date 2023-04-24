@@ -23,8 +23,6 @@ const logger = new Logger('master', 'cyan');
 const bootLogger = logger.createSubLogger('boot', 'magenta', false);
 const masterLogger = new Logger('master', 'blue');
 
-masterMain();
-
 export async function masterMain() {
 	let config!: Config;
 
@@ -51,12 +49,12 @@ export async function masterMain() {
 	if (cluster.isPrimary) {
 		await cluster.fork();
 	}
-	if (cluster.isWorker) {
-		bootLogger.info("initializing master-worker...");
-		await workerMain.workerMain();
-	}
+	// if (cluster.isWorker) {
+	// 	bootLogger.info("initializing master-worker...");
+	// 	await workerMain.workerMain();
+	// }
 
-	bootLogger.succ(`Now listening on port ${config.port} on ${config.url}`, null, true);
+	// bootLogger.succ(`Now listening on port ${config.port} on ${config.url}`, null, true);
 
 	if (!envOption.noDaemons) {
 		import('../../daemons/server-stats.js').then(x => x.default());
@@ -132,14 +130,15 @@ cluster.on('fork', worker => {
 
 // Listen online workers
 cluster.on('online', worker => {
-	masterLogger.debug(`Process is now online: [WorkerID:${worker.id}]`);
+	bootLogger.debug(`Process is now online: [WorkerID:${worker.id}]`);
+	process.send!("worker-ready");
 });
 
 // Listen for dying workers
 cluster.on('exit', worker => {
 	// Replace the dead worker,
 	// we're not sentimental
-	masterLogger.error(chalk.red(`[${worker.id}] died :(`));
+	bootLogger.error(chalk.red(`[${worker.id}] died :(`));
 	cluster.fork();
 });
 

@@ -23,8 +23,6 @@ const logger = new Logger('v12c', 'cyan');
 const bootLogger = logger.createSubLogger('boot', 'magenta', false);
 const masterLogger = new Logger('master', 'blue');
 
-masterMain();
-
 export async function masterMain() {
 	let config!: Config;
 
@@ -102,42 +100,43 @@ async function connectDb(): Promise<void> {
 	}
 }
 
-async function spawnWorkers(limit: number = 1) { //TODO
-	const workers = Math.min(limit, os.cpus().length);
-	bootLogger.info(`!Starting ${workers} worker${workers === 1 ? '' : 's'}...`);
-	await Promise.all([...Array(workers)].map(spawnWorker));
-	bootLogger.succ('!All workers started');
-}
+// async function spawnWorkers(limit: number = 1) { //TODO
+// 	const workers = Math.min(limit, os.cpus().length);
+// 	bootLogger.info(`!Starting ${workers} worker${workers === 1 ? '' : 's'}...`);
+// 	await Promise.all([...Array(workers)].map(spawnWorker));
+// 	bootLogger.succ('!All workers started');
+// }
 
-function spawnWorker(): Promise<void> {
-	return new Promise(res => {
-		const worker = cluster.fork();
-		worker.on('message', message => {
-			if (message === 'listenFailed') {
-				bootLogger.error(`!The server Listen failed due to the previous error.`);
-				process.exit(1);
-			}
-			if (message !== 'ready') return;
-			res();
-		});
-	});
-}
+// function spawnWorker(): Promise<void> {
+// 	return new Promise(res => {
+// 		const worker = cluster.fork();
+// 		worker.on('message', message => {
+// 			if (message === 'listenFailed') {
+// 				bootLogger.error(`!The server Listen failed due to the previous error.`);
+// 				process.exit(1);
+// 			}
+// 			if (message !== 'ready') return;
+// 			res();
+// 		});
+// 	});
+// }
 
 // Listen new workers
 cluster.on('fork', worker => {
-	masterLogger.debug(`Process forked: [WorkerID:${worker.id}]`);
+	bootLogger.debug(`Process forked: [WorkerID:${worker.id}]`);
 });
 
 // Listen online workers
 cluster.on('online', worker => {
-	masterLogger.debug(`Process is now online: [WorkerID:${worker.id}]`);
+	bootLogger.debug(`Process is now online: [WorkerID:${worker.id}]`);
+	process.send!("worker-ready");
 });
 
 // Listen for dying workers
 cluster.on('exit', worker => {
 	// Replace the dead worker,
 	// we're not sentimental
-	masterLogger.error(chalk.red(`[${worker.id}] died :(`));
+	bootLogger.error(chalk.red(`[${worker.id}] died :(`));
 	cluster.fork();
 });
 

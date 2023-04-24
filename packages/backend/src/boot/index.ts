@@ -31,10 +31,10 @@ export default async function() {
 
 	// 各プライマリプロセスの起動-------------------------------------------
 	// Master-Primary
-	const master = child_process.fork('./built/boot/master/primary.js', [], {});
+	const master = child_process.fork('./built/boot/master/index.js', [], {});
 
 	// v12c-Primary
-	const v12c = child_process.fork('./built/boot/v12-compatible/primary.js', [], {});
+	const v12c = child_process.fork('./built/boot/v12-compatible/index.js', [], {});
 
 	// Message Listener
 	master.on('message', (msg) => {
@@ -42,10 +42,20 @@ export default async function() {
 			masterLogger.info('Master-Primary is ready!');
 		}
 	});
+	master.on('message', (msg) => {
+		if (msg === 'worker-ready') {
+			masterLogger.info('Master-Worker is ready!');
+		}
+	});
 
 	v12c.on('message', (msg) => {
 		if (msg === 'primary-ready') {
 			masterLogger.info('v12c-Primary is ready!');
+		}
+	});
+	v12c.on('message', (msg) => {
+		if (msg === 'worker-ready') {
+			masterLogger.info('v12c-Worker is ready!');
 		}
 	});
 
