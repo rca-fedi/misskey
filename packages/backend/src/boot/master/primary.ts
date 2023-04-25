@@ -16,8 +16,6 @@ import { showMachineInfo } from '@/misc/show-machine-info.js';
 import { db, initDb } from '../../db/postgre.js';
 import * as workerMain from './worker.js';
 
-import { redisClient } from '@/db/redis.js';
-
 // Start primary process
 const logger = new Logger('master', 'cyan');
 const bootLogger = logger.createSubLogger('boot', 'magenta', false);
@@ -47,12 +45,12 @@ export async function masterMain() {
 	// await spawnWorkers(); //ワーカー起動するやつ
 
 	if (cluster.isPrimary) {
-		await cluster.fork();
+		await spawnWorkers(1);
 	}
-	// if (cluster.isWorker) {
-	// 	bootLogger.info("initializing master-worker...");
-	// 	await workerMain.workerMain();
-	// }
+	if (cluster.isWorker) {
+		bootLogger.info("initializing master-worker...");
+		await workerMain.workerMain();
+	}
 
 	// bootLogger.succ(`Now listening on port ${config.port} on ${config.url}`, null, true);
 
@@ -117,30 +115,11 @@ function spawnWorker(): Promise<void> {
 				bootLogger.error(`The server Listen failed due to the previous error.`);
 				process.exit(1);
 			}
-			if (message !== 'yoiyami server ready' || message !== 'v12 compatible server ready') return;
+			if (message !== 'worker-ready') return;
 			res();
 		});
 	});
 }
-
-// Listen new workers
-cluster.on('fork', worker => {
-	masterLogger.debug(`Process forked: [WorkerID:${worker.id}]`);
-});
-
-// Listen online workers
-cluster.on('online', worker => {
-	bootLogger.debug(`Process is now online: [WorkerID:${worker.id}]`);
-	process.send!("worker-ready");
-});
-
-// Listen for dying workers
-cluster.on('exit', worker => {
-	// Replace the dead worker,
-	// we're not sentimental
-	bootLogger.error(chalk.red(`[${worker.id}] died :(`));
-	cluster.fork();
-});
 
 // Display detail of unhandled promise rejection
 if (!envOption.quiet) {

@@ -1,7 +1,6 @@
 import cluster from 'node:cluster';
 import Logger from '@/services/logger.js';
 
-import { redisClient } from '@/db/redis.js';
 import { initDb } from '../../db/postgre.js';
 
 export async function workerMain(): Promise<void> {

@@ -16,8 +16,6 @@ import { showMachineInfo } from '@/misc/show-machine-info.js';
 import { db, initDb } from '../../db/postgre.js';
 import * as workerMain from './worker.js';
 
-import { redisClient } from '@/db/redis.js';
-
 // Start primary process
 const logger = new Logger('v12c', 'cyan');
 const bootLogger = logger.createSubLogger('boot', 'magenta', false);
@@ -47,7 +45,7 @@ export async function masterMain() {
 	// await spawnWorkers(); //ワーカー起動するやつ
 
 	if (cluster.isPrimary) {
-		await cluster.fork();
+		await spawnWorkers(1);
 	}
 	if (cluster.isWorker) {
 		bootLogger.info("initializing v12c-worker...");
@@ -100,45 +98,26 @@ async function connectDb(): Promise<void> {
 	}
 }
 
-// async function spawnWorkers(limit: number = 1) { //TODO
-// 	const workers = Math.min(limit, os.cpus().length);
-// 	bootLogger.info(`!Starting ${workers} worker${workers === 1 ? '' : 's'}...`);
-// 	await Promise.all([...Array(workers)].map(spawnWorker));
-// 	bootLogger.succ('!All workers started');
-// }
+async function spawnWorkers(limit: number = 1) { //TODO
+	const workers = Math.min(limit, os.cpus().length);
+	bootLogger.info(`Starting ${workers} worker${workers === 1 ? '' : 's'}...`);
+	await Promise.all([...Array(workers)].map(spawnWorker));
+	bootLogger.succ('All workers started');
+}
 
-// function spawnWorker(): Promise<void> {
-// 	return new Promise(res => {
-// 		const worker = cluster.fork();
-// 		worker.on('message', message => {
-// 			if (message === 'listenFailed') {
-// 				bootLogger.error(`!The server Listen failed due to the previous error.`);
-// 				process.exit(1);
-// 			}
-// 			if (message !== 'ready') return;
-// 			res();
-// 		});
-// 	});
-// }
-
-// Listen new workers
-cluster.on('fork', worker => {
-	bootLogger.debug(`Process forked: [WorkerID:${worker.id}]`);
-});
-
-// Listen online workers
-cluster.on('online', worker => {
-	bootLogger.debug(`Process is now online: [WorkerID:${worker.id}]`);
-	process.send!("worker-ready");
-});
-
-// Listen for dying workers
-cluster.on('exit', worker => {
-	// Replace the dead worker,
-	// we're not sentimental
-	bootLogger.error(chalk.red(`[${worker.id}] died :(`));
-	cluster.fork();
-});
+function spawnWorker(): Promise<void> {
+	return new Promise(res => {
+		const worker = cluster.fork();
+		worker.on('message', message => {
+			if (message === 'listenFailed') {
+				bootLogger.error(`The server Listen failed due to the previous error.`);
+				process.exit(1);
+			}
+			if (message !== 'worker-ready') return;
+			res();
+		});
+	});
+}
 
 // Display detail of unhandled promise rejection
 if (!envOption.quiet) {

@@ -1,20 +1,12 @@
-import cluster from 'node:cluster';
 import * as child_process from 'child_process';
+import * as os from 'node:os';
 import chalk from 'chalk';
 import Xev from 'xev';
-import * as os from 'node:os';
 
 import Logger from '@/services/logger.js';
-import * as MasterPrimary from '@/boot/master/primary.js';
-import { envOption } from '../env.js';
 
 // for typeorm
 import 'reflect-metadata';
-import { masterMain } from './master.js';
-import { initializeWorkers } from './worker.js';
-import { redisClient } from '@/db/redis.js';
-import { osInfo } from 'systeminformation';
-import { ChildProcess } from 'node:child_process';
 
 const logger = new Logger('core', 'cyan');
 const clusterLogger = logger.createSubLogger('cluster', 'orange', false);
@@ -60,47 +52,21 @@ export default async function() {
 	});
 
 	//--------------------------------------------------------------------
-
-	// 起動ログ
-	function greet() {
-		console.log(chalk.green("Starting yoiyami master process..."));
-		// いい感じのロゴを出したい
-	}
-
-	// システム情報
-	function envInfo() {
-		logger.info("Environment Info:");
-		logger.info(`		CPU: `+os.cpus()[0].model);
-		//  もうちょっといろいろだしたい
-	}
-	
 }
 
+// 起動ログ
+function greet() {
+	console.log(chalk.green("Starting yoiyami master process..."));
+	// いい感じのロゴを出したい
+}
+
+// システム情報
+function envInfo() {
+	logger.info("Environment Info:");
+	logger.info(`		CPU: `+os.cpus()[0].model);
+	//  もうちょっといろいろだしたい
+}
 //#region Events
-
-// Listen new workers
-cluster.on('fork', worker => {
-	clusterLogger.debug(`Process forked: [WorkerID:${worker.id}]`);
-});
-
-// Listen online workers
-cluster.on('online', worker => {
-	clusterLogger.debug(`Process is now online: [WorkerID:${worker.id}]`);
-});
-
-// Listen for dying workers
-cluster.on('exit', worker => {
-	// Replace the dead worker,
-	// we're not sentimental
-	clusterLogger.error(chalk.red(`[${worker.id}] died :(`));
-	cluster.fork();
-});
-
-// Display detail of unhandled promise rejection
-if (!envOption.quiet) {
-	process.on('unhandledRejection', console.dir);
-}
-
 // Display detail of uncaught exception
 process.on('uncaughtException', err => {
 	try {
