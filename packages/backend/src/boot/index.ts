@@ -1,5 +1,5 @@
 import cluster from 'node:cluster';
-import * as yyManger from './manager.js';
+import * as yyManger from './master.js';
 
 export default async function() {
 	//Manager Process Entry Point?

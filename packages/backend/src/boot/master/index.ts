@@ -2,14 +2,14 @@ import cluster from "node:cluster";
 import Logger from '@/services/logger.js';
 import * as masterPrimary from './primary.js';
 import * as masterWorker from './worker.js';
-
-init();
 const masterLogger = new Logger("master", "cyan");
-
+init();
 
 // 起動判定とかする
 async function init() {
 	const masterLogger = new Logger("master", "cyan");
+
+	process.title = `yoiyami (${cluster.isPrimary ? 'master' : 'worker'})`;
 
 	if (cluster.isPrimary) {
 		await masterPrimary.masterMain();

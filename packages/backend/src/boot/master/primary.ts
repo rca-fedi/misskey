@@ -45,7 +45,7 @@ export async function masterMain() {
 	// await spawnWorkers(); //ワーカー起動するやつ
 
 	if (cluster.isPrimary) {
-		await spawnWorkers(1);
+		await spawnWorkers(2);
 	}
 	if (cluster.isWorker) {
 		bootLogger.info("initializing master-worker...");
