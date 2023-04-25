@@ -7,7 +7,6 @@ const masterLogger = new Logger("worker", "cyan");
 init();
 // 起動判定とかする
 async function init() {
-
 	if (cluster.isPrimary) {
 		await masterPrimary.masterMain();
 		process.send!('primary-ready');

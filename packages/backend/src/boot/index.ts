@@ -26,7 +26,7 @@ export default async function() {
 	const master = child_process.fork('./built/boot/master/index.js', [], {});
 
 	// v12c-Primary
-	const v12c = child_process.fork('./built/boot/v12-compatible/index.js', [], {});
+	// const v12c = child_process.fork('./built/boot/v12-compatible/index.js', [], {});
 
 	// Message Listener
 	master.on('message', (msg) => {
@@ -40,16 +40,16 @@ export default async function() {
 		}
 	});
 
-	v12c.on('message', (msg) => {
-		if (msg === 'primary-ready') {
-			masterLogger.info('v12c-Primary is ready!');
-		}
-	});
-	v12c.on('message', (msg) => {
-		if (msg === 'worker-ready') {
-			masterLogger.info('v12c-Worker is ready!');
-		}
-	});
+	// v12c.on('message', (msg) => {
+	// 	if (msg === 'primary-ready') {
+	// 		masterLogger.info('v12c-Primary is ready!');
+	// 	}
+	// });
+	// v12c.on('message', (msg) => {
+	// 	if (msg === 'worker-ready') {
+	// 		masterLogger.info('v12c-Worker is ready!');
+	// 	}
+	// });
 
 	//--------------------------------------------------------------------
 }
