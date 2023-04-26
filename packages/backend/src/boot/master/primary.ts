@@ -7,6 +7,8 @@ import chalk from 'chalk';
 import chalkTemplate from 'chalk-template';
 import semver from 'semver';
 
+import 'reflect-metadata';
+
 import Logger from '@/services/logger.js';
 import loadConfig from '@/config/load.js';
 import { Config } from '@/config/types.js';
@@ -120,23 +122,4 @@ function spawnWorker(): Promise<void> {
 		});
 	});
 }
-
-// Display detail of unhandled promise rejection
-if (!envOption.quiet) {
-	process.on('unhandledRejection', console.dir);
-}
-
-// Display detail of uncaught exception
-process.on('uncaughtException', err => {
-	try {
-		logger.error(err);
-	} catch { }
-});
-
-// Dying away...
-process.on('exit', code => {
-	logger.info(`The process is going to exit with code ${code}`);
-});
-
-//#endregion
 
