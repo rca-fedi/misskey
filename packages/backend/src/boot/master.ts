@@ -19,6 +19,7 @@ export async function initManager() {
 // 検証用Config (TODO: Configファイルに移す)
 	const v12Compatible = true;
 
+	await bootProgrss();
 	greet();
 	envInfo();
 
@@ -70,6 +71,18 @@ function envInfo() {
 	//  もうちょっといろいろだしたい
 }
 
-function checkProcessConfig() {
+async function bootProgrss() {
+	// debuglogger
+	const coreDebugLogger = logger.createSubLogger('debug', 'yellow');
 
+	coreDebugLogger.debug("TermInfo: ");
+	coreDebugLogger.debug(`  WindowSize: ${process.stdout.getWindowSize()}`);
+	coreDebugLogger.debug(`横幅のテスト`);
+	console.log('□'.repeat(process.stdout.getWindowSize()[0]));
+	process.stdout.write('□'.repeat(process.stdout.getWindowSize()[0]));
+	for (let i = 0; i <= process.stdout.getWindowSize()[0]; i++) {
+		process.stdout.write('■'.repeat(i) + '\r');
+		// 100ms待機
+		await new Promise(resolve => setTimeout(resolve, 100));
+	}
 }
