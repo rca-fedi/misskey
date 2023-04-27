@@ -19,14 +19,16 @@ export default class Logger {
 	private domain: Domain;
 	private parentLogger: Logger | null = null;
 	private store: boolean;
+	private group: Group;
 	private syslogClient: any | null = null;
 
-	constructor(domain: string, color?: string, store = true) {
+	constructor(domain: string, color?: string, group: Group = 'other', store = true) {
 		this.domain = {
 			name: domain,
 			color: color,
 		};
 		this.store = store;
+		this.group = group;
 
 		if (config.syslog) {
 			this.syslogClient = new SyslogPro.RFC5424({
@@ -49,13 +51,13 @@ export default class Logger {
 		return logger;
 	}
 
-	private log(level: Level, message: string, data?: Record<string, any> | null, important = false,group: Group = 'other', subDomains: Domain[] = [], store = true): void {
+	private log(level: Level, message: string, data?: Record<string, any> | null, important = false, group:Group = 'other', subDomains: Domain[] = [], store = true): void {
 		if (envOption.quiet) return;
 		if (!this.store) store = false;
 		if (level === 'debug') store = false;
 
 		if (this.parentLogger) {
-			this.parentLogger.log(level, message, data, important, group,[this.domain].concat(subDomains), store);
+			this.parentLogger.log(level, message, data, important, this.group,[this.domain].concat(subDomains), store);
 			return;
 		}
 
@@ -77,10 +79,10 @@ export default class Logger {
 			level === 'info' ? message :
 			null;
 		const g =
-			group === 'core' ? chalk.bgGreen('CORE  ') :
-			group === 'master' ? chalk.bgYellow('MASTER') :
-			group === 'v12c' ? chalk.bgCyan('V12C  ') :
-			group === 'other' ? chalk.bgWhite('OTHER ') :
+			this.group === 'core' ? chalk.bgGreen('CORE  ') :
+			this.group === 'master' ? chalk.bgYellow('MASTER') :
+			this.group === 'v12c' ? chalk.bgCyan('V12C  ') :
+			this.group === 'other' ? chalk.bgWhite('OTHER ') :
 			null;
 
 		let log = `${g}: ${l} ${worker}\t[${domains.join(' ')}]\t${m}`;
