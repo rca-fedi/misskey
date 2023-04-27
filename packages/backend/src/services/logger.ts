@@ -13,6 +13,7 @@ type Domain = {
 };
 
 type Level = 'error' | 'success' | 'warning' | 'debug' | 'info';
+type Group = 'core' | 'master' | 'v12c' | 'other'; 
 
 export default class Logger {
 	private domain: Domain;
@@ -48,13 +49,13 @@ export default class Logger {
 		return logger;
 	}
 
-	private log(level: Level, message: string, data?: Record<string, any> | null, important = false, subDomains: Domain[] = [], store = true): void {
+	private log(level: Level, message: string, data?: Record<string, any> | null, important = false,group: Group = 'other', subDomains: Domain[] = [], store = true): void {
 		if (envOption.quiet) return;
 		if (!this.store) store = false;
 		if (level === 'debug') store = false;
 
 		if (this.parentLogger) {
-			this.parentLogger.log(level, message, data, important, [this.domain].concat(subDomains), store);
+			this.parentLogger.log(level, message, data, important, group,[this.domain].concat(subDomains), store);
 			return;
 		}
 
@@ -75,8 +76,14 @@ export default class Logger {
 			level === 'debug' ? chalk.gray(message) :
 			level === 'info' ? message :
 			null;
+		const g =
+			group === 'core' ? chalk.bgGreen('CORE  ') :
+			group === 'master' ? chalk.bgYellow('MASTER') :
+			group === 'v12c' ? chalk.bgCyan('V12C  ') :
+			group === 'other' ? chalk.bgWhite('OTHER ') :
+			null;
 
-		let log = `${l} ${worker}\t[${domains.join(' ')}]\t${m}`;
+		let log = `${g}: ${l} ${worker}\t[${domains.join(' ')}]\t${m}`;
 		if (envOption.withLogTime) log = chalk.gray(time) + ' ' + log;
 
 		console.log(important ? chalk.bold(log) : log);
