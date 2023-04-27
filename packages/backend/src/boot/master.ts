@@ -8,9 +8,10 @@ import Logger from '@/services/logger.js';
 // for typeorm
 import 'reflect-metadata';
 
-const logger = new Logger('core', 'cyan');
-const clusterLogger = logger.createSubLogger('cluster', 'orange', false);
-const masterLogger = new Logger('master', 'blue');
+// Loggerの作成
+const logger = new Logger('bootup', 'cyan', 'core');
+const masterlogger = logger.createSubLogger('master', 'green'); 
+
 const ev = new Xev();
 
 // Start core process
@@ -31,12 +32,12 @@ export async function initManager() {
 	// Message Listener
 	master.on('message', (msg) => {
 		if (msg === 'primary-ready') {
-			masterLogger.info('Master-Primary is ready!');
+			masterlogger.succ('Master-Primary is ready!');
 		}
 	});
 	master.on('message', (msg) => {
 		if (msg === 'worker-ready') {
-			masterLogger.info('Master-Worker is ready!');
+			masterlogger.succ('Master-Worker is ready!');
 		}
 	});
 
@@ -72,18 +73,3 @@ function envInfo() {
 function checkProcessConfig() {
 
 }
-
-//#region Events
-// Display detail of uncaught exception
-process.on('uncaughtException', err => {
-	try {
-		logger.error(err);
-	} catch { }
-});
-
-// Dying away...
-process.on('exit', code => {
-	logger.info(`The process is going to exit with code ${code}`);
-});
-
-//#endregion

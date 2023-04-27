@@ -13,7 +13,7 @@ type Domain = {
 };
 
 type Level = 'error' | 'success' | 'warning' | 'debug' | 'info';
-type Group = 'core' | 'master' | 'v12c' | 'other'; 
+type Group = 'core' | 'master' | 'v12c' | 'db' | 'other' | 'chart'; 
 
 export default class Logger {
 	private domain: Domain;
@@ -81,9 +81,16 @@ export default class Logger {
 		const g =
 			this.group === 'core' ? chalk.bgGreen('CORE  ') :
 			this.group === 'master' ? chalk.bgYellow('MASTER') :
-			this.group === 'v12c' ? chalk.bgCyan('V12C  ') :
+			this.group === 'v12c' ? chalk.bgYellow('V12C  ') :
+			this.group === 'db' ? chalk.bgBlueBright('DB    ') :
+			this.group === 'chart' ? chalk.bgBlueBright('CHART ') : //dbはたしかproductionじゃ表示されないので
 			this.group === 'other' ? chalk.bgWhite('OTHER ') :
 			null;
+
+		// Core process系: bgGreen
+		// サーバープロセス系: bgYellow
+		// DB,Chartとか: bgBlueBright
+		// その他: bgWhite
 
 		let log = `${g}: ${l} ${worker}\t[${domains.join(' ')}]\t${m}`;
 		if (envOption.withLogTime) log = chalk.gray(time) + ' ' + log;

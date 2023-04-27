@@ -19,9 +19,8 @@ import { db, initDb } from '../../db/postgre.js';
 import * as workerMain from './worker.js';
 
 // Start primary process
-const logger = new Logger('master', 'cyan');
-const bootLogger = logger.createSubLogger('boot', 'magenta', false);
-const masterLogger = new Logger('master', 'blue');
+const logger = new Logger('master', 'cyan', 'master');
+const bootLogger = logger.createSubLogger('boot', 'green');
 
 export async function masterMain() {
 	let config!: Config;
@@ -46,11 +45,11 @@ export async function masterMain() {
 
 	// await spawnWorkers(); //ワーカー起動するやつ
 
-	if (cluster.isPrimary) {
+	if (cluster.isPrimary || envOption.disableClustering) {
 		await spawnWorkers(2);
 	}
-	if (cluster.isWorker) {
-		bootLogger.info("initializing master-worker...");
+	if (cluster.isWorker || envOption.disableClustering) {
+		bootLogger.info('initializing master-primary process for worker...');
 		await workerMain.workerMain();
 	}
 
@@ -114,7 +113,7 @@ function spawnWorker(): Promise<void> {
 		const worker = cluster.fork();
 		worker.on('message', message => {
 			if (message === 'listenFailed') {
-				bootLogger.error(`The server Listen failed due to the previous error.`);
+				bootLogger.error('The server Listen failed due to the previous error.');
 				process.exit(1);
 			}
 			if (message !== 'worker-ready') return;

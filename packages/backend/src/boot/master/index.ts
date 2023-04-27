@@ -3,17 +3,19 @@ import cluster from 'node:cluster';
 import Logger from '@/services/logger.js';
 import * as masterPrimary from './primary.js';
 import * as masterWorker from './worker.js';
-const masterLogger = new Logger("master", "cyan");
 import { envOption } from '../../env.js';
 import 'reflect-metadata';
+
+//logger
+const masterLogger = new Logger("master", "cyan", 'master');
+const exitLogger = masterLogger.createSubLogger('exit', 'red');
+const errorLogger = masterLogger.createSubLogger('error', 'red');
 
 init();
 
 // 起動判定とかする
 async function init() {
-	const masterLogger = new Logger("master", "cyan");
-
-	process.title = `yoiyami (${cluster.isPrimary ? 'master' : 'worker'})`;
+	process.title = `yoiyami master (${cluster.isPrimary ? 'master' : 'worker'})`;
 
 	if (cluster.isPrimary || envOption.disableClustering) {
 		await masterPrimary.masterMain();
@@ -26,12 +28,12 @@ async function init() {
 
 // Listen new workers
 cluster.on('fork', worker => {
-	masterLogger.debug(`MASTERRRRRRRProcess forked: [WorkerID:${worker.id}]`);
+	masterLogger.debug(`Master process forked: [WorkerID:${worker.id}]`);
 });
 
 // Listen online workers
 cluster.on('online', worker => {
-	// bootLogger.debug(`Process is now online: [WorkerID:${worker.id}]`);
+	masterLogger.debug(`Master process is now online: [WorkerID:${worker.id}]`);
 	process.send!("worker-ready");
 });
 
@@ -51,13 +53,13 @@ if (!envOption.quiet) {
 // Display detail of uncaught exception
 process.on('uncaughtException', err => {
 	try {
-		logger.error(err);
+		errorLogger.error(err);
 	} catch { }
 });
 
 // Dying away...
 process.on('exit', code => {
-	logger.info(`The process is going to exit with code ${code}`);
+	exitLogger.info(`The process is going to exit with code ${code}`);
 });
 
 //#endregion

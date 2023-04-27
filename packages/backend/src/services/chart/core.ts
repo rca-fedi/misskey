@@ -11,7 +11,7 @@ import { dateUTC, isTimeSame, isTimeBefore, subtractTime, addTime } from '@/prel
 import { getChartInsertLock } from '@/misc/app-lock.js';
 import { db } from '@/db/postgre.js';
 
-const logger = new Logger('chart', 'white', process.env.NODE_ENV !== 'test');
+const logger = new Logger('chart', 'white', 'chart',process.env.NODE_ENV !== 'test');
 
 const columnPrefix = '___' as const;
 const uniqueTempColumnPrefix = 'unique_temp___' as const;
