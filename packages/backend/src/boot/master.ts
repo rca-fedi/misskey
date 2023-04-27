@@ -13,7 +13,7 @@ const clusterLogger = logger.createSubLogger('cluster', 'orange', false);
 const masterLogger = new Logger('master', 'blue');
 const ev = new Xev();
 
-// Start Manager process
+// Start core process
 export async function initManager() {
 // 検証用Config (TODO: Configファイルに移す)
 	const v12Compatible = true;
@@ -62,10 +62,17 @@ function greet() {
 
 // システム情報
 function envInfo() {
-	logger.info("Environment Info:");
-	logger.info(`		CPU: `+os.cpus()[0].model);
+	logger.info('Environment Info:');
+	logger.info(`  CPU: ${os.cpus()[0].model}`);
+	logger.info(`    Arch: ${os.arch()}`);
+	logger.info(`  Memory: ${os.freemem}/${os.totalmem}`);
 	//  もうちょっといろいろだしたい
 }
+
+function checkProcessConfig() {
+
+}
+
 //#region Events
 // Display detail of uncaught exception
 process.on('uncaughtException', err => {
