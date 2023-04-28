@@ -1,4 +1,4 @@
-import { deliverQueue } from '@/queue/queues.js';
+import { deliverQueue } from '@/queue-old/queues.js';
 import { URL } from 'node:url';
 import define from '../../../define.js';
 

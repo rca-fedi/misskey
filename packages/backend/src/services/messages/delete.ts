@@ -5,7 +5,7 @@ import { publishGroupMessagingStream, publishMessagingStream } from '@/services/
 import { renderActivity } from '@/remote/activitypub/renderer/index.js';
 import renderDelete from '@/remote/activitypub/renderer/delete.js';
 import renderTombstone from '@/remote/activitypub/renderer/tombstone.js';
-import { deliver } from '@/queue/index.js';
+import { deliver } from '@/queue-old/index.js';
 
 export async function deleteMessage(message: MessagingMessage) {
 	await MessagingMessages.delete(message.id);

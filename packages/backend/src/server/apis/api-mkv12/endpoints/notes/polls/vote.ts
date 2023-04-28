@@ -1,7 +1,7 @@
 import { Not } from 'typeorm';
 import { publishNoteStream } from '@/services/stream.js';
 import { createNotification } from '@/services/create-notification.js';
-import { deliver } from '@/queue/index.js';
+import { deliver } from '@/queue-old/index.js';
 import { renderActivity } from '@/remote/activitypub/renderer/index.js';
 import renderVote from '@/remote/activitypub/renderer/vote.js';
 import { deliverQuestionUpdate } from '@/services/note/polls/update.js';

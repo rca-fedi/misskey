@@ -1,7 +1,7 @@
 import Bull from 'bull';
 import { queueLogger } from '../../logger.js';
 import { DriveFiles, Notes, UserProfiles, Users } from '@/models/index.js';
-import { DbUserDeleteJobData } from '@/queue/types.js';
+import { DbUserDeleteJobData } from '@/queue-old/types.js';
 import { Note } from '@/models/entities/note.js';
 import { DriveFile } from '@/models/entities/drive-file.js';
 import { MoreThan } from 'typeorm';

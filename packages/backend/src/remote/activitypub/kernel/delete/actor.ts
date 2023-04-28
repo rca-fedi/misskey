@@ -1,5 +1,5 @@
 import { apLogger } from '../../logger.js';
-import { createDeleteAccountJob } from '@/queue/index.js';
+import { createDeleteAccountJob } from '@/queue-old/index.js';
 import { CacheableRemoteUser } from '@/models/entities/user.js';
 import { Users } from '@/models/index.js';
 

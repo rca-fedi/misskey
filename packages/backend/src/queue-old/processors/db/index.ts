@@ -1,5 +1,5 @@
 import Bull from 'bull';
-import { DbJobData } from '@/queue/types.js';
+import { DbJobData } from '@/queue-old/types.js';
 import { deleteDriveFiles } from './delete-drive-files.js';
 import { exportCustomEmojis } from './export-custom-emojis.js';
 import { exportNotes } from './export-notes.js';

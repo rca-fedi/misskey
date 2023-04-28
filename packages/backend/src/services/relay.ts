@@ -2,7 +2,7 @@ import { IsNull } from 'typeorm';
 import { renderFollowRelay } from '@/remote/activitypub/renderer/follow-relay.js';
 import { renderActivity, attachLdSignature } from '@/remote/activitypub/renderer/index.js';
 import renderUndo from '@/remote/activitypub/renderer/undo.js';
-import { deliver } from '@/queue/index.js';
+import { deliver } from '@/queue-old/index.js';
 import { ILocalUser, User } from '@/models/entities/user.js';
 import { Users, Relays } from '@/models/index.js';
 import { genId } from '@/misc/gen-id.js';

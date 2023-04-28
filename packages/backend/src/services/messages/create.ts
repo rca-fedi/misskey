@@ -11,7 +11,7 @@ import { Note } from '@/models/entities/note.js';
 import renderNote from '@/remote/activitypub/renderer/note.js';
 import renderCreate from '@/remote/activitypub/renderer/create.js';
 import { renderActivity } from '@/remote/activitypub/renderer/index.js';
-import { deliver } from '@/queue/index.js';
+import { deliver } from '@/queue-old/index.js';
 
 export async function createMessage(user: { id: User['id']; host: User['host']; }, recipientUser: CacheableUser | undefined, recipientGroup: UserGroup | undefined, text: string | null | undefined, file: DriveFile | null, uri?: string) {
 	const message = {

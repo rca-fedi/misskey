@@ -8,7 +8,7 @@ import { Users, Notes, Polls } from '@/models/index.js';
 import { MoreThan } from 'typeorm';
 import { Note } from '@/models/entities/note.js';
 import { Poll } from '@/models/entities/poll.js';
-import { DbUserJobData } from '@/queue/types.js';
+import { DbUserJobData } from '@/queue-old/types.js';
 import { createTemp } from '@/misc/create-temp.js';
 
 const logger = queueLogger.createSubLogger('export-notes');

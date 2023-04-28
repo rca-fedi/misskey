@@ -1,5 +1,5 @@
 import ms from 'ms';
-import { createExportCustomEmojisJob } from '@/queue/index.js';
+import { createExportCustomEmojisJob } from '@/queue-old/index.js';
 import define from '../define.js';
 
 export const meta = {

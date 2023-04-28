@@ -1,5 +1,5 @@
 import define from '../../define.js';
-import { createExportMuteJob } from '@/queue/index.js';
+import { createExportMuteJob } from '@/queue-old/index.js';
 import ms from 'ms';
 
 export const meta = {

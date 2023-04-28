@@ -1,5 +1,5 @@
 import Bull from 'bull';
-import { ObjectStorageJobData } from '@/queue/types.js';
+import { ObjectStorageJobData } from '@/queue-old/types.js';
 import deleteFile from './delete-file.js';
 import cleanRemoteFiles from './clean-remote-files.js';
 

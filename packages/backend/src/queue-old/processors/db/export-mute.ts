@@ -6,14 +6,14 @@ import { addFile } from '@/services/drive/add-file.js';
 import { format as dateFormat } from 'date-fns';
 import { getFullApAccount } from '@/misc/convert-host.js';
 import { createTemp } from '@/misc/create-temp.js';
-import { Users, Blockings } from '@/models/index.js';
-import { MoreThan } from 'typeorm';
-import { DbUserJobData } from '@/queue/types.js';
+import { Users, Mutings } from '@/models/index.js';
+import { IsNull, MoreThan } from 'typeorm';
+import { DbUserJobData } from '@/queue-old/types.js';
 
-const logger = queueLogger.createSubLogger('export-blocking');
+const logger = queueLogger.createSubLogger('export-mute');
 
-export async function exportBlocking(job: Bull.Job<DbUserJobData>, done: any): Promise<void> {
-	logger.info(`Exporting blocking of ${job.data.user.id} ...`);
+export async function exportMute(job: Bull.Job<DbUserJobData>, done: any): Promise<void> {
+	logger.info(`Exporting mute of ${job.data.user.id} ...`);
 
 	const user = await Users.findOneBy({ id: job.data.user.id });
 	if (user == null) {
@@ -33,9 +33,10 @@ export async function exportBlocking(job: Bull.Job<DbUserJobData>, done: any): P
 		let cursor: any = null;
 
 		while (true) {
-			const blockings = await Blockings.find({
+			const mutes = await Mutings.find({
 				where: {
-					blockerId: user.id,
+					muterId: user.id,
+					expiresAt: IsNull(),
 					...(cursor ? { id: MoreThan(cursor) } : {}),
 				},
 				take: 100,
@@ -44,15 +45,15 @@ export async function exportBlocking(job: Bull.Job<DbUserJobData>, done: any): P
 				},
 			});
 
-			if (blockings.length === 0) {
+			if (mutes.length === 0) {
 				job.progress(100);
 				break;
 			}
 
-			cursor = blockings[blockings.length - 1].id;
+			cursor = mutes[mutes.length - 1].id;
 
-			for (const block of blockings) {
-				const u = await Users.findOneBy({ id: block.blockeeId });
+			for (const mute of mutes) {
+				const u = await Users.findOneBy({ id: mute.muteeId });
 				if (u == null) {
 					exportedCount++; continue;
 				}
@@ -71,8 +72,8 @@ export async function exportBlocking(job: Bull.Job<DbUserJobData>, done: any): P
 				exportedCount++;
 			}
 
-			const total = await Blockings.countBy({
-				blockerId: user.id,
+			const total = await Mutings.countBy({
+				muterId: user.id,
 			});
 
 			job.progress(exportedCount / total);
@@ -81,7 +82,7 @@ export async function exportBlocking(job: Bull.Job<DbUserJobData>, done: any): P
 		stream.end();
 		logger.succ(`Exported to: ${path}`);
 
-		const fileName = 'blocking-' + dateFormat(new Date(), 'yyyy-MM-dd-HH-mm-ss') + '.csv';
+		const fileName = 'mute-' + dateFormat(new Date(), 'yyyy-MM-dd-HH-mm-ss') + '.csv';
 		const driveFile = await addFile({ user, path, name: fileName, force: true });
 
 		logger.succ(`Exported to: ${driveFile.id}`);

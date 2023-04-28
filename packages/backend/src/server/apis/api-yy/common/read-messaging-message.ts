@@ -11,7 +11,7 @@ import { UserGroup } from '@/models/entities/user-group.js';
 import { toArray } from '@/prelude/array.js';
 import { renderReadActivity } from '@/remote/activitypub/renderer/read.js';
 import { renderActivity } from '@/remote/activitypub/renderer/index.js';
-import { deliver } from '@/queue/index.js';
+import { deliver } from '@/queue-old/index.js';
 import orderedCollection from '@/remote/activitypub/renderer/ordered-collection.js';
 
 /**

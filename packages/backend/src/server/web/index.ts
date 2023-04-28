@@ -22,7 +22,7 @@ import config from '@/config/index.js';
 import { Users, Notes, UserProfiles, Pages, Channels, Clips, GalleryPosts } from '@/models/index.js';
 import * as Acct from '@/misc/acct.js';
 import { getNoteSummary } from '@/misc/get-note-summary.js';
-import { queues } from '@/queue/queues.js';
+import { queues } from '@/queue-old/queues.js';
 import { genOpenapiSpec } from '../apis/api-yy/openapi/gen-spec.js';
 import { urlPreviewHandler } from './url-preview.js';
 import { manifestHandler } from './manifest.js';

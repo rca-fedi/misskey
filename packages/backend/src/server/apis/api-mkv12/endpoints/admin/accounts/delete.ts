@@ -2,7 +2,7 @@ import define from '../../../define.js';
 import { Users } from '@/models/index.js';
 import { doPostSuspend } from '@/services/suspend-user.js';
 import { publishUserEvent } from '@/services/stream.js';
-import { createDeleteAccountJob } from '@/queue/index.js';
+import { createDeleteAccountJob } from '@/queue-old/index.js';
 
 export const meta = {
 	tags: ['admin'],

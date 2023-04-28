@@ -1,5 +1,5 @@
 import { Users } from '@/models/index.js';
-import { createDeleteAccountJob } from '@/queue/index.js';
+import { createDeleteAccountJob } from '@/queue-old/index.js';
 import { publishUserEvent } from './stream.js';
 import { doPostSuspend } from './suspend-user.js';
 

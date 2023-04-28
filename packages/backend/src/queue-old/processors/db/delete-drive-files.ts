@@ -4,7 +4,7 @@ import { queueLogger } from '../../logger.js';
 import { deleteFileSync } from '@/services/drive/delete-file.js';
 import { Users, DriveFiles } from '@/models/index.js';
 import { MoreThan } from 'typeorm';
-import { DbUserJobData } from '@/queue/types.js';
+import { DbUserJobData } from '@/queue-old/types.js';
 
 const logger = queueLogger.createSubLogger('delete-drive-files');
 

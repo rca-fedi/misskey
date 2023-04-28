@@ -1,20 +1,19 @@
 import Bull from 'bull';
 
 import { queueLogger } from '../../logger.js';
+import follow from '@/services/following/create.js';
 import * as Acct from '@/misc/acct.js';
 import { resolveUser } from '@/remote/resolve-user.js';
-import { pushUserToUserList } from '@/services/user-list/push.js';
 import { downloadTextFile } from '@/misc/download-text-file.js';
 import { isSelfHost, toPuny } from '@/misc/convert-host.js';
-import { DriveFiles, Users, UserLists, UserListJoinings } from '@/models/index.js';
-import { genId } from '@/misc/gen-id.js';
-import { DbUserImportJobData } from '@/queue/types.js';
+import { Users, DriveFiles } from '@/models/index.js';
+import { DbUserImportJobData } from '@/queue-old/types.js';
 import { IsNull } from 'typeorm';
 
-const logger = queueLogger.createSubLogger('import-user-lists');
+const logger = queueLogger.createSubLogger('import-following');
 
-export async function importUserLists(job: Bull.Job<DbUserImportJobData>, done: any): Promise<void> {
-	logger.info(`Importing user lists of ${job.data.user.id} ...`);
+export async function importFollowing(job: Bull.Job<DbUserImportJobData>, done: any): Promise<void> {
+	logger.info(`Importing following of ${job.data.user.id} ...`);
 
 	const user = await Users.findOneBy({ id: job.data.user.id });
 	if (user == null) {
@@ -38,22 +37,8 @@ export async function importUserLists(job: Bull.Job<DbUserImportJobData>, done: 
 		linenum++;
 
 		try {
-			const listName = line.split(',')[0].trim();
-			const { username, host } = Acct.parse(line.split(',')[1].trim());
-
-			let list = await UserLists.findOneBy({
-				userId: user.id,
-				name: listName,
-			});
-
-			if (list == null) {
-				list = await UserLists.insert({
-					id: genId(),
-					createdAt: new Date(),
-					userId: user.id,
-					name: listName,
-				}).then(x => UserLists.findOneByOrFail(x.identifiers[0]));
-			}
+			const acct = line.split(',')[0].trim();
+			const { username, host } = Acct.parse(acct);
 
 			let target = isSelfHost(host!) ? await Users.findOneBy({
 				host: IsNull(),
@@ -63,13 +48,22 @@ export async function importUserLists(job: Bull.Job<DbUserImportJobData>, done: 
 				usernameLower: username.toLowerCase(),
 			});
 
+			if (host == null && target == null) continue;
+
 			if (target == null) {
 				target = await resolveUser(username, host);
 			}
 
-			if (await UserListJoinings.findOneBy({ userListId: list!.id, userId: target.id }) != null) continue;
+			if (target == null) {
+				throw `cannot resolve user: @${username}@${host}`;
+			}
 
-			pushUserToUserList(target, list!);
+			// skip myself
+			if (target.id === job.data.user.id) continue;
+
+			logger.info(`Follow[${linenum}] ${target.id} ...`);
+
+			follow(user, target);
 		} catch (e) {
 			logger.warn(`Error in line:${linenum} ${e}`);
 		}

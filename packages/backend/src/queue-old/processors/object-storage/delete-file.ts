@@ -1,4 +1,4 @@
-import { ObjectStorageFileJobData } from '@/queue/types.js';
+import { ObjectStorageFileJobData } from '@/queue-old/types.js';
 import Bull from 'bull';
 import { deleteObjectStorageFile } from '@/services/drive/delete-file.js';
 

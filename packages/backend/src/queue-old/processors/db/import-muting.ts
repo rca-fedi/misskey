@@ -6,7 +6,7 @@ import { resolveUser } from '@/remote/resolve-user.js';
 import { downloadTextFile } from '@/misc/download-text-file.js';
 import { isSelfHost, toPuny } from '@/misc/convert-host.js';
 import { Users, DriveFiles, Mutings } from '@/models/index.js';
-import { DbUserImportJobData } from '@/queue/types.js';
+import { DbUserImportJobData } from '@/queue-old/types.js';
 import { User } from '@/models/entities/user.js';
 import { genId } from '@/misc/gen-id.js';
 import { IsNull } from 'typeorm';

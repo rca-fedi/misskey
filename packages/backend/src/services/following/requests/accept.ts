@@ -1,7 +1,7 @@
 import { renderActivity } from '@/remote/activitypub/renderer/index.js';
 import renderFollow from '@/remote/activitypub/renderer/follow.js';
 import renderAccept from '@/remote/activitypub/renderer/accept.js';
-import { deliver } from '@/queue/index.js';
+import { deliver } from '@/queue-old/index.js';
 import { publishMainStream } from '@/services/stream.js';
 import { insertFollowingDoc } from '../create.js';
 import { User, ILocalUser, CacheableUser } from '@/models/entities/user.js';

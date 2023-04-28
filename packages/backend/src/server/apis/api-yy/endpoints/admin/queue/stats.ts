@@ -1,4 +1,4 @@
-import { deliverQueue, inboxQueue, dbQueue, objectStorageQueue } from '@/queue/queues.js';
+import { deliverQueue, inboxQueue, dbQueue, objectStorageQueue } from '@/queue-old/queues.js';
 import define from '../../../define.js';
 
 export const meta = {

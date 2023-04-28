@@ -3,7 +3,7 @@ import { renderActivity } from '@/remote/activitypub/renderer/index.js';
 import renderFollow from '@/remote/activitypub/renderer/follow.js';
 import renderUndo from '@/remote/activitypub/renderer/undo.js';
 import renderReject from '@/remote/activitypub/renderer/reject.js';
-import { deliver, webhookDeliver } from '@/queue/index.js';
+import { deliver, webhookDeliver } from '@/queue-old/index.js';
 import Logger from '../logger.js';
 import { registerOrFetchInstanceDoc } from '../register-or-fetch-instance-doc.js';
 import { User } from '@/models/entities/user.js';

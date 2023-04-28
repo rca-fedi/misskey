@@ -11,7 +11,7 @@ import Outbox, { packActivity } from './activitypub/outbox.js';
 import Followers from './activitypub/followers.js';
 import Following from './activitypub/following.js';
 import Featured from './activitypub/featured.js';
-import { inbox as processInbox } from '@/queue/index.js';
+import { inbox as processInbox } from '@/queue-old/index.js';
 import { isSelfHost } from '@/misc/convert-host.js';
 import { Notes, Users, Emojis, NoteReactions } from '@/models/index.js';
 import { ILocalUser, User } from '@/models/entities/user.js';

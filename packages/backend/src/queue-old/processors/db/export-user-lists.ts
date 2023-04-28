@@ -8,7 +8,7 @@ import { getFullApAccount } from '@/misc/convert-host.js';
 import { createTemp } from '@/misc/create-temp.js';
 import { Users, UserLists, UserListJoinings } from '@/models/index.js';
 import { In } from 'typeorm';
-import { DbUserJobData } from '@/queue/types.js';
+import { DbUserJobData } from '@/queue-old/types.js';
 
 const logger = queueLogger.createSubLogger('export-user-lists');
 

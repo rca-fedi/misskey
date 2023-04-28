@@ -1,7 +1,7 @@
 import { publishMainStream } from '@/services/stream.js';
 import { renderActivity } from '@/remote/activitypub/renderer/index.js';
 import renderFollow from '@/remote/activitypub/renderer/follow.js';
-import { deliver } from '@/queue/index.js';
+import { deliver } from '@/queue-old/index.js';
 import { User } from '@/models/entities/user.js';
 import { Blockings, FollowRequests, Users } from '@/models/index.js';
 import { genId } from '@/misc/gen-id.js';

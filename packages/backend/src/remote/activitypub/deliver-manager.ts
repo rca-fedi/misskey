@@ -1,6 +1,6 @@
 import { Users, Followings } from '@/models/index.js';
 import { ILocalUser, IRemoteUser, User } from '@/models/entities/user.js';
-import { deliver } from '@/queue/index.js';
+import { deliver } from '@/queue-old/index.js';
 import { IsNull, Not } from 'typeorm';
 
 //#region types

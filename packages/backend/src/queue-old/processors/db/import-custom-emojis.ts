@@ -6,7 +6,7 @@ import { queueLogger } from '../../logger.js';
 import { createTempDir } from '@/misc/create-temp.js';
 import { downloadUrl } from '@/misc/download-url.js';
 import { DriveFiles, Emojis } from '@/models/index.js';
-import { DbUserImportJobData } from '@/queue/types.js';
+import { DbUserImportJobData } from '@/queue-old/types.js';
 import { addFile } from '@/services/drive/add-file.js';
 import { genId } from '@/misc/gen-id.js';
 import { db } from '@/db/postgre.js';

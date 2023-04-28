@@ -6,14 +6,15 @@ import { addFile } from '@/services/drive/add-file.js';
 import { format as dateFormat } from 'date-fns';
 import { getFullApAccount } from '@/misc/convert-host.js';
 import { createTemp } from '@/misc/create-temp.js';
-import { Users, Mutings } from '@/models/index.js';
-import { IsNull, MoreThan } from 'typeorm';
-import { DbUserJobData } from '@/queue/types.js';
+import { Users, Followings, Mutings } from '@/models/index.js';
+import { In, MoreThan, Not } from 'typeorm';
+import { DbUserJobData } from '@/queue-old/types.js';
+import { Following } from '@/models/entities/following.js';
 
-const logger = queueLogger.createSubLogger('export-mute');
+const logger = queueLogger.createSubLogger('export-following');
 
-export async function exportMute(job: Bull.Job<DbUserJobData>, done: any): Promise<void> {
-	logger.info(`Exporting mute of ${job.data.user.id} ...`);
+export async function exportFollowing(job: Bull.Job<DbUserJobData>, done: () => void): Promise<void> {
+	logger.info(`Exporting following of ${job.data.user.id} ...`);
 
 	const user = await Users.findOneBy({ id: job.data.user.id });
 	if (user == null) {
@@ -29,33 +30,39 @@ export async function exportMute(job: Bull.Job<DbUserJobData>, done: any): Promi
 	try {
 		const stream = fs.createWriteStream(path, { flags: 'a' });
 
-		let exportedCount = 0;
-		let cursor: any = null;
+		let cursor: Following['id'] | null = null;
+
+		const mutings = job.data.excludeMuting ? await Mutings.findBy({
+			muterId: user.id,
+		}) : [];
 
 		while (true) {
-			const mutes = await Mutings.find({
+			const followings = await Followings.find({
 				where: {
-					muterId: user.id,
-					expiresAt: IsNull(),
+					followerId: user.id,
+					...(mutings.length > 0 ? { followeeId: Not(In(mutings.map(x => x.muteeId))) } : {}),
 					...(cursor ? { id: MoreThan(cursor) } : {}),
 				},
 				take: 100,
 				order: {
 					id: 1,
 				},
-			});
+			}) as Following[];
 
-			if (mutes.length === 0) {
-				job.progress(100);
+			if (followings.length === 0) {
 				break;
 			}
 
-			cursor = mutes[mutes.length - 1].id;
+			cursor = followings[followings.length - 1].id;
 
-			for (const mute of mutes) {
-				const u = await Users.findOneBy({ id: mute.muteeId });
+			for (const following of followings) {
+				const u = await Users.findOneBy({ id: following.followeeId });
 				if (u == null) {
-					exportedCount++; continue;
+					continue;
+				}
+
+				if (job.data.excludeInactive && u.updatedAt && (Date.now() - u.updatedAt.getTime() > 1000 * 60 * 60 * 24 * 90)) {
+					continue;
 				}
 
 				const content = getFullApAccount(u.username, u.host);
@@ -69,20 +76,13 @@ export async function exportMute(job: Bull.Job<DbUserJobData>, done: any): Promi
 						}
 					});
 				});
-				exportedCount++;
 			}
-
-			const total = await Mutings.countBy({
-				muterId: user.id,
-			});
-
-			job.progress(exportedCount / total);
 		}
 
 		stream.end();
 		logger.succ(`Exported to: ${path}`);
 
-		const fileName = 'mute-' + dateFormat(new Date(), 'yyyy-MM-dd-HH-mm-ss') + '.csv';
+		const fileName = 'following-' + dateFormat(new Date(), 'yyyy-MM-dd-HH-mm-ss') + '.csv';
 		const driveFile = await addFile({ user, path, name: fileName, force: true });
 
 		logger.succ(`Exported to: ${driveFile.id}`);

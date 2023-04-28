@@ -1,7 +1,7 @@
 import { renderActivity } from '@/remote/activitypub/renderer/index.js';
 import renderFollow from '@/remote/activitypub/renderer/follow.js';
 import renderUndo from '@/remote/activitypub/renderer/undo.js';
-import { deliver } from '@/queue/index.js';
+import { deliver } from '@/queue-old/index.js';
 import { publishMainStream } from '@/services/stream.js';
 import { IdentifiableError } from '@/misc/identifiable-error.js';
 import { User, ILocalUser } from '@/models/entities/user.js';

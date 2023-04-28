@@ -2,7 +2,7 @@ import Bull from 'bull';
 import { In } from 'typeorm';
 import { Notes, Polls, PollVotes } from '@/models/index.js';
 import { queueLogger } from '../logger.js';
-import { EndedPollNotificationJobData } from '@/queue/types.js';
+import { EndedPollNotificationJobData } from '@/queue-old/types.js';
 import { createNotification } from '@/services/create-notification.js';
 
 const logger = queueLogger.createSubLogger('ended-poll-notification');

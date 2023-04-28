@@ -1,5 +1,5 @@
 import define from '../../define.js';
-import { createImportUserListsJob } from '@/queue/index.js';
+import { createImportUserListsJob } from '@/queue-old/index.js';
 import ms from 'ms';
 import { ApiError } from '../../error.js';
 import { DriveFiles } from '@/models/index.js';
