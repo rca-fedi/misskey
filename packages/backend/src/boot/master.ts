@@ -19,7 +19,7 @@ export async function initManager() {
 // 検証用Config (TODO: Configファイルに移す)
 	const v12Compatible = true;
 
-	await bootProgrss();
+	// await bootProgrss();
 	greet();
 	envInfo();
 
@@ -32,8 +32,8 @@ export async function initManager() {
 
 	// Message Listener
 	master.on('message', (msg) => {
-		if (msg === 'primary-ready') {
-			masterlogger.succ('Master-Primary is ready!');
+		if (msg === 'group-ready') {
+			masterlogger.succ('Master Group is ready!', null, true);
 		}
 	});
 	master.on('message', (msg) => {

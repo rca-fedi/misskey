@@ -19,7 +19,7 @@ async function init() {
 
 	if (cluster.isPrimary || envOption.disableClustering) {
 		await masterPrimary.masterMain();
-		process.send!('primary-ready');
+		process.send!('group-ready');
 	}
 	if (cluster.isWorker || envOption.disableClustering) {
 		await masterWorker.workerMain();

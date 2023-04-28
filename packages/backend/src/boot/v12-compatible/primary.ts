@@ -1,27 +1,20 @@
-import * as fs from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname } from 'node:path';
 import * as os from 'node:os';
 import cluster from 'node:cluster';
-import chalk from 'chalk';
-import chalkTemplate from 'chalk-template';
-import semver from 'semver';
+
+import 'reflect-metadata';
 
 import Logger from '@/services/logger.js';
 import loadConfig from '@/config/load.js';
 import { Config } from '@/config/types.js';
-import { lessThan } from '@/prelude/array.js';
 import { envOption } from '../../env.js';
-import { showMachineInfo } from '@/misc/show-machine-info.js';
 import { db, initDb } from '../../db/postgre.js';
 import * as workerMain from './worker.js';
 
 // Start primary process
-const logger = new Logger('v12c', 'cyan');
-const bootLogger = logger.createSubLogger('boot', 'magenta', false);
-const masterLogger = new Logger('master', 'blue');
+const logger = new Logger('master', 'cyan', 'master');
+const bootLogger = logger.createSubLogger('boot', 'green');
 
-export async function masterMain() {
+export async function masterMain(): Promise<void> {
 	let config!: Config;
 
 	// initialize app
@@ -34,23 +27,15 @@ export async function masterMain() {
 		process.exit(1);
 	}
 
-	// bootLogger.succ('yoiyami initialized!');
-
-
-	// とりあえず隠しとく（最終的にはここでconfigを読み込む)
-	// if (!envOption.disableClustering) { 
-	// 	await spawnWorkers(config.clusterLimit);
-	// }
-
-	// await spawnWorkers(); //ワーカー起動するやつ
-
-	if (cluster.isPrimary) {
+	if (cluster.isPrimary || envOption.disableClustering) {
 		await spawnWorkers(2);
 	}
-	if (cluster.isWorker) {
-		bootLogger.info("initializing v12c-worker...");
+	if (cluster.isWorker || envOption.disableClustering) {
+		bootLogger.info('initializing v12c-primary process for worker...');
 		await workerMain.workerMain();
 	}
+
+	// bootLogger.succ(`Now listening on port ${config.port} on ${config.url}`, null, true);
 
 	if (!envOption.noDaemons) {
 		import('../../daemons/server-stats.js').then(x => x.default());
@@ -98,7 +83,7 @@ async function connectDb(): Promise<void> {
 	}
 }
 
-async function spawnWorkers(limit: number = 1) { //TODO
+async function spawnWorkers(limit: number = 1): Promise<void> { //TODO
 	const workers = Math.min(limit, os.cpus().length);
 	bootLogger.info(`Starting ${workers} worker${workers === 1 ? '' : 's'}...`);
 	await Promise.all([...Array(workers)].map(spawnWorker));
@@ -110,7 +95,7 @@ function spawnWorker(): Promise<void> {
 		const worker = cluster.fork();
 		worker.on('message', message => {
 			if (message === 'listenFailed') {
-				bootLogger.error(`The server Listen failed due to the previous error.`);
+				bootLogger.error('The server Listen failed due to the previous error.');
 				process.exit(1);
 			}
 			if (message !== 'worker-ready') return;
@@ -118,23 +103,4 @@ function spawnWorker(): Promise<void> {
 		});
 	});
 }
-
-// Display detail of unhandled promise rejection
-if (!envOption.quiet) {
-	process.on('unhandledRejection', console.dir);
-}
-
-// Display detail of uncaught exception
-process.on('uncaughtException', err => {
-	try {
-		logger.error(err);
-	} catch { }
-});
-
-// Dying away...
-process.on('exit', code => {
-	logger.info(`The process is going to exit with code ${code}`);
-});
-
-//#endregion
 
