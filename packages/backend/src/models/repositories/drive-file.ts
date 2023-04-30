@@ -8,7 +8,7 @@ import config from '@/config/index.js';
 import { query, appendQuery } from '@/prelude/url.js';
 import { Meta } from '@/models/entities/meta.js';
 import { fetchMeta } from '@/misc/fetch-meta.js';
-import { Users, DriveFolders } from '../index.js';
+import { Users, DriveFolders } from '@/models/index.js';
 
 type PackOptions = {
 	detail?: boolean,

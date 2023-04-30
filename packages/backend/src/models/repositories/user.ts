@@ -10,7 +10,7 @@ import { USER_ACTIVE_THRESHOLD, USER_ONLINE_THRESHOLD } from '@/const.js';
 import { Cache } from '@/misc/cache.js';
 import { db } from '@/db/postgre.js';
 import { Instance } from '../entities/instance.js';
-import { Notes, NoteUnreads, FollowRequests, Notifications, MessagingMessages, UserNotePinings, Followings, Blockings, Mutings, UserProfiles, UserSecurityKeys, UserGroupJoinings, Pages, Announcements, AnnouncementReads, Antennas, AntennaNotes, ChannelFollowings, Instances, DriveFiles } from '../index.js';
+import { Notes, NoteUnreads, FollowRequests, Notifications, MessagingMessages, UserNotePinings, Followings, Blockings, Mutings, UserProfiles, UserSecurityKeys, UserGroupJoinings, Pages, Announcements, AnnouncementReads, Antennas, AntennaNotes, ChannelFollowings, Instances, DriveFiles } from '@/models/index.js';
 
 const userInstanceCache = new Cache<Instance | null>(1000 * 60 * 60 * 3);
 

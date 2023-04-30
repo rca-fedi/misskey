@@ -1,7 +1,7 @@
 import { db } from '@/db/postgre.js';
 import { GalleryPost } from '@/models/entities/gallery-post.js';
 import { Packed } from '@/misc/schema.js';
-import { Users, DriveFiles, GalleryLikes } from '../index.js';
+import { Users, DriveFiles, GalleryLikes } from '@/models/index.js';
 import { awaitAll } from '@/prelude/await-all.js';
 import { User } from '@/models/entities/user.js';
 

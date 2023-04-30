@@ -4,7 +4,7 @@ import { Packed } from '@/misc/schema.js';
 import { awaitAll } from '@/prelude/await-all.js';
 import { DriveFile } from '@/models/entities/drive-file.js';
 import { User } from '@/models/entities/user.js';
-import { Users, DriveFiles, PageLikes } from '../index.js';
+import { Users, DriveFiles, PageLikes } from '@/models/index.js';
 
 export const PageRepository = db.getRepository(Page).extend({
 	async pack(

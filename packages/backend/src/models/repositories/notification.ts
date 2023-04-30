@@ -1,5 +1,5 @@
 import { In, Repository } from 'typeorm';
-import { Users, Notes, UserGroupInvitations, AccessTokens, NoteReactions } from '../index.js';
+import { Users, Notes, UserGroupInvitations, AccessTokens, NoteReactions } from '@/models/index.js';
 import { Notification } from '@/models/entities/notification.js';
 import { awaitAll } from '@/prelude/await-all.js';
 import { Packed } from '@/misc/schema.js';

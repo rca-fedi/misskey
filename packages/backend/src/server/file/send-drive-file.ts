@@ -4,7 +4,7 @@ import { dirname } from 'node:path';
 import Koa from 'koa';
 import send from 'koa-send';
 import rename from 'rename';
-import { serverLogger } from '../index.js';
+import { serverLogger } from '@/models/index.js';
 import { contentDisposition } from '@/misc/content-disposition.js';
 import { DriveFiles } from '@/models/index.js';
 import { InternalStorage } from '@/services/drive/internal-storage.js';

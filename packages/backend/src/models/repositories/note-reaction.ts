@@ -1,6 +1,6 @@
 import { db } from '@/db/postgre.js';
 import { NoteReaction } from '@/models/entities/note-reaction.js';
-import { Notes, Users } from '../index.js';
+import { Notes, Users } from '@/models/index.js';
 import { Packed } from '@/misc/schema.js';
 import { convertLegacyReaction } from '@/misc/reaction-lib.js';
 import { User } from '@/models/entities/user.js';

@@ -1,7 +1,7 @@
 import { db } from '@/db/postgre.js';
 import { Channel } from '@/models/entities/channel.js';
 import { Packed } from '@/misc/schema.js';
-import { DriveFiles, ChannelFollowings, NoteUnreads } from '../index.js';
+import { DriveFiles, ChannelFollowings, NoteUnreads } from '@/models/index.js';
 import { User } from '@/models/entities/user.js';
 
 export const ChannelRepository = db.getRepository(Channel).extend({

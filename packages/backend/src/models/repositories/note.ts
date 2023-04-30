@@ -2,7 +2,7 @@ import { In } from 'typeorm';
 import * as mfm from 'mfm-js';
 import { Note } from '@/models/entities/note.js';
 import { User } from '@/models/entities/user.js';
-import { Users, PollVotes, DriveFiles, NoteReactions, Followings, Polls, Channels } from '../index.js';
+import { Users, PollVotes, DriveFiles, NoteReactions, Followings, Polls, Channels } from '@/models/index.js';
 import { Packed } from '@/misc/schema.js';
 import { nyaize } from '@/misc/nyaize.js';
 import { awaitAll } from '@/prelude/await-all.js';

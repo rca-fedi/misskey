@@ -1,5 +1,5 @@
 import { db } from '@/db/postgre.js';
-import { Users } from '../index.js';
+import { Users } from '@/models/index.js';
 import { Blocking } from '@/models/entities/blocking.js';
 import { awaitAll } from '@/prelude/await-all.js';
 import { Packed } from '@/misc/schema.js';

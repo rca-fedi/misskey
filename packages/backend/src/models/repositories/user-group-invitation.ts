@@ -1,6 +1,6 @@
 import { db } from '@/db/postgre.js';
 import { UserGroupInvitation } from '@/models/entities/user-group-invitation.js';
-import { UserGroups } from '../index.js';
+import { UserGroups } from '@/models/index.js';
 
 export const UserGroupInvitationRepository = db.getRepository(UserGroupInvitation).extend({
 	async pack(

@@ -1,6 +1,6 @@
 import { db } from '@/db/postgre.js';
 import { MessagingMessage } from '@/models/entities/messaging-message.js';
-import { Users, DriveFiles, UserGroups } from '../index.js';
+import { Users, DriveFiles, UserGroups } from '@/models/index.js';
 import { Packed } from '@/misc/schema.js';
 import { User } from '@/models/entities/user.js';
 

@@ -1,6 +1,6 @@
 import { db } from '@/db/postgre.js';
 import { GalleryLike } from '@/models/entities/gallery-like.js';
-import { GalleryPosts } from '../index.js';
+import { GalleryPosts } from '@/models/index.js';
 
 export const GalleryLikeRepository = db.getRepository(GalleryLike).extend({
 	async pack(
