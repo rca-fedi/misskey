@@ -2,7 +2,7 @@ import Bull from 'bull';
 import * as fs from 'node:fs';
 import unzipper from 'unzipper';
 
-import { queueLogger } from '../../logger.js';
+import { queueLogger } from '@/queue/logger.js';
 import { createTempDir } from '@/misc/create-temp.js';
 import { downloadUrl } from '@/misc/download-url.js';
 import { DriveFiles, Emojis } from '@/models/index.js';

@@ -2,7 +2,7 @@ import Bull from 'bull';
 import { LessThan } from 'typeorm';
 import { UserIps } from '@/models/index.js';
 
-import { queueLogger } from '../../logger.js';
+import { queueLogger } from '@/queue/logger.js';
 
 const logger = queueLogger.createSubLogger('clean');
 

@@ -1,7 +1,7 @@
 import Bull from 'bull';
 import { In } from 'typeorm';
 import { Mutings } from '@/models/index.js';
-import { queueLogger } from '../../logger.js';
+import { queueLogger } from '@/queue/logger.js';
 import { publishUserEvent } from '@/services/stream.js';
 
 const logger = queueLogger.createSubLogger('check-expired-mutings');

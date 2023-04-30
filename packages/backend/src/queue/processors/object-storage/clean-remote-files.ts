@@ -1,6 +1,6 @@
 import Bull from 'bull';
 
-import { queueLogger } from '../../logger.js';
+import { queueLogger } from '@/queue/logger.js';
 import { deleteFileSync } from '@/services/drive/delete-file.js';
 import { DriveFiles } from '@/models/index.js';
 import { MoreThan, Not, IsNull } from 'typeorm';

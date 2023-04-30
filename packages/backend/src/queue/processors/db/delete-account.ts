@@ -1,5 +1,5 @@
 import Bull from 'bull';
-import { queueLogger } from '../../logger.js';
+import { queueLogger } from '@/queue/logger.js';
 import { DriveFiles, Notes, UserProfiles, Users } from '@/models/index.js';
 import { DbUserDeleteJobData } from '@/queue/types.js';
 import { Note } from '@/models/entities/note.js';

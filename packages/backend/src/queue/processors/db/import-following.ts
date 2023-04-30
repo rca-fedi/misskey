@@ -1,6 +1,6 @@
 import Bull from 'bull';
 
-import { queueLogger } from '../../logger.js';
+import { queueLogger } from '@/queue/logger.js';
 import follow from '@/services/following/create.js';
 import * as Acct from '@/misc/acct.js';
 import { resolveUser } from '@/remote/resolve-user.js';
