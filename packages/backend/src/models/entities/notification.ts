@@ -1,6 +1,6 @@
 import { Entity, Index, JoinColumn, ManyToOne, Column, PrimaryColumn } from 'typeorm';
 import { User } from './user.js';
-import { id } from '../id.js';
+import { id } from '@/models/id.js';
 import { Note } from './note.js';
 import { FollowRequest } from './follow-request.js';
 import { UserGroupInvitation } from './user-group-invitation.js';

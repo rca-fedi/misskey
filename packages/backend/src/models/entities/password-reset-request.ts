@@ -1,5 +1,5 @@
 import { PrimaryColumn, Entity, Index, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { id } from '../id.js';
+import { id } from '@/models/id.js';
 import { User } from './user.js';
 
 @Entity()

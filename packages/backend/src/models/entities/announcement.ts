@@ -1,5 +1,5 @@
 import { Entity, Index, Column, PrimaryColumn } from 'typeorm';
-import { id } from '../id.js';
+import { id } from '@/models/id.js';
 
 @Entity()
 export class Announcement {

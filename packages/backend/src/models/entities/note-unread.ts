@@ -1,7 +1,7 @@
 import { PrimaryColumn, Entity, Index, JoinColumn, Column, ManyToOne } from 'typeorm';
 import { User } from './user.js';
 import { Note } from './note.js';
-import { id } from '../id.js';
+import { id } from '@/models/id.js';
 import { Channel } from './channel.js';
 
 @Entity()

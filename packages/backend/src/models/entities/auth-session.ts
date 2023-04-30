@@ -1,7 +1,7 @@
 import { Entity, PrimaryColumn, Index, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { User } from './user.js';
 import { App } from './app.js';
-import { id } from '../id.js';
+import { id } from '@/models/id.js';
 
 @Entity()
 export class AuthSession {

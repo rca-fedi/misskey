@@ -1,5 +1,5 @@
 import { Entity, Column, Index, OneToOne, JoinColumn, PrimaryColumn } from 'typeorm';
-import { id } from '../id.js';
+import { id } from '@/models/id.js';
 import { DriveFile } from './drive-file.js';
 
 @Entity()

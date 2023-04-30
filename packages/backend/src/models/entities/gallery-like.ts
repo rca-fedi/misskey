@@ -1,6 +1,6 @@
 import { PrimaryColumn, Entity, Index, JoinColumn, Column, ManyToOne } from 'typeorm';
 import { User } from './user.js';
-import { id } from '../id.js';
+import { id } from '@/models/id.js';
 import { GalleryPost } from './gallery-post.js';
 
 @Entity()

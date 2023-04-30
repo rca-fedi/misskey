@@ -1,7 +1,7 @@
 import { PrimaryColumn, Entity, Index, JoinColumn, Column, OneToOne } from 'typeorm';
 import { Note } from './note.js';
 import { User } from './user.js';
-import { id } from '../id.js';
+import { id } from '@/models/id.js';
 
 @Entity()
 export class PromoNote {
