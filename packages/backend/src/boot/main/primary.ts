@@ -4,7 +4,7 @@ import cluster from 'node:cluster';
 import Logger from '@/services/logger.js';
 import loadConfig from '@/config/load.js';
 import { Config } from '@/config/types';
-import { envOption } from '../../env.js';
+import { envOption } from '@/env.js';
 import { initDb } from '@/db/postgre.js';
 
 const logger = new Logger('main', 'purple');

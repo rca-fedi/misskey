@@ -3,7 +3,7 @@ import EventEmitter from 'node:events';
 import chalk from 'chalk';
 import Xev from 'xev';
 import Logger from '@/services/logger.js';
-import { envOption } from '../../env.js';
+import { envOption } from '@/env.js';
 import { initPrimary } from './primary.js';
 import { initWorker } from './worker.js';
 

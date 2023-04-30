@@ -1,10 +1,10 @@
 import * as os from 'node:os';
 import * as child_process from 'child_process';
 import chalk from 'chalk';
-import Logger from '@/services/logger.js';
-import { envOption } from '../env.js';
-import { initDb, db } from '@/db/postgre.js';
 import Xev from 'xev';
+import Logger from '@/services/logger.js';
+import { envOption } from '@/env.js';
+import { initDb, db } from '@/db/postgre.js';
 
 // TypeORM
 import 'reflect-metadata';
@@ -16,7 +16,6 @@ const exitLogger = new Logger('exit', 'red');
 
 // Process Manager
 export async function initCore(): Promise<void> {
-
 	greet();
 	envInfo();
 	await connectDb();
@@ -30,7 +29,6 @@ export async function initCore(): Promise<void> {
 	});
 
 	ev.mount();
-
 }
 
 function greet() {

@@ -5,7 +5,7 @@ import MainStreamConnection from './stream/index.js';
 import { ParsedUrlQuery } from 'querystring';
 import authenticate from './authenticate.js';
 import { EventEmitter } from 'events';
-import { subsdcriber as redisClient } from '../../db/redis.js';
+import { subsdcriber as redisClient } from '@/db/redis.js';
 import { Users } from '@/models/index.js';
 
 export const initializeStreamingServer = (server: http.Server) => {

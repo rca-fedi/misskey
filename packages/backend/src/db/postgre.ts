@@ -73,7 +73,7 @@ import { UserIp } from '@/models/entities/user-ip.js';
 import { Entrance } from '@/models/entities/entrance.js';
 
 import { entities as charts } from '@/services/chart/entities.js';
-import { envOption } from '../env.js';
+import { envOption } from '@/env.js';
 import { dbLogger } from './logger.js';
 import { redisClient } from './redis.js';
 
