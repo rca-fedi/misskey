@@ -20,8 +20,6 @@ import { createTemp } from '@/misc/create-temp.js';
 import { publishMainStream } from '@/services/stream.js';
 import * as Acct from '@/misc/acct.js';
 import { envOption } from '../../env.js';
-import activityPub from './activitypub.js';
-import nodeinfo from './nodeinfo.js';
 import wellKnown from './well-known.js';
 import apiServer from './api/index.js';
 import fileServer from './file/index.js';
@@ -66,8 +64,8 @@ app.use(mount('/proxy', proxyServer));
 const router = new Router();
 
 // Routing
-router.use(activityPub.routes());
-router.use(nodeinfo.routes());
+// router.use(activityPub.routes());
+// router.use(nodeinfo.routes());
 router.use(wellKnown.routes());
 
 router.get('/avatar/@:acct', async ctx => {
@@ -95,28 +93,28 @@ router.get('/identicon/:x', async ctx => {
 	ctx.body = fs.createReadStream(temp).on('close', () => cleanup());
 });
 
-router.get('/verify-email/:code', async ctx => {
-	const profile = await UserProfiles.findOneBy({
-		emailVerifyCode: ctx.params.code,
-	});
+// router.get('/verify-email/:code', async ctx => {
+// 	const profile = await UserProfiles.findOneBy({
+// 		emailVerifyCode: ctx.params.code,
+// 	});
 
-	if (profile != null) {
-		ctx.body = 'Verify succeeded!';
-		ctx.status = 200;
+// 	if (profile != null) {
+// 		ctx.body = 'Verify succeeded!';
+// 		ctx.status = 200;
 
-		await UserProfiles.update({ userId: profile.userId }, {
-			emailVerified: true,
-			emailVerifyCode: null,
-		});
+// 		await UserProfiles.update({ userId: profile.userId }, {
+// 			emailVerified: true,
+// 			emailVerifyCode: null,
+// 		});
 
-		publishMainStream(profile.userId, 'meUpdated', await Users.pack(profile.userId, { id: profile.userId }, {
-			detail: true,
-			includeSecrets: true,
-		}));
-	} else {
-		ctx.status = 404;
-	}
-});
+// 		publishMainStream(profile.userId, 'meUpdated', await Users.pack(profile.userId, { id: profile.userId }, {
+// 			detail: true,
+// 			includeSecrets: true,
+// 		}));
+// 	} else {
+// 		ctx.status = 404;
+// 	}
+// });
 
 // Register router
 app.use(router.routes());

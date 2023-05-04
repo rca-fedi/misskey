@@ -2,7 +2,6 @@ import Router from '@koa/router';
 
 import config from '@/config/index.js';
 import * as Acct from '@/misc/acct.js';
-import { links } from './nodeinfo.js';
 import { escapeAttribute, escapeValue } from '@/prelude/xml.js';
 import { Users } from '@/models/index.js';
 import { User } from '@/models/entities/user.js';
@@ -56,10 +55,6 @@ router.get('/.well-known/host-meta.json', async ctx => {
 			template: `${config.url}${webFingerPath}?resource={uri}`,
 		}],
 	};
-});
-
-router.get('/.well-known/nodeinfo', async ctx => {
-	ctx.body = { links };
 });
 
 /* TODO
