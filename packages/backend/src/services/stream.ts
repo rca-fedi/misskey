@@ -21,7 +21,7 @@ import {
 	NoteStreamTypes,
 	UserListStreamTypes,
 	UserStreamTypes,
-} from '@/server/api/stream/types.js';
+} from '@/servers/main/api/stream/types.js';
 import { Packed } from '@/misc/schema.js';
 
 class Publisher {

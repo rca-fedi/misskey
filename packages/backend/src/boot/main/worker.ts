@@ -6,7 +6,7 @@ import { initDb } from '@/db/postgre.js';
 export async function initWorker() {
 	await initDb();
 
-	await import('../../server/index.js').then(x => x.default());
+	await import('../../servers/main/index.js').then(x => x.default());
 
 	import('../../queue/index.js').then(x => x.default());
 	// await server();

@@ -9,7 +9,7 @@ import { fetchMeta } from '@/misc/fetch-meta.js';
 import { Users, UserProfiles } from '@/models/index.js';
 import { ILocalUser } from '@/models/entities/user.js';
 import signin from '../common/signin.js';
-import { redisClient } from '../../../db/redis.js';
+import { redisClient } from '../../../../db/redis.js';
 
 function getUserToken(ctx: Koa.BaseContext): string | null {
 	return ((ctx.headers['cookie'] || '').match(/igi=(\w+)/) || [null, null])[1];

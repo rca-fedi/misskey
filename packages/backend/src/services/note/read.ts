@@ -6,7 +6,7 @@ import { Not, IsNull, In } from 'typeorm';
 import { Channel } from '@/models/entities/channel.js';
 import { checkHitAntenna } from '@/misc/check-hit-antenna.js';
 import { getAntennas } from '@/misc/antenna-cache.js';
-import { readNotificationByQuery } from '@/server/api/common/read-notification.js';
+import { readNotificationByQuery } from '@/servers/main/api/common/read-notification.js';
 import { Packed } from '@/misc/schema.js';
 
 /**
