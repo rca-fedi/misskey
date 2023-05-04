@@ -29,15 +29,14 @@ export async function initCore(): Promise<void> {
 function greet() {
 	console.log(chalk.green('yoiyami Core process initializing...'));
 
-	console.log(chalk.hex('#FF80C0')('   :::   :::       ::::::::       :::::::::::    :::   :::           :::          :::   :::       :::::::::::'))
-	console.log(chalk.hex('#FF80C0')('  :+:   :+:      :+:    :+:          :+:        :+:   :+:         :+: :+:       :+:+: :+:+:          :+:'))
-	console.log(chalk.hex('#FF80C0')('  +:+ +:+       +:+    +:+          +:+         +:+ +:+         +:+   +:+     +:+ +:+:+ +:+         +:+'))
-	console.log(chalk.hex('#FF80C0')('  +#++:        +#+    +:+          +#+          +#++:         +#++:++#++:    +#+  +:+  +#+         +#+'))
-	console.log(chalk.hex('#FF80C0')('  +#+         +#+    +#+          +#+           +#+          +#+     +#+    +#+       +#+         +#+'))
-	console.log(chalk.hex('#FF80C0')(' #+#         #+#    #+#          #+#           #+#          #+#     #+#    #+#       #+#         #+#'))
-	console.log(chalk.hex('#FF80C0')('###          ########       ###########       ###          ###     ###    ###       ###     ###########'))
+	console.log(chalk.hex('#FF80C0')('   :::   :::       ::::::::       :::::::::::    :::   :::           :::          :::   :::       :::::::::::'));
+	console.log(chalk.hex('#FF80C0')('  :+:   :+:      :+:    :+:          :+:        :+:   :+:         :+: :+:       :+:+: :+:+:          :+:'));
+	console.log(chalk.hex('#FF80C0')('  +:+ +:+       +:+    +:+          +:+         +:+ +:+         +:+   +:+     +:+ +:+:+ +:+         +:+'));
+	console.log(chalk.hex('#FF80C0')('  +#++:        +#+    +:+          +#+          +#++:         +#++:++#++:    +#+  +:+  +#+         +#+'));
+	console.log(chalk.hex('#FF80C0')('  +#+         +#+    +#+          +#+           +#+          +#+     +#+    +#+       +#+         +#+'));
+	console.log(chalk.hex('#FF80C0')(' #+#         #+#    #+#          #+#           #+#          #+#     #+#    #+#       #+#         #+#'));
+	console.log(chalk.hex('#FF80C0')('###          ########       ###########       ###          ###     ###    ###       ###     ###########'));
 	// Greet design by @cat@kokuzei.cyou
-
 	// TODO: つくる
 }
 
