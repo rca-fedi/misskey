@@ -31,10 +31,10 @@ import packFeed from './feed.js';
 const _filename = fileURLToPath(import.meta.url);
 const _dirname = dirname(_filename);
 
-const staticAssets = `${_dirname}/../../../assets/`;
-const clientAssets = `${_dirname}/../../../../client/assets/`;
-const assets = `${_dirname}/../../../../../built/_client_dist_/`;
-const swAssets = `${_dirname}/../../../../../built/_sw_dist_/`;
+const staticAssets = `${_dirname}/../../../../assets/`;
+const clientAssets = `${_dirname}/../../../../../client/assets/`;
+const assets = `${_dirname}/../../../../../../built/_client_dist_/`;
+const swAssets = `${_dirname}/../../../../../../built/_sw_dist_/`;
 
 // Init app
 const app = new Koa();
@@ -77,13 +77,13 @@ app.use(views(_dirname + '/views', {
 		version: config.version,
 		getClientEntry: () => process.env.NODE_ENV === 'production' ?
 			config.clientEntry :
-			JSON.parse(readFileSync(`${_dirname}/../../../../../built/_client_dist_/manifest.json`, 'utf-8'))['src/init.ts'],
+			JSON.parse(readFileSync(`${_dirname}/../../../../../../built/_client_dist_/manifest.json`, 'utf-8'))['src/init.ts'],
 		config,
 	},
 }));
 
 // Serve favicon
-app.use(favicon(`${_dirname}/../../../assets/favicon.ico`));
+app.use(favicon(`${_dirname}/../../../../assets/favicon.ico`));
 
 // Common request handler
 app.use(async (ctx, next) => {
@@ -136,7 +136,7 @@ router.get('/twemoji/(.*)', async ctx => {
 	ctx.set('Content-Security-Policy', 'default-src \'none\'; style-src \'unsafe-inline\'');
 
 	await send(ctx as any, path, {
-		root: `${_dirname}/../../../node_modules/@discordapp/twemoji/dist/svg/`,
+		root: `${_dirname}/../../../../node_modules/@discordapp/twemoji/dist/svg/`,
 		maxage: ms('30 days'),
 	});
 });
@@ -150,7 +150,7 @@ router.get('/twemoji-badge/(.*)', async ctx => {
 	}
 
 	const mask = await sharp(
-		`${_dirname}/../../../node_modules/@discordapp/twemoji/dist/svg/${path.replace('.png', '')}.svg`,
+		`${_dirname}/../../../../node_modules/@discordapp/twemoji/dist/svg/${path.replace('.png', '')}.svg`,
 		{ density: 1000 },
 	)
 		.resize(488, 488)

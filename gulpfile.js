@@ -12,7 +12,7 @@ const locales = require('./locales');
 const meta = require('./package.json');
 
 gulp.task('copy:backend:views', () =>
-	gulp.src('./packages/backend/src/server/web/views/**/*').pipe(gulp.dest('./packages/backend/built/server/web/views'))
+	gulp.src('./packages/backend/src/servers/main/web/views/**/*').pipe(gulp.dest('./packages/backend/built/servers/main/web/views'))
 );
 
 gulp.task('copy:client:fonts', () =>
@@ -36,20 +36,20 @@ gulp.task('copy:client:locales', cb => {
 });
 
 gulp.task('build:backend:script', () => {
-	return gulp.src(['./packages/backend/src/server/web/boot.js', './packages/backend/src/server/web/bios.js', './packages/backend/src/server/web/cli.js'])
+	return gulp.src(['./packages/backend/src/servers/main/web/boot.js', './packages/backend/src/servers/main/web/bios.js', './packages/backend/src/servers/main/web/cli.js'])
 		.pipe(replace('LANGS', JSON.stringify(Object.keys(locales))))
 		.pipe(terser({
 			toplevel: true
 		}))
-		.pipe(gulp.dest('./packages/backend/built/server/web/'));
+		.pipe(gulp.dest('./packages/backend/built/servers/main/web/'));
 });
 
 gulp.task('build:backend:style', () => {
-	return gulp.src(['./packages/backend/src/server/web/style.css', './packages/backend/src/server/web/bios.css', './packages/backend/src/server/web/cli.css'])
+	return gulp.src(['./packages/backend/src/servers/main/web/style.css', './packages/backend/src/servers/main/web/bios.css', './packages/backend/src/servers/main/web/cli.css'])
 		.pipe(cssnano({
 			zindex: false
 		}))
-		.pipe(gulp.dest('./packages/backend/built/server/web/'));
+		.pipe(gulp.dest('./packages/backend/built/servers/main/web/'));
 });
 
 gulp.task('build', gulp.parallel(
