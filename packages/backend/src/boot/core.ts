@@ -28,10 +28,17 @@ export async function initCore(): Promise<void> {
 	await versionInfo();
 
 	const main = child_process.fork('./built/boot/main/index.js');
+	const v12c = child_process.fork('./built/boot/v12c/index.js');
 
 	main.on('message', (message) => {
 		if (message === 'worker-ready') {
 			bootupLogger.info('Main process is ready.');
+		}
+	});
+
+	v12c.on('message', (message) => {
+		if (message === 'worker-ready') {
+			bootupLogger.info('v12c process is ready.');
 		}
 	});
 }

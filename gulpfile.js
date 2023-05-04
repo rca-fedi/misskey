@@ -11,9 +11,14 @@ const cssnano = require('gulp-cssnano');
 const locales = require('./locales');
 const meta = require('./package.json');
 
-gulp.task('copy:backend:views', () =>
+gulp.task('copy:backend:main:views', () =>
 	gulp.src('./packages/backend/src/servers/main/web/views/**/*').pipe(gulp.dest('./packages/backend/built/servers/main/web/views'))
 );
+
+gulp.task('copy:backend:v12c:views', () =>
+	gulp.src('./packages/backend/src/servers/v12c/web/views/**/*').pipe(gulp.dest('./packages/backend/built/servers/v12c/web/views'))
+);
+
 
 gulp.task('copy:client:fonts', () =>
 	gulp.src('./packages/client/node_modules/three/examples/fonts/**/*').pipe(gulp.dest('./built/_client_dist_/fonts/'))
@@ -35,7 +40,7 @@ gulp.task('copy:client:locales', cb => {
 	cb();
 });
 
-gulp.task('build:backend:script', () => {
+gulp.task('build:backend:main:script', () => {
 	return gulp.src(['./packages/backend/src/servers/main/web/boot.js', './packages/backend/src/servers/main/web/bios.js', './packages/backend/src/servers/main/web/cli.js'])
 		.pipe(replace('LANGS', JSON.stringify(Object.keys(locales))))
 		.pipe(terser({
@@ -44,7 +49,7 @@ gulp.task('build:backend:script', () => {
 		.pipe(gulp.dest('./packages/backend/built/servers/main/web/'));
 });
 
-gulp.task('build:backend:style', () => {
+gulp.task('build:backend:main:style', () => {
 	return gulp.src(['./packages/backend/src/servers/main/web/style.css', './packages/backend/src/servers/main/web/bios.css', './packages/backend/src/servers/main/web/cli.css'])
 		.pipe(cssnano({
 			zindex: false
@@ -52,8 +57,25 @@ gulp.task('build:backend:style', () => {
 		.pipe(gulp.dest('./packages/backend/built/servers/main/web/'));
 });
 
+gulp.task('build:backend:v12c:script', () => {
+	return gulp.src(['./packages/backend/src/servers/v12c/web/boot.js', './packages/backend/src/servers/v12c/web/bios.js', './packages/backend/src/servers/v12c/web/cli.js'])
+		.pipe(replace('LANGS', JSON.stringify(Object.keys(locales))))
+		.pipe(terser({
+			toplevel: true
+		}))
+		.pipe(gulp.dest('./packages/backend/built/servers/v12c/web/'));
+});
+
+gulp.task('build:backend:v12c:style', () => {
+	return gulp.src(['./packages/backend/src/servers/v12c/web/style.css', './packages/backend/src/servers/v12c/web/bios.css', './packages/backend/src/servers/v12c/web/cli.css'])
+		.pipe(cssnano({
+			zindex: false
+		}))
+		.pipe(gulp.dest('./packages/backend/built/servers/v12c/web/'));
+});
+
 gulp.task('build', gulp.parallel(
-	'copy:client:locales', 'copy:backend:views', 'build:backend:script', 'build:backend:style', 'copy:client:fonts', 'copy:client:fontawesome'
+	'copy:client:locales', 'copy:backend:main:views', 'copy:backend:v12c:views', 'build:backend:main:script', 'build:backend:main:style', 'build:backend:v12c:script', 'build:backend:v12c:style', 'copy:client:fonts', 'copy:client:fontawesome'
 ));
 
 gulp.task('default', gulp.task('build'));

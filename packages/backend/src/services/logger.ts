@@ -82,6 +82,8 @@ export default class Logger {
 			process.title === 'yoiyami-core' ? chalk.bgMagenta('core') :
 			process.title === 'yoiyami-main (master)' ? chalk.bgCyan('main') :
 			process.title === 'yoiyami-main (worker)' ? chalk.bgCyan('main') :
+			process.title === 'yoiyami-v12c (master)' ? chalk.bgYellow('v12c') :
+			process.title === 'yoiyami-v12c (worker)' ? chalk.bgYellow('v12c') :
 			chalk.bgYellow(process.title); 
 
 		let log = `${group} [${l}] ${worker}\t[${domains.join(' ')}]\t${m}`;
