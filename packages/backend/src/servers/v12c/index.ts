@@ -119,7 +119,7 @@ router.get('/identicon/:x', async ctx => {
 // Register router
 app.use(router.routes());
 
-app.use(mount(webServer));
+// app.use(mount(webServer));
 
 function createServer() {
 	return http.createServer(app.callback());
