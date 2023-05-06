@@ -19,13 +19,13 @@ export class InternalStorage {
 	public static saveFromPath(key: string, srcPath: string) {
 		fs.mkdirSync(InternalStorage.path, { recursive: true });
 		fs.copyFileSync(srcPath, InternalStorage.resolvePath(key));
-		return `${config.url}/files/${key}`;
+		return `${config.main.url}/files/${key}`;
 	}
 
 	public static saveFromBuffer(key: string, data: Buffer) {
 		fs.mkdirSync(InternalStorage.path, { recursive: true });
 		fs.writeFileSync(InternalStorage.resolvePath(key), data);
-		return `${config.url}/files/${key}`;
+		return `${config.main.url}/files/${key}`;
 	}
 
 	public static del(key: string) {

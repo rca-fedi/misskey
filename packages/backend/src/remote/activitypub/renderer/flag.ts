@@ -8,7 +8,7 @@ import { getInstanceActor } from '@/services/instance-actor.js';
 export const renderFlag = (user: ILocalUser, object: [string], content: string) => {
 	return {
 		type: 'Flag',
-		actor: `${config.url}/users/${user.id}`,
+		actor: `${config.main.url}/users/${user.id}`,
 		content,
 		object,
 	};

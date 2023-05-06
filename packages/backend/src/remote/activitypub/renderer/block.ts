@@ -13,8 +13,8 @@ export function renderBlock(block: Blocking) {
 
 	return {
 		type: 'Block',
-		id: `${config.url}/blocks/${block.id}`,
-		actor: `${config.url}/users/${block.blockerId}`,
+		id: `${config.main.url}/blocks/${block.id}`,
+		actor: `${config.main.url}/users/${block.blockerId}`,
 		object: block.blockee.uri,
 	};
 }

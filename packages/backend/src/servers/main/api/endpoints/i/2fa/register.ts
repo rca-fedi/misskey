@@ -44,7 +44,7 @@ export default define(meta, paramDef, async (ps, user) => {
 		secret: secret.base32,
 		encoding: 'base32',
 		label: user.username,
-		issuer: config.host,
+		issuer: config.main_host,
 	});
 	const dataUrl = await QRCode.toDataURL(url);
 
@@ -53,6 +53,6 @@ export default define(meta, paramDef, async (ps, user) => {
 		url,
 		secret: secret.base32,
 		label: user.username,
-		issuer: config.host,
+		issuer: config.main_host,
 	};
 });

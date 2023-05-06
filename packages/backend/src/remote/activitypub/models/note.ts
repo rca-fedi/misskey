@@ -139,7 +139,7 @@ export async function createNote(value: string | IObject, resolver?: Resolver, s
 		}).catch(async e => {
 			// トークだったらinReplyToのエラーは無視
 			const uri = getApId(note.inReplyTo);
-			if (uri.startsWith(config.url + '/')) {
+			if (uri.startsWith(config.main.url + '/')) {
 				const id = uri.split('/').pop();
 				const talk = await MessagingMessages.findOneBy({ id });
 				if (talk) {
@@ -289,7 +289,7 @@ export async function resolveNote(value: string | IObject, resolver?: Resolver):
 		}
 		//#endregion
 
-		if (uri.startsWith(config.url)) {
+		if (uri.startsWith(config.main.url)) {
 			throw new StatusError('cannot resolve local note', 400, 'cannot resolve local note');
 		}
 

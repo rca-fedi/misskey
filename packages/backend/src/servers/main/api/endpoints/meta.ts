@@ -334,7 +334,7 @@ export default define(meta, paramDef, async (ps, me) => {
 		version: config.version,
 
 		name: instance.name,
-		uri: config.url,
+		uri: config.main.url,
 		description: instance.description,
 		langs: instance.langs,
 		tosUrl: instance.ToSUrl,

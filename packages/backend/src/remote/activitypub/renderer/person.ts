@@ -13,7 +13,7 @@ import { DriveFiles, UserProfiles } from '@/models/index.js';
 import { getUserKeypair } from '@/misc/keypair-store.js';
 
 export async function renderPerson(user: ILocalUser) {
-	const id = `${config.url}/users/${user.id}`;
+	const id = `${config.main.url}/users/${user.id}`;
 	const isSystem = !!user.username.match(/\./);
 
 	const [avatar, banner, profile] = await Promise.all([
@@ -61,9 +61,9 @@ export async function renderPerson(user: ILocalUser) {
 		followers: `${id}/followers`,
 		following: `${id}/following`,
 		featured: `${id}/collections/featured`,
-		sharedInbox: `${config.url}/inbox`,
-		endpoints: { sharedInbox: `${config.url}/inbox` },
-		url: `${config.url}/@${user.username}`,
+		sharedInbox: `${config.main.url}/inbox`,
+		endpoints: { sharedInbox: `${config.main.url}/inbox` },
+		url: `${config.main.url}/@${user.username}`,
 		preferredUsername: user.username,
 		name: user.name,
 		summary: profile.description ? toHtml(mfm.parse(profile.description)) : null,

@@ -112,7 +112,7 @@ export async function fetchPerson(uri: string, resolver?: Resolver): Promise<Cac
 	if (cached) return cached;
 
 	// URIがこのサーバーを指しているならデータベースからフェッチ
-	if (uri.startsWith(config.url + '/')) {
+	if (uri.startsWith(config.main.url + '/')) {
 		const id = uri.split('/').pop();
 		const u = await Users.findOneBy({ id });
 		if (u) uriPersonCache.set(uri, u);
@@ -137,7 +137,7 @@ export async function fetchPerson(uri: string, resolver?: Resolver): Promise<Cac
 export async function createPerson(uri: string, resolver?: Resolver): Promise<User> {
 	if (typeof uri !== 'string') throw new Error('uri is not string');
 
-	if (uri.startsWith(config.url)) {
+	if (uri.startsWith(config.main.url)) {
 		throw new StatusError('cannot resolve local user', 400, 'cannot resolve local user');
 	}
 
@@ -287,7 +287,7 @@ export async function updatePerson(uri: string, resolver?: Resolver | null, hint
 	if (typeof uri !== 'string') throw new Error('uri is not string');
 
 	// URIがこのサーバーを指しているならスキップ
-	if (uri.startsWith(config.url + '/')) {
+	if (uri.startsWith(config.main.url + '/')) {
 		return;
 	}
 

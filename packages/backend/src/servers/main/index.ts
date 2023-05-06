@@ -51,7 +51,7 @@ if (!['production', 'test'].includes(process.env.NODE_ENV || '')) {
 
 // HSTS
 // 6months (15552000sec)
-if (config.url.startsWith('https') && !config.disableHsts) {
+if (config.main.url.startsWith('https') && !config.disableHsts) {
 	app.use(async (ctx, next) => {
 		ctx.set('strict-transport-security', 'max-age=15552000; preload');
 		await next();
@@ -75,7 +75,7 @@ router.get('/avatar/@:acct', async ctx => {
 	const user = await Users.findOne({
 		where: {
 			usernameLower: username.toLowerCase(),
-			host: (host == null) || (host === config.host) ? IsNull() : host,
+			host: (host == null) || (host === config.main_host) ? IsNull() : host,
 			isSuspended: false,
 		},
 		relations: ['avatar'],
@@ -133,7 +133,7 @@ export const startServer = () => {
 
 	initializeStreamingServer(server);
 
-	server.listen(config.port);
+	server.listen(config.main.port);
 
 	return server;
 };
@@ -146,10 +146,10 @@ export default () => new Promise(resolve => {
 	server.on('error', e => {
 		switch ((e as any).code) {
 			case 'EACCES':
-				serverLogger.error(`You do not have permission to listen on port ${config.port}.`);
+				serverLogger.error(`You do not have permission to listen on port ${config.main.port}.`);
 				break;
 			case 'EADDRINUSE':
-				serverLogger.error(`Port ${config.port} is already in use by another process.`);
+				serverLogger.error(`Port ${config.main.port} is already in use by another process.`);
 				break;
 			default:
 				serverLogger.error(e);
@@ -164,5 +164,5 @@ export default () => new Promise(resolve => {
 		}
 	});
 
-	server.listen(config.port, resolve);
+	server.listen(config.main.port, resolve);
 });

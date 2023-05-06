@@ -56,7 +56,7 @@ export const DriveFileRepository = db.getRepository(DriveFile).extend({
 			const key = thumbnail ? file.thumbnailAccessKey : file.webpublicAccessKey;
 
 			if (key && !key.match('/')) {	// 古いものはここにオブジェクトストレージキーが入ってるので除外
-				return `${config.url}/files/${key}`;
+				return `${config.main.url}/files/${key}`;
 			}
 		}
 

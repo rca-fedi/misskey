@@ -50,8 +50,8 @@ export default async function(user: { id: User['id']; uri: User['uri']; host: Us
 			}
 
 			const content = renderActivity(renote
-				? renderUndo(renderAnnounce(renote.uri || `${config.url}/notes/${renote.id}`, note), user)
-				: renderDelete(renderTombstone(`${config.url}/notes/${note.id}`), user));
+				? renderUndo(renderAnnounce(renote.uri || `${config.main.url}/notes/${renote.id}`, note), user)
+				: renderDelete(renderTombstone(`${config.main.url}/notes/${note.id}`), user));
 
 			deliverToConcerned(user, note, content);
 		}
@@ -61,7 +61,7 @@ export default async function(user: { id: User['id']; uri: User['uri']; host: Us
 		for (const cascadingNote of cascadingNotes) {
 			if (!cascadingNote.user) continue;
 			if (!Users.isLocalUser(cascadingNote.user)) continue;
-			const content = renderActivity(renderDelete(renderTombstone(`${config.url}/notes/${cascadingNote.id}`), cascadingNote.user));
+			const content = renderActivity(renderDelete(renderTombstone(`${config.main.url}/notes/${cascadingNote.id}`), cascadingNote.user));
 			deliverToConcerned(cascadingNote.user, cascadingNote, content);
 		}
 		//#endregion

@@ -84,7 +84,7 @@ export default async (ctx: Koa.Context) => {
 			password: hash,
 		});
 
-		const link = `${config.url}/signup-complete/${code}`;
+		const link = `${config.v12c.url}/signup-complete/${code}`;
 
 		sendEmail(emailAddress, 'Signup',
 			`To complete signup, please click this link:<br><a href="${link}">${link}</a>`,

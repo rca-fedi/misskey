@@ -2,7 +2,7 @@ extends ./base
 
 block vars
 	- const title = channel.name;
-	- const url = `${config.url}/channels/${channel.id}`;
+	- const url = `${config.v12c.url}/channels/${channel.id}`;
 
 block title
 	= `${title} | ${instanceName}`

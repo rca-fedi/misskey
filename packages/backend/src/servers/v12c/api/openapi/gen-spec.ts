@@ -19,7 +19,7 @@ export function genOpenapiSpec() {
 		},
 
 		servers: [{
-			url: config.apiUrl,
+			url: config.v12c_apiUrl,
 		}],
 
 		paths: {} as any,

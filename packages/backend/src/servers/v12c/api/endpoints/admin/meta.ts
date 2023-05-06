@@ -348,7 +348,7 @@ export default define(meta, paramDef, async (ps, me) => {
 		maintainerEmail: instance.maintainerEmail,
 		version: config.version,
 		name: instance.name,
-		uri: config.url,
+		uri: config.v12c.url,
 		description: instance.description,
 		langs: instance.langs,
 		tosUrl: instance.ToSUrl,

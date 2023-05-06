@@ -13,7 +13,7 @@ export async function doPostUnsuspend(user: User) {
 
 	if (Users.isLocalUser(user)) {
 		// 知り得る全SharedInboxにUndo Delete配信
-		const content = renderActivity(renderUndo(renderDelete(`${config.url}/users/${user.id}`, user), user));
+		const content = renderActivity(renderUndo(renderDelete(`${config.main.url}/users/${user.id}`, user), user));
 
 		const queue: string[] = [];
 

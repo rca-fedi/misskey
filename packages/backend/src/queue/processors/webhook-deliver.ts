@@ -17,7 +17,7 @@ export default async (job: Bull.Job<WebhookDeliverJobData>) => {
 			method: 'POST',
 			headers: {
 				'User-Agent': 'Misskey-Hooks',
-				'X-Misskey-Host': config.host,
+				'X-Misskey-Host': config.main_host,
 				'X-Misskey-Hook-Id': job.data.webhookId,
 				'X-Misskey-Hook-Secret': job.data.secret,
 			},

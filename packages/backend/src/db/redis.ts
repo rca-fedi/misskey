@@ -13,6 +13,6 @@ export function createConnection() {
 }
 
 export const subsdcriber = createConnection();
-subsdcriber.subscribe(config.host);
+subsdcriber.subscribe(config.main_host);
 
 export const redisClient = createConnection();

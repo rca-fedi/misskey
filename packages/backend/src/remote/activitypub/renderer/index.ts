@@ -9,7 +9,7 @@ export const renderActivity = (x: any): IActivity | null => {
 	if (x == null) return null;
 
 	if (typeof x === 'object' && x.id == null) {
-		x.id = `${config.url}/${uuid()}`;
+		x.id = `${config.main.url}/${uuid()}`;
 	}
 
 	return Object.assign({
@@ -53,7 +53,7 @@ export const attachLdSignature = async (activity: any, user: { id: User['id']; h
 
 	const ldSignature = new LdSignature();
 	ldSignature.debug = false;
-	activity = await ldSignature.signRsaSignature2017(activity, keypair.privateKey, `${config.url}/users/${user.id}#main-key`);
+	activity = await ldSignature.signRsaSignature2017(activity, keypair.privateKey, `${config.main.url}/users/${user.id}#main-key`);
 
 	return activity;
 };

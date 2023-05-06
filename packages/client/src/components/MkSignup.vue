@@ -88,7 +88,7 @@ const emit = defineEmits<{
 	(ev: 'signupEmailPending'): void;
 }>();
 
-const host = toUnicode(config.host);
+const host = toUnicode(config.main_host);
 
 let hcaptcha = $ref();
 let recaptcha = $ref();

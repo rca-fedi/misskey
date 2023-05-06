@@ -30,7 +30,7 @@ class Publisher {
 			{ type: type, body: null } :
 			{ type: type, body: value };
 
-		redisClient.publish(config.host, JSON.stringify({
+		redisClient.publish(config.main_host, JSON.stringify({
 			channel: channel,
 			message: message,
 		}));
