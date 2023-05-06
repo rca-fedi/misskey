@@ -48,7 +48,7 @@ export async function exportCustomEmojis(job: Bull.Job, done: () => void): Promi
 		});
 	};
 
-	await writeMeta(`{"metaVersion":2,"host":"${config.host}","exportedAt":"${new Date().toString()}","emojis":[`);
+	await writeMeta(`{"metaVersion":2,"host":"${config.main_host}","exportedAt":"${new Date().toString()}","emojis":[`);
 
 	const customEmojis = await Emojis.find({
 		where: {

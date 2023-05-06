@@ -108,7 +108,7 @@ export async function sendEmail(to: string, subject: string, html: string, text:
 			</footer>
 		</main>
 		<nav>
-			<a href="${ config.main.url }">${ config.host }</a>
+			<a href="${ config.main.url }">${ config.main_host }</a>
 		</nav>
 	</body>
 </html>`,

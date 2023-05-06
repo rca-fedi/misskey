@@ -27,7 +27,7 @@ export async function resolveUser(username: string, host: string | null): Promis
 
 	host = toPuny(host);
 
-	if (config.host === host) {
+	if (config.main_host === host) {
 		logger.info(`return local user: ${usernameLower}`);
 		return await Users.findOneBy({ usernameLower, host: IsNull() }).then(u => {
 			if (u == null) {
