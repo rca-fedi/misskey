@@ -334,7 +334,7 @@ export default define(meta, paramDef, async (ps, me) => {
 		version: config.based_version + '-v12c',
 
 		name: instance.name + '(v12-compatible-api)',
-		uri: config.url,
+		uri: config.v12c.url,
 		description: instance.description,
 		langs: instance.langs,
 		tosUrl: instance.ToSUrl,

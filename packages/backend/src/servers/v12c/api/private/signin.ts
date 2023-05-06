@@ -13,7 +13,7 @@ import { limiter } from '../limiter.js';
 import { getIpHash } from '@/misc/get-ip-hash.js';
 
 export default async (ctx: Koa.Context) => {
-	ctx.set('Access-Control-Allow-Origin', config.url);
+	ctx.set('Access-Control-Allow-Origin', config.v12c.url);
 	ctx.set('Access-Control-Allow-Credentials', 'true');
 
 	const body = ctx.request.body as any;

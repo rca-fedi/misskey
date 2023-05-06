@@ -13,12 +13,12 @@ export default function(ctx: Koa.Context, user: ILocalUser, redirect = false) {
 			path: '/',
 			// SEE: https://github.com/koajs/koa/issues/974
 			// When using a SSL proxy it should be configured to add the "X-Forwarded-Proto: https" header
-			secure: config.url.startsWith('https'),
+			secure: config.v12c.url.startsWith('https'),
 			httpOnly: false,
 		});
 		//#endregion
 
-		ctx.redirect(config.url);
+		ctx.redirect(config.v12c.url);
 	} else {
 		ctx.body = {
 			id: user.id,

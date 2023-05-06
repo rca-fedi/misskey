@@ -23,7 +23,7 @@ function compareOrigin(ctx: Koa.BaseContext): boolean {
 
 	const referer = ctx.headers['referer'];
 
-	return (normalizeUrl(referer) === normalizeUrl(config.url));
+	return (normalizeUrl(referer) === normalizeUrl(config.v12c.url));
 }
 
 // Init router
@@ -91,7 +91,7 @@ router.get('/connect/discord', async ctx => {
 	}
 
 	const params = {
-		redirect_uri: `${config.url}/api/dc/cb`,
+		redirect_uri: `${config.v12c.url}/api/dc/cb`,
 		scope: ['identify'],
 		state: uuid(),
 		response_type: 'code',
@@ -107,7 +107,7 @@ router.get('/signin/discord', async ctx => {
 	const sessid = uuid();
 
 	const params = {
-		redirect_uri: `${config.url}/api/dc/cb`,
+		redirect_uri: `${config.v12c.url}/api/dc/cb`,
 		scope: ['identify'],
 		state: uuid(),
 		response_type: 'code',
@@ -115,7 +115,7 @@ router.get('/signin/discord', async ctx => {
 
 	ctx.cookies.set('signin_with_discord_sid', sessid, {
 		path: '/',
-		secure: config.url.startsWith('https'),
+		secure: config.v12c.url.startsWith('https'),
 		httpOnly: true,
 	});
 

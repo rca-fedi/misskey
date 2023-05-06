@@ -42,7 +42,7 @@ router.get('/.well-known/host-meta', async ctx => {
 	ctx.body = XRD({ element: 'Link', attributes: {
 		rel: 'lrdd',
 		type: xrd,
-		template: `${config.url}${webFingerPath}?resource={uri}`,
+		template: `${config.v12c.url}${webFingerPath}?resource={uri}`,
 	} });
 });
 
@@ -52,7 +52,7 @@ router.get('/.well-known/host-meta.json', async ctx => {
 		links: [{
 			rel: 'lrdd',
 			type: jrd,
-			template: `${config.url}${webFingerPath}?resource={uri}`,
+			template: `${config.v12c.url}${webFingerPath}?resource={uri}`,
 		}],
 	};
 });
@@ -70,10 +70,10 @@ router.get(webFingerPath, async ctx => {
 	});
 
 	const generateQuery = (resource: string): FindOptionsWhere<User> | number =>
-		resource.startsWith(`${config.url.toLowerCase()}/users/`) ?
+		resource.startsWith(`${config.v12c.url.toLowerCase()}/users/`) ?
 			fromId(resource.split('/').pop()!) :
 			fromAcct(Acct.parse(
-				resource.startsWith(`${config.url.toLowerCase()}/@`) ? resource.split('/').pop()! :
+				resource.startsWith(`${config.v12c.url.toLowerCase()}/@`) ? resource.split('/').pop()! :
 				resource.startsWith('acct:') ? resource.slice('acct:'.length) :
 				resource));
 
@@ -107,16 +107,16 @@ router.get(webFingerPath, async ctx => {
 	const self = {
 		rel: 'self',
 		type: 'application/activity+json',
-		href: `${config.url}/users/${user.id}`,
+		href: `${config.v12c.url}/users/${user.id}`,
 	};
 	const profilePage = {
 		rel: 'http://webfinger.net/rel/profile-page',
 		type: 'text/html',
-		href: `${config.url}/@${user.username}`,
+		href: `${config.v12c.url}/@${user.username}`,
 	};
 	const subscribe = {
 		rel: 'http://ostatus.org/schema/1.0/subscribe',
-		template: `${config.url}/authorize-follow?acct={uri}`,
+		template: `${config.v12c.url}/authorize-follow?acct={uri}`,
 	};
 
 	if (ctx.accepts(jrd, xrd) === xrd) {

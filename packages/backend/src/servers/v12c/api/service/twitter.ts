@@ -22,7 +22,7 @@ function compareOrigin(ctx: Koa.BaseContext): boolean {
 
 	const referer = ctx.headers['referer'];
 
-	return (normalizeUrl(referer) === normalizeUrl(config.url));
+	return (normalizeUrl(referer) === normalizeUrl(config.v12c.url));
 }
 
 // Init router
@@ -69,7 +69,7 @@ async function getTwAuth() {
 		return autwh({
 			consumerKey: meta.twitterConsumerKey,
 			consumerSecret: meta.twitterConsumerSecret,
-			callbackUrl: `${config.url}/api/tw/cb`,
+			callbackUrl: `${config.v12c.url}/api/tw/cb`,
 		});
 	} else {
 		return null;
@@ -104,7 +104,7 @@ router.get('/signin/twitter', async ctx => {
 
 	ctx.cookies.set('signin_with_twitter_sid', sessid, {
 		path: '/',
-		secure: config.url.startsWith('https'),
+		secure: config.v12c.url.startsWith('https'),
 		httpOnly: true,
 	});
 

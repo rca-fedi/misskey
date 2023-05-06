@@ -6,7 +6,7 @@ import { Notes, DriveFiles, UserProfiles, Users } from '@/models/index.js';
 
 export default async function(user: User) {
 	const author = {
-		link: `${config.url}/@${user.username}`,
+		link: `${config.v12c.url}/@${user.username}`,
 		name: user.name || user.username,
 	};
 
@@ -46,7 +46,7 @@ export default async function(user: User) {
 
 		feed.addItem({
 			title: `New note by ${author.name}`,
-			link: `${config.url}/notes/${note.id}`,
+			link: `${config.v12c.url}/notes/${note.id}`,
 			date: note.createdAt,
 			description: note.cw || undefined,
 			content: note.text || undefined,
