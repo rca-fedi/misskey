@@ -40,7 +40,7 @@ const nodeinfo2 = async () => {
 	return {
 		software: {
 			name: config.softwareName,
-			version: config.yy_version + '_based_on_' + config.version,
+			version: config.version + '_based_on_' + config.based_version,
 			repository: meta.repositoryUrl,
 		},
 		protocols: ['activitypub'],

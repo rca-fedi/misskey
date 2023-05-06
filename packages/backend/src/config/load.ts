@@ -42,7 +42,7 @@ export default function load() {
 
 	mixin.softwareName = package_json.name;
 	mixin.version = meta.version;
-	mixin.yy_version = package_json.yy_version;
+	mixin.based_version = package_json.based_version;
 	mixin.host = url.host;
 	mixin.hostname = url.hostname;
 	mixin.scheme = url.protocol.replace(/:$/, '');

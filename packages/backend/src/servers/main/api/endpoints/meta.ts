@@ -331,7 +331,7 @@ export default define(meta, paramDef, async (ps, me) => {
 		maintainerName: instance.maintainerName,
 		maintainerEmail: instance.maintainerEmail,
 
-		version: config.yy_version,
+		version: config.version,
 
 		name: instance.name,
 		uri: config.url,
