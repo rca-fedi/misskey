@@ -93,6 +93,10 @@ router.get('/identicon/:x', async ctx => {
 	ctx.body = fs.createReadStream(temp).on('close', () => cleanup());
 });
 
+router.get('/miauth/:sessionId', async ctx => {
+	await ctx.html('./miauth/miauth.html');
+});
+
 // router.get('/verify-email/:code', async ctx => {
 // 	const profile = await UserProfiles.findOneBy({
 // 		emailVerifyCode: ctx.params.code,
