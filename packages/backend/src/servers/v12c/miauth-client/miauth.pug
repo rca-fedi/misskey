@@ -1,0 +1,30 @@
+html
+	head
+		title yoiyami MiAuth client
+		//- script
+		//- 	-	let token = #{token}
+		//- 	-	let permissions = #{permission}
+		//- 	-	let callback = #{callback} || null 
+		//- 	-	let icon = #{icon}
+		//- 	-	let name = #{name}
+			//- include ./script.js
+		style 
+			include ./style.css
+	body
+		//- script 
+		//- 	-
+		//- 		const token = #{token}
+		//- 	include ./script.js
+		header
+			img._item.yylogo(src="/miauth-assets/yy-logo-a2.png", alt="yoiyami Logo")
+			div.header-txt._item
+				p.title yoiyami MiAuth client
+				p.subtitle Version 0.1.0
+		p._step Please enter your API key.
+		div.apikey-container
+			p.apikey-title API Key
+			input.apikey-input(type="text", name="apikey", value="", placeholder="API Key")
+		div.permission-container
+			p._step Requested Permissions:
+			ul.parmission-list
+				li NONE

@@ -15,8 +15,8 @@ gulp.task('copy:backend:main:views', () =>
 	gulp.src('./packages/backend/src/servers/main/web/views/**/*').pipe(gulp.dest('./packages/backend/built/servers/main/web/views'))
 );
 
-gulp.task('copy:backend:v12c:views', () =>
-	gulp.src('./packages/backend/src/servers/v12c/web/views/**/*').pipe(gulp.dest('./packages/backend/built/servers/v12c/web/views'))
+gulp.task('copy:backend:v12c:miauth', () =>
+	gulp.src('./packages/backend/src/servers/v12c/miauth-client/**/*').pipe(gulp.dest('./packages/backend/built/servers/v12c/miauth-client'))
 );
 
 
@@ -57,25 +57,41 @@ gulp.task('build:backend:main:style', () => {
 		.pipe(gulp.dest('./packages/backend/built/servers/main/web/'));
 });
 
-gulp.task('build:backend:v12c:script', () => {
-	return gulp.src(['./packages/backend/src/servers/v12c/web/boot.js', './packages/backend/src/servers/v12c/web/bios.js', './packages/backend/src/servers/v12c/web/cli.js'])
-		.pipe(replace('LANGS', JSON.stringify(Object.keys(locales))))
-		.pipe(terser({
-			toplevel: true
-		}))
-		.pipe(gulp.dest('./packages/backend/built/servers/v12c/web/'));
-});
+// gulp.task('build:backend:v12c:script', () => {
+// 	return gulp.src(['./packages/backend/src/servers/v12c/web/boot.js', './packages/backend/src/servers/v12c/web/bios.js', './packages/backend/src/servers/v12c/web/cli.js'])
+// 		.pipe(replace('LANGS', JSON.stringify(Object.keys(locales))))
+// 		.pipe(terser({
+// 			toplevel: true
+// 		}))
+// 		.pipe(gulp.dest('./packages/backend/built/servers/v12c/web/'));
+// });
 
-gulp.task('build:backend:v12c:style', () => {
-	return gulp.src(['./packages/backend/src/servers/v12c/web/style.css', './packages/backend/src/servers/v12c/web/bios.css', './packages/backend/src/servers/v12c/web/cli.css'])
-		.pipe(cssnano({
-			zindex: false
-		}))
-		.pipe(gulp.dest('./packages/backend/built/servers/v12c/web/'));
-});
+// gulp.task('build:backend:v12c:style', () => {
+// 	return gulp.src(['./packages/backend/src/servers/v12c/web/style.css', './packages/backend/src/servers/v12c/web/bios.css', './packages/backend/src/servers/v12c/web/cli.css'])
+// 		.pipe(cssnano({
+// 			zindex: false
+// 		}))
+// 		.pipe(gulp.dest('./packages/backend/built/servers/v12c/web/'));
+// });
+
+// gulp.task('build:backend:v12c:miauth:script', () => { // TODO: このへんよくわからずに書いてるので完全に理解する
+// 	return gulp.src(['./packages/backend/src/servers/v12c/miauth-client/script.js'])
+// 		.pipe(terser({
+// 			toplevel: true
+// 		}))
+// 		.pipe(gulp.dest('./packages/backend/built/servers/v12c/miauth-client/'));
+// });
+
+// gulp.task('build:backend:v12c:miauth:style', () => {
+// 	return gulp.src(['./packages/backend/src/servers/v12c/miauth-client/style.css'])
+// 		.pipe(cssnano({
+// 			zindex: false
+// 		}))
+// 		.pipe(gulp.dest('./packages/backend/built/servers/v12c/miauth-client/'));
+// });
 
 gulp.task('build', gulp.parallel(
-	'copy:client:locales', 'copy:backend:main:views', 'copy:backend:v12c:views', 'build:backend:main:script', 'build:backend:main:style', 'build:backend:v12c:script', 'build:backend:v12c:style', 'copy:client:fonts', 'copy:client:fontawesome'
+	'copy:client:locales', 'copy:backend:main:views', 'copy:backend:v12c:miauth', 'build:backend:main:script', 'build:backend:main:style', 'copy:client:fonts', 'copy:client:fontawesome'
 ));
 
 gulp.task('default', gulp.task('build'));
