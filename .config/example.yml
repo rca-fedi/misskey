@@ -1,48 +1,30 @@
-#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# Misskey configuration
-#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# yoiyami configuration file
 
-#   ┌─────┐
-#───┘ URL └─────────────────────────────────────────────────────
+# main server config ---------------------------------------------------
+main:
+  url: http://localhost:3000/
+  port: 3000
 
-# Final accessible URL seen by a user.
-url: https://example.tld/
+# v12c server config ---------------------------------------------------
+# v12-Compatible API server (beta)
+enableV12c: ture
+v12c:
+  url: http://localhost:3001/
+  port: 3001
 
-# ONCE YOU HAVE STARTED THE INSTANCE, DO NOT CHANGE THE
-# URL SETTINGS AFTER THAT!
+# database config ------------------------------------------------------
 
-#   ┌───────────────────────┐
-#───┘ Port and TLS settings └───────────────────────────────────
-
-#
-# Misskey requires a reverse proxy to support HTTPS connections.
-#
-#                 +----- https://example.tld/ ------------+
-#   +------+      |+-------------+      +----------------+|
-#   | User | ---> || Proxy (443) | ---> | Misskey (3000) ||
-#   +------+      |+-------------+      +----------------+|
-#                 +---------------------------------------+
-#
-#   You need to set up a reverse proxy. (e.g. nginx)
-#   An encrypted connection with HTTPS is highly recommended
-#   because tokens may be transferred in GET requests.
-
-# The port that your Misskey server should listen on.
-port: 3000
-
-#   ┌──────────────────────────┐
-#───┘ PostgreSQL configuration └────────────────────────────────
-
+# PostgreSQL configuration
 db:
-  host: localhost
+  host: 172.28.0.1
   port: 5432
 
   # Database name
-  db: misskey
+  db: yoiyami
 
   # Auth
-  user: example-misskey-user
-  pass: example-misskey-pass
+  user: nemchan
+  pass: tomoya1230
 
   # Whether disable Caching queries
   #disableCache: true
@@ -51,9 +33,7 @@ db:
   #extra:
   #  ssl: true
 
-#   ┌─────────────────────┐
-#───┘ Redis configuration └─────────────────────────────────────
-
+# Redis configuration
 redis:
   host: localhost
   port: 6379
@@ -61,20 +41,10 @@ redis:
   #pass: example-pass
   #prefix: example-prefix
   #db: 1
+ 
+# Common config --------------------------------------------------------
 
-#   ┌─────────────────────────────┐
-#───┘ Elasticsearch configuration └─────────────────────────────
-
-#elasticsearch:
-#  host: localhost
-#  port: 9200
-#  ssl: false
-#  user: 
-#  pass: 
-
-#   ┌───────────────┐
-#───┘ ID generation └───────────────────────────────────────────
-
+# ID generation
 # You can select the ID generation method.
 # You don't usually need to change this setting, but you can
 # change it according to your preferences.
@@ -90,8 +60,7 @@ redis:
 
 id: 'aid'
 
-#   ┌─────────────────────┐
-#───┘ Other configuration └─────────────────────────────────────
+# Other config ---------------------------------------------------------
 
 # Whether disable HSTS
 #disableHsts: true
@@ -147,3 +116,7 @@ id: 'aid'
 
 # Upload or download file size limits (bytes)
 #maxFileSize: 262144000
+
+# Config template version (DO NOT CHANGE THIS) ------------------------- 
+
+configTemplateVersion: 0.1.0
