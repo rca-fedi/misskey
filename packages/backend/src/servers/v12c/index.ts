@@ -10,6 +10,11 @@ import Router from '@koa/router';
 import mount from 'koa-mount';
 import koaLogger from 'koa-logger';
 import * as slow from 'koa-slow';
+import send from 'koa-send';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import serve from 'koa-static';
+import views from 'koa-views';
 
 import { IsNull } from 'typeorm';
 import config from '@/config/index.js';
@@ -93,8 +98,22 @@ router.get('/identicon/:x', async ctx => {
 	ctx.body = fs.createReadStream(temp).on('close', () => cleanup());
 });
 
-router.get('/miauth/:sessionId', async ctx => {
-	await ctx.html('./miauth/miauth.html');
+// MiAuth Client
+const _filename = fileURLToPath(import.meta.url);
+const _dirname = dirname(_filename);
+
+app.use(serve(`${_dirname}/../../../../../miauth-client/`));
+
+app.use(async ctx => {
+	if (ctx.request.path === '/miauth') {
+		ctx.response.type = 'html';
+		ctx.body = fs.createReadStream(`${_dirname}/../../../../../miauth-client/miauth.html`);
+	}
+});
+
+router.get('/miauth/:token', async ctx => {
+	ctx.response.type = 'html';
+	ctx.body = fs.createReadStream(`${_dirname}/../../../../../miauth-client/miauth.html`);
 });
 
 // router.get('/verify-email/:code', async ctx => {

@@ -1,5 +1,6 @@
 let params = url.searchParams;
 
+console.log(params);
 let _permissions = params.get('permission');
 let _callback = params.get('callback');
 let _icon = params.get('icon');
