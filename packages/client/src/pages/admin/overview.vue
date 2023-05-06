@@ -55,11 +55,11 @@
 				<div class="body">
 					<div class="number _panel">
 						<div class="label">Misskey</div>
-						<div class="value _monospace">{{ version }}</div>
+						<div class="value _monospace">{{ based_version }}</div>
 					</div>
 					<div class="number _panel">
 						<div class="label">yoiyami</div>
-						<div class="value _monospace">{{ yy_version }}</div>
+						<div class="value _monospace">{{ version }}</div>
 					</div>
 					<div v-if="serverInfo" class="number _panel">
 						<div class="label">Node.js</div>
@@ -171,7 +171,7 @@ import XUser from './overview.user.vue';
 import XPie from './overview.pie.vue';
 import MkNumberDiff from '@/components/MkNumberDiff.vue';
 import MkTagCloud from '@/components/MkTagCloud.vue';
-import { version, url, yy_version } from '@/config';
+import { version, url, based_version } from '@/config';
 import number from '@/filters/number';
 import * as os from '@/os';
 import { stream } from '@/stream';

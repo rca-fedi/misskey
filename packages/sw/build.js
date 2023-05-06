@@ -20,7 +20,7 @@ esbuild.build({
 	tsconfig: `${__dirname}/tsconfig.json`,
 	define: {
 		_VERSION_: JSON.stringify(meta.version),
-		_YY_VERSION_: JSON.stringify(meta.yy_version),
+		_BASED_VERSION_: JSON.stringify(meta.based_version),
 		_LANGS_: JSON.stringify(Object.entries(locales).map(([k, v]) => [k, v._lang_])),
 		_ENV_: JSON.stringify(process.env.NODE_ENV),
 		_DEV_: process.env.NODE_ENV !== 'production',

@@ -62,8 +62,8 @@ async function versionInfo(): Promise<void> {
 	
 	versionLogger.info('Version Information:');
 
-	versionLogger.info(`  yoiyami: ${package_json.yy_version}`);
-	versionLogger.info(`  based on: Misskey ${package_json.version}`);
+	versionLogger.info(`  yoiyami: ${package_json.version}`);
+	versionLogger.info(`  based on: Misskey ${package_json.based_version}`);
 	versionLogger.info(`  Node.js: ${process.version}`);
 	versionLogger.info('  Database: Connecting...');
 	process.stdout.write('\x1b[1F'); //1行上の行頭にカーソル移すやつ（書き変えたいので
