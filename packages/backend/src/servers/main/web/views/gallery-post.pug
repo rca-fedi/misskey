@@ -3,7 +3,7 @@ extends ./base
 block vars
 	- const user = post.user;
 	- const title = post.title;
-	- const url = `${config.url}/gallery/${post.id}`;
+	- const url = `${config.main.url}/gallery/${post.id}`;
 
 block title
 	= `${title} | ${instanceName}`

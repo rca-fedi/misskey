@@ -6,7 +6,7 @@ import { Notes, DriveFiles, UserProfiles, Users } from '@/models/index.js';
 
 export default async function(user: User) {
 	const author = {
-		link: `${config.url}/@${user.username}`,
+		link: `${config.main.url}/@${user.username}`,
 		name: user.name || user.username,
 	};
 
@@ -24,7 +24,7 @@ export default async function(user: User) {
 
 	const feed = new Feed({
 		id: author.link,
-		title: `${author.name} (@${user.username}@${config.host})`,
+		title: `${author.name} (@${user.username}@${config.main_host})`,
 		updated: notes[0].createdAt,
 		generator: 'Misskey',
 		description: `${user.notesCount} Notes, ${profile.ffVisibility === 'public' ? user.followingCount : '?'} Following, ${profile.ffVisibility === 'public' ? user.followersCount : '?'} Followers${profile.description ? ` · ${profile.description}` : ''}`,
@@ -46,7 +46,7 @@ export default async function(user: User) {
 
 		feed.addItem({
 			title: `New note by ${author.name}`,
-			link: `${config.url}/notes/${note.id}`,
+			link: `${config.main.url}/notes/${note.id}`,
 			date: note.createdAt,
 			description: note.cw || undefined,
 			content: note.text || undefined,

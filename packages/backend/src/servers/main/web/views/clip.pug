@@ -3,7 +3,7 @@ extends ./base
 block vars
 	- const user = clip.user;
 	- const title = clip.name;
-	- const url = `${config.url}/clips/${clip.id}`;
+	- const url = `${config.main.url}/clips/${clip.id}`;
 
 block title
 	= `${title} | ${instanceName}`

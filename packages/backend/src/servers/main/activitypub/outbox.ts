@@ -47,7 +47,7 @@ export default async (ctx: Router.RouterContext) => {
 	}
 
 	const limit = 20;
-	const partOf = `${config.url}/users/${userId}/outbox`;
+	const partOf = `${config.main.url}/users/${userId}/outbox`;
 
 	if (page) {
 		const query = makePaginationQuery(Notes.createQueryBuilder('note'), sinceId, untilId)
@@ -101,7 +101,7 @@ export default async (ctx: Router.RouterContext) => {
 export async function packActivity(note: Note): Promise<any> {
 	if (note.renoteId && note.text == null && !note.hasPoll && (note.fileIds == null || note.fileIds.length === 0)) {
 		const renote = await Notes.findOneByOrFail({ id: note.renoteId });
-		return renderAnnounce(renote.uri ? renote.uri : `${config.url}/notes/${renote.id}`, note);
+		return renderAnnounce(renote.uri ? renote.uri : `${config.main.url}/notes/${renote.id}`, note);
 	}
 
 	return renderCreate(await renderNote(note, false), note);

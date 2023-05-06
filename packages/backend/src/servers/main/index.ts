@@ -51,7 +51,7 @@ if (!['production', 'test'].includes(process.env.NODE_ENV || '')) {
 
 // HSTS
 // 6months (15552000sec)
-if (config.url.startsWith('https') && !config.disableHsts) {
+if (config.main.url.startsWith('https') && !config.disableHsts) {
 	app.use(async (ctx, next) => {
 		ctx.set('strict-transport-security', 'max-age=15552000; preload');
 		await next();
@@ -75,7 +75,7 @@ router.get('/avatar/@:acct', async ctx => {
 	const user = await Users.findOne({
 		where: {
 			usernameLower: username.toLowerCase(),
-			host: (host == null) || (host === config.host) ? IsNull() : host,
+			host: (host == null) || (host === config.main_host) ? IsNull() : host,
 			isSuspended: false,
 		},
 		relations: ['avatar'],

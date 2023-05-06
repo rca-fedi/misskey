@@ -2,7 +2,7 @@ extends ./base
 
 block vars
 	- const title = user.name ? `${user.name} (@${user.username})` : `@${user.username}`;
-	- const url = `${config.url}/@${(user.host ? `${user.username}@${user.host}` : user.username)}`;
+	- const url = `${config.main.url}/@${(user.host ? `${user.username}@${user.host}` : user.username)}`;
 
 block title
 	= `${title} | ${instanceName}`
@@ -29,7 +29,7 @@ block meta
 
 	if !sub
 		if !user.host
-			link(rel='alternate' href=`${config.url}/users/${user.id}` type='application/activity+json')
+			link(rel='alternate' href=`${config.main.url}/users/${user.id}` type='application/activity+json')
 		if user.uri
 			link(rel='alternate' href=user.uri type='application/activity+json')
 		if profile.url

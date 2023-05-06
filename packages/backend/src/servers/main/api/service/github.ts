@@ -23,7 +23,7 @@ function compareOrigin(ctx: Koa.BaseContext): boolean {
 
 	const referer = ctx.headers['referer'];
 
-	return (normalizeUrl(referer) === normalizeUrl(config.url));
+	return (normalizeUrl(referer) === normalizeUrl(config.main.url));
 }
 
 // Init router
@@ -91,7 +91,7 @@ router.get('/connect/github', async ctx => {
 	}
 
 	const params = {
-		redirect_uri: `${config.url}/api/gh/cb`,
+		redirect_uri: `${config.main.url}/api/gh/cb`,
 		scope: ['read:user'],
 		state: uuid(),
 	};
@@ -106,14 +106,14 @@ router.get('/signin/github', async ctx => {
 	const sessid = uuid();
 
 	const params = {
-		redirect_uri: `${config.url}/api/gh/cb`,
+		redirect_uri: `${config.main.url}/api/gh/cb`,
 		scope: ['read:user'],
 		state: uuid(),
 	};
 
 	ctx.cookies.set('signin_with_github_sid', sessid, {
 		path: '/',
-		secure: config.url.startsWith('https'),
+		secure: config.main.url.startsWith('https'),
 		httpOnly: true,
 	});
 
