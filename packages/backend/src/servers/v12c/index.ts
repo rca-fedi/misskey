@@ -131,7 +131,7 @@ export const startServer = () => {
 
 	initializeStreamingServer(server);
 
-	server.listen(config.port);
+	server.listen(config.v12c.port);
 
 	return server;
 };
@@ -144,10 +144,10 @@ export default () => new Promise(resolve => {
 	server.on('error', e => {
 		switch ((e as any).code) {
 			case 'EACCES':
-				serverLogger.error(`You do not have permission to listen on port ${config.port}.`);
+				serverLogger.error(`You do not have permission to listen on port ${config.v12c.port}.`);
 				break;
 			case 'EADDRINUSE':
-				serverLogger.error(`Port ${config.port} is already in use by another process.`);
+				serverLogger.error(`Port ${config.v12c.port} is already in use by another process.`);
 				break;
 			default:
 				serverLogger.error(e);
@@ -162,5 +162,5 @@ export default () => new Promise(resolve => {
 		}
 	});
 
-	server.listen(3001, resolve); //DEBUG
+	server.listen(config.v12c.port, resolve); 
 });
