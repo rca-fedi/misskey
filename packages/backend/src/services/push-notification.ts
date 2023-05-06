@@ -42,7 +42,7 @@ export async function pushNotification<T extends keyof pushNotificationsTypes>(u
 	if (!meta.enableServiceWorker || meta.swPublicKey == null || meta.swPrivateKey == null) return;
 
 	// アプリケーションの連絡先と、サーバーサイドの鍵ペアの情報を登録
-	push.setVapidDetails(config.url,
+	push.setVapidDetails(config.main.url,
 		meta.swPublicKey,
 		meta.swPrivateKey);
 

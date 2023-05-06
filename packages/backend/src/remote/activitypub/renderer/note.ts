@@ -34,7 +34,7 @@ export default async function renderNote(note: Note, dive = true, isTalk = false
 					if (dive) {
 						inReplyTo = await renderNote(inReplyToNote, false);
 					} else {
-						inReplyTo = `${config.url}/notes/${inReplyToNote.id}`;
+						inReplyTo = `${config.main.url}/notes/${inReplyToNote.id}`;
 					}
 				}
 			}
@@ -49,11 +49,11 @@ export default async function renderNote(note: Note, dive = true, isTalk = false
 		const renote = await Notes.findOneBy({ id: note.renoteId });
 
 		if (renote) {
-			quote = renote.uri ? renote.uri : `${config.url}/notes/${renote.id}`;
+			quote = renote.uri ? renote.uri : `${config.main.url}/notes/${renote.id}`;
 		}
 	}
 
-	const attributedTo = `${config.url}/users/${note.userId}`;
+	const attributedTo = `${config.main.url}/users/${note.userId}`;
 
 	const mentions = (JSON.parse(note.mentionedRemoteUsers) as IMentionedRemoteUsers).map(x => x.uri);
 
@@ -131,7 +131,7 @@ export default async function renderNote(note: Note, dive = true, isTalk = false
 	} : {};
 
 	return {
-		id: `${config.url}/notes/${note.id}`,
+		id: `${config.main.url}/notes/${note.id}`,
 		type: 'Note',
 		attributedTo,
 		summary,

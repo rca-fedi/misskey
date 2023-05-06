@@ -12,7 +12,7 @@ export default async (user: { id: User['id'] }, url: string, object: any) => {
 	const req = createSignedPost({
 		key: {
 			privateKeyPem: keypair.privateKey,
-			keyId: `${config.url}/users/${user.id}#main-key`,
+			keyId: `${config.main.url}/users/${user.id}#main-key`,
 		},
 		url,
 		body,
@@ -40,7 +40,7 @@ export async function signedGet(url: string, user: { id: User['id'] }) {
 	const req = createSignedGet({
 		key: {
 			privateKeyPem: keypair.privateKey,
-			keyId: `${config.url}/users/${user.id}#main-key`,
+			keyId: `${config.main.url}/users/${user.id}#main-key`,
 		},
 		url,
 		additionalHeaders: {

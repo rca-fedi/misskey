@@ -74,7 +74,7 @@ export function toHtml(nodes: mfm.MfmNode[] | null, mentionedRemoteUsers: IMenti
 
 		hashtag(node) {
 			const a = doc.createElement('a');
-			a.href = `${config.url}/tags/${node.props.hashtag}`;
+			a.href = `${config.main.url}/tags/${node.props.hashtag}`;
 			a.textContent = `#${node.props.hashtag}`;
 			a.setAttribute('rel', 'tag');
 			return a;
@@ -109,7 +109,7 @@ export function toHtml(nodes: mfm.MfmNode[] | null, mentionedRemoteUsers: IMenti
 			const a = doc.createElement('a');
 			const { username, host, acct } = node.props;
 			const remoteUserInfo = mentionedRemoteUsers.find(remoteUser => remoteUser.username === username && remoteUser.host === host);
-			a.href = remoteUserInfo ? (remoteUserInfo.url ? remoteUserInfo.url : remoteUserInfo.uri) : `${config.url}/${acct}`;
+			a.href = remoteUserInfo ? (remoteUserInfo.url ? remoteUserInfo.url : remoteUserInfo.uri) : `${config.main.url}/${acct}`;
 			a.className = 'u-url mention';
 			a.textContent = acct;
 			return a;

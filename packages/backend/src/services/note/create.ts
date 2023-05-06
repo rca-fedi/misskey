@@ -483,7 +483,7 @@ async function renderNoteOrRenoteActivity(data: Option, note: Note) {
 	if (data.localOnly) return null;
 
 	const content = data.renote && data.text == null && data.poll == null && (data.files == null || data.files.length === 0)
-		? renderAnnounce(data.renote.uri ? data.renote.uri : `${config.url}/notes/${data.renote.id}`, note)
+		? renderAnnounce(data.renote.uri ? data.renote.uri : `${config.main.url}/notes/${data.renote.id}`, note)
 		: renderCreate(await renderNote(note, false), note);
 
 	return renderActivity(content);

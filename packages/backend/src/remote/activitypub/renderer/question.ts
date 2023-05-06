@@ -6,8 +6,8 @@ import { Poll } from '@/models/entities/poll.js';
 export default async function renderQuestion(user: { id: User['id'] }, note: Note, poll: Poll) {
 	const question = {
 		type: 'Question',
-		id: `${config.url}/questions/${note.id}`,
-		actor: `${config.url}/users/${user.id}`,
+		id: `${config.main.url}/questions/${note.id}`,
+		actor: `${config.main.url}/users/${user.id}`,
 		content: note.text || '',
 		[poll.multiple ? 'anyOf' : 'oneOf']: poll.choices.map((text, i) => ({
 			name: text,

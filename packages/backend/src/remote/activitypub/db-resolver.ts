@@ -33,7 +33,7 @@ export function parseUri(value: string | IObject): UriParseResult {
 	const uri = getApId(value);
 
 	// the host part of a URL is case insensitive, so use the 'i' flag.
-	const localRegex = new RegExp('^' + escapeRegexp(config.url) + '/(\\w+)/(\\w+)(?:\/(.+))?', 'i');
+	const localRegex = new RegExp('^' + escapeRegexp(config.main.url) + '/(\\w+)/(\\w+)(?:\/(.+))?', 'i');
 	const matchLocal = uri.match(localRegex);
 
 	if (matchLocal) {
