@@ -13,7 +13,7 @@ import { procedures, hash } from '../../../2fa.js';
 import { publishMainStream } from '@/services/stream.js';
 
 const cborDecodeFirst = promisify(cbor.decodeFirst) as any;
-const rpIdHashReal = hash(Buffer.from(config.hostname, 'utf-8'));
+const rpIdHashReal = hash(Buffer.from(config.v12c_hostname, 'utf-8'));
 
 export const meta = {
 	requireCredential: true,
@@ -53,7 +53,7 @@ export default define(meta, paramDef, async (ps, user) => {
 	if (clientData.type !== 'webauthn.create') {
 		throw new Error('not a creation attestation');
 	}
-	if (clientData.origin !== config.scheme + '://' + config.host) {
+	if (clientData.origin !== config.v12c_scheme + '://' + config.v12c_host) {
 		throw new Error('origin mismatch');
 	}
 

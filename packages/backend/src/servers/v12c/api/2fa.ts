@@ -128,7 +128,7 @@ export function verifyLogin({
 	if (hash(clientData.challenge).toString('hex') !== challenge) {
 		throw new Error('challenge mismatch');
 	}
-	if (clientData.origin !== config.scheme + '://' + config.host) {
+	if (clientData.origin !== config.v12c_scheme + '://' + config.v12c_host) {
 		throw new Error('origin mismatch');
 	}
 

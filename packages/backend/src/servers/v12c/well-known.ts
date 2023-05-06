@@ -78,7 +78,7 @@ router.get(webFingerPath, async ctx => {
 				resource));
 
 	const fromAcct = (acct: Acct.Acct): FindOptionsWhere<User> | number =>
-		!acct.host || acct.host === config.host.toLowerCase() ? {
+		!acct.host || acct.host === config.v12c_host.toLowerCase() ? {
 			usernameLower: acct.username,
 			host: IsNull(),
 			isSuspended: false,
@@ -103,7 +103,7 @@ router.get(webFingerPath, async ctx => {
 		return;
 	}
 
-	const subject = `acct:${user.username}@${config.host}`;
+	const subject = `acct:${user.username}@${config.v12c_host}`;
 	const self = {
 		rel: 'self',
 		type: 'application/activity+json',

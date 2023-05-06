@@ -24,7 +24,7 @@ export default async function(user: User) {
 
 	const feed = new Feed({
 		id: author.link,
-		title: `${author.name} (@${user.username}@${config.host})`,
+		title: `${author.name} (@${user.username}@${config.v12c_host})`,
 		updated: notes[0].createdAt,
 		generator: 'Misskey',
 		description: `${user.notesCount} Notes, ${profile.ffVisibility === 'public' ? user.followingCount : '?'} Following, ${profile.ffVisibility === 'public' ? user.followersCount : '?'} Followers${profile.description ? ` · ${profile.description}` : ''}`,

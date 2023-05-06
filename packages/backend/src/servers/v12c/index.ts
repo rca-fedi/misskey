@@ -73,7 +73,7 @@ router.get('/avatar/@:acct', async ctx => {
 	const user = await Users.findOne({
 		where: {
 			usernameLower: username.toLowerCase(),
-			host: (host == null) || (host === config.host) ? IsNull() : host,
+			host: (host == null) || (host === config.v12c_host) ? IsNull() : host,
 			isSuspended: false,
 		},
 		relations: ['avatar'],
