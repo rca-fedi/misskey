@@ -1,67 +1,67 @@
 import { Schema } from '@/misc/schema.js';
 
 import * as ep___admin_meta from './endpoints/admin/meta.js';
-import * as ep___admin_abuseUserReports from './endpoints/admin/abuse-user-reports.js';
-import * as ep___admin_accounts_create from './endpoints/admin/accounts/create.js';
-import * as ep___admin_accounts_delete from './endpoints/admin/accounts/delete.js';
-import * as ep___admin_ad_create from './endpoints/admin/ad/create.js';
-import * as ep___admin_ad_delete from './endpoints/admin/ad/delete.js';
-import * as ep___admin_ad_list from './endpoints/admin/ad/list.js';
-import * as ep___admin_ad_update from './endpoints/admin/ad/update.js';
-import * as ep___admin_announcements_create from './endpoints/admin/announcements/create.js';
-import * as ep___admin_announcements_delete from './endpoints/admin/announcements/delete.js';
-import * as ep___admin_announcements_list from './endpoints/admin/announcements/list.js';
-import * as ep___admin_announcements_update from './endpoints/admin/announcements/update.js';
-import * as ep___admin_deleteAllFilesOfAUser from './endpoints/admin/delete-all-files-of-a-user.js';
-import * as ep___admin_drive_cleanRemoteFiles from './endpoints/admin/drive/clean-remote-files.js';
-import * as ep___admin_drive_cleanup from './endpoints/admin/drive/cleanup.js';
-import * as ep___admin_drive_files from './endpoints/admin/drive/files.js';
-import * as ep___admin_drive_showFile from './endpoints/admin/drive/show-file.js';
-import * as ep___admin_emoji_addAliasesBulk from './endpoints/admin/emoji/add-aliases-bulk.js';
-import * as ep___admin_emoji_add from './endpoints/admin/emoji/add.js';
-import * as ep___admin_emoji_copy from './endpoints/admin/emoji/copy.js';
-import * as ep___admin_emoji_deleteBulk from './endpoints/admin/emoji/delete-bulk.js';
-import * as ep___admin_emoji_delete from './endpoints/admin/emoji/delete.js';
-import * as ep___admin_emoji_importZip from './endpoints/admin/emoji/import-zip.js';
-import * as ep___admin_emoji_listRemote from './endpoints/admin/emoji/list-remote.js';
-import * as ep___admin_emoji_list from './endpoints/admin/emoji/list.js';
-import * as ep___admin_emoji_removeAliasesBulk from './endpoints/admin/emoji/remove-aliases-bulk.js';
-import * as ep___admin_emoji_setAliasesBulk from './endpoints/admin/emoji/set-aliases-bulk.js';
-import * as ep___admin_emoji_setCategoryBulk from './endpoints/admin/emoji/set-category-bulk.js';
-import * as ep___admin_emoji_update from './endpoints/admin/emoji/update.js';
-import * as ep___admin_federation_deleteAllFiles from './endpoints/admin/federation/delete-all-files.js';
-import * as ep___admin_federation_refreshRemoteInstanceMetadata from './endpoints/admin/federation/refresh-remote-instance-metadata.js';
-import * as ep___admin_federation_removeAllFollowing from './endpoints/admin/federation/remove-all-following.js';
-import * as ep___admin_federation_updateInstance from './endpoints/admin/federation/update-instance.js';
-import * as ep___admin_getIndexStats from './endpoints/admin/get-index-stats.js';
-import * as ep___admin_getTableStats from './endpoints/admin/get-table-stats.js';
-import * as ep___admin_getUserIps from './endpoints/admin/get-user-ips.js';
-import * as ep___admin_invite from './endpoints/admin/invite.js';
-import * as ep___admin_moderators_add from './endpoints/admin/moderators/add.js';
-import * as ep___admin_moderators_remove from './endpoints/admin/moderators/remove.js';
-import * as ep___admin_promo_create from './endpoints/admin/promo/create.js';
-import * as ep___admin_queue_clear from './endpoints/admin/queue/clear.js';
-import * as ep___admin_queue_deliverDelayed from './endpoints/admin/queue/deliver-delayed.js';
-import * as ep___admin_queue_inboxDelayed from './endpoints/admin/queue/inbox-delayed.js';
-import * as ep___admin_queue_stats from './endpoints/admin/queue/stats.js';
-import * as ep___admin_relays_add from './endpoints/admin/relays/add.js';
-import * as ep___admin_relays_list from './endpoints/admin/relays/list.js';
-import * as ep___admin_relays_remove from './endpoints/admin/relays/remove.js';
-import * as ep___admin_resetPassword from './endpoints/admin/reset-password.js';
-import * as ep___admin_resolveAbuseUserReport from './endpoints/admin/resolve-abuse-user-report.js';
-import * as ep___admin_sendEmail from './endpoints/admin/send-email.js';
-import * as ep___admin_serverInfo from './endpoints/admin/server-info.js';
-import * as ep___admin_showModerationLogs from './endpoints/admin/show-moderation-logs.js';
-import * as ep___admin_showUser from './endpoints/admin/show-user.js';
-import * as ep___admin_showUsers from './endpoints/admin/show-users.js';
-import * as ep___admin_silenceUser from './endpoints/admin/silence-user.js';
-import * as ep___admin_suspendUser from './endpoints/admin/suspend-user.js';
-import * as ep___admin_unsilenceUser from './endpoints/admin/unsilence-user.js';
-import * as ep___admin_unsuspendUser from './endpoints/admin/unsuspend-user.js';
-import * as ep___admin_updateMeta from './endpoints/admin/update-meta.js';
-import * as ep___admin_vacuum from './endpoints/admin/vacuum.js';
-import * as ep___admin_deleteAccount from './endpoints/admin/delete-account.js';
-import * as ep___admin_updateUserNote from './endpoints/admin/update-user-note.js';
+// import * as ep___admin_abuseUserReports from './endpoints/admin/abuse-user-reports.js';
+// import * as ep___admin_accounts_create from './endpoints/admin/accounts/create.js';
+// import * as ep___admin_accounts_delete from './endpoints/admin/accounts/delete.js';
+// import * as ep___admin_ad_create from './endpoints/admin/ad/create.js';
+// import * as ep___admin_ad_delete from './endpoints/admin/ad/delete.js';
+// import * as ep___admin_ad_list from './endpoints/admin/ad/list.js';
+// import * as ep___admin_ad_update from './endpoints/admin/ad/update.js';
+// import * as ep___admin_announcements_create from './endpoints/admin/announcements/create.js';
+// import * as ep___admin_announcements_delete from './endpoints/admin/announcements/delete.js';
+// import * as ep___admin_announcements_list from './endpoints/admin/announcements/list.js';
+// import * as ep___admin_announcements_update from './endpoints/admin/announcements/update.js';
+// import * as ep___admin_deleteAllFilesOfAUser from './endpoints/admin/delete-all-files-of-a-user.js';
+// import * as ep___admin_drive_cleanRemoteFiles from './endpoints/admin/drive/clean-remote-files.js';
+// import * as ep___admin_drive_cleanup from './endpoints/admin/drive/cleanup.js';
+// import * as ep___admin_drive_files from './endpoints/admin/drive/files.js';
+// import * as ep___admin_drive_showFile from './endpoints/admin/drive/show-file.js';
+// import * as ep___admin_emoji_addAliasesBulk from './endpoints/admin/emoji/add-aliases-bulk.js';
+// import * as ep___admin_emoji_add from './endpoints/admin/emoji/add.js';
+// import * as ep___admin_emoji_copy from './endpoints/admin/emoji/copy.js';
+// import * as ep___admin_emoji_deleteBulk from './endpoints/admin/emoji/delete-bulk.js';
+// import * as ep___admin_emoji_delete from './endpoints/admin/emoji/delete.js';
+// import * as ep___admin_emoji_importZip from './endpoints/admin/emoji/import-zip.js';
+// import * as ep___admin_emoji_listRemote from './endpoints/admin/emoji/list-remote.js';
+// import * as ep___admin_emoji_list from './endpoints/admin/emoji/list.js';
+// import * as ep___admin_emoji_removeAliasesBulk from './endpoints/admin/emoji/remove-aliases-bulk.js';
+// import * as ep___admin_emoji_setAliasesBulk from './endpoints/admin/emoji/set-aliases-bulk.js';
+// import * as ep___admin_emoji_setCategoryBulk from './endpoints/admin/emoji/set-category-bulk.js';
+// import * as ep___admin_emoji_update from './endpoints/admin/emoji/update.js';
+// import * as ep___admin_federation_deleteAllFiles from './endpoints/admin/federation/delete-all-files.js';
+// import * as ep___admin_federation_refreshRemoteInstanceMetadata from './endpoints/admin/federation/refresh-remote-instance-metadata.js';
+// import * as ep___admin_federation_removeAllFollowing from './endpoints/admin/federation/remove-all-following.js';
+// import * as ep___admin_federation_updateInstance from './endpoints/admin/federation/update-instance.js';
+// import * as ep___admin_getIndexStats from './endpoints/admin/get-index-stats.js';
+// import * as ep___admin_getTableStats from './endpoints/admin/get-table-stats.js';
+// import * as ep___admin_getUserIps from './endpoints/admin/get-user-ips.js';
+// import * as ep___admin_invite from './endpoints/admin/invite.js';
+// import * as ep___admin_moderators_add from './endpoints/admin/moderators/add.js';
+// import * as ep___admin_moderators_remove from './endpoints/admin/moderators/remove.js';
+// import * as ep___admin_promo_create from './endpoints/admin/promo/create.js';
+// import * as ep___admin_queue_clear from './endpoints/admin/queue/clear.js';
+// import * as ep___admin_queue_deliverDelayed from './endpoints/admin/queue/deliver-delayed.js';
+// import * as ep___admin_queue_inboxDelayed from './endpoints/admin/queue/inbox-delayed.js';
+// import * as ep___admin_queue_stats from './endpoints/admin/queue/stats.js';
+// import * as ep___admin_relays_add from './endpoints/admin/relays/add.js';
+// import * as ep___admin_relays_list from './endpoints/admin/relays/list.js';
+// import * as ep___admin_relays_remove from './endpoints/admin/relays/remove.js';
+// import * as ep___admin_resetPassword from './endpoints/admin/reset-password.js';
+// import * as ep___admin_resolveAbuseUserReport from './endpoints/admin/resolve-abuse-user-report.js';
+// import * as ep___admin_sendEmail from './endpoints/admin/send-email.js';
+// import * as ep___admin_serverInfo from './endpoints/admin/server-info.js';
+// import * as ep___admin_showModerationLogs from './endpoints/admin/show-moderation-logs.js';
+// import * as ep___admin_showUser from './endpoints/admin/show-user.js';
+// import * as ep___admin_showUsers from './endpoints/admin/show-users.js';
+// import * as ep___admin_silenceUser from './endpoints/admin/silence-user.js';
+// import * as ep___admin_suspendUser from './endpoints/admin/suspend-user.js';
+// import * as ep___admin_unsilenceUser from './endpoints/admin/unsilence-user.js';
+// import * as ep___admin_unsuspendUser from './endpoints/admin/unsuspend-user.js';
+// import * as ep___admin_updateMeta from './endpoints/admin/update-meta.js';
+// import * as ep___admin_vacuum from './endpoints/admin/vacuum.js';
+// import * as ep___admin_deleteAccount from './endpoints/admin/delete-account.js';
+// import * as ep___admin_updateUserNote from './endpoints/admin/update-user-note.js';
 import * as ep___announcements from './endpoints/announcements.js';
 import * as ep___antennas_create from './endpoints/antennas/create.js';
 import * as ep___antennas_delete from './endpoints/antennas/delete.js';
@@ -318,67 +318,67 @@ import * as ep___admin_driveCapOverride from './endpoints/admin/drive-capacity-o
 
 const eps = [
 	['admin/meta', ep___admin_meta],
-	['admin/abuse-user-reports', ep___admin_abuseUserReports],
-	['admin/accounts/create', ep___admin_accounts_create],
-	['admin/accounts/delete', ep___admin_accounts_delete],
-	['admin/ad/create', ep___admin_ad_create],
-	['admin/ad/delete', ep___admin_ad_delete],
-	['admin/ad/list', ep___admin_ad_list],
-	['admin/ad/update', ep___admin_ad_update],
-	['admin/announcements/create', ep___admin_announcements_create],
-	['admin/announcements/delete', ep___admin_announcements_delete],
-	['admin/announcements/list', ep___admin_announcements_list],
-	['admin/announcements/update', ep___admin_announcements_update],
-	['admin/delete-all-files-of-a-user', ep___admin_deleteAllFilesOfAUser],
-	['admin/drive/clean-remote-files', ep___admin_drive_cleanRemoteFiles],
-	['admin/drive/cleanup', ep___admin_drive_cleanup],
-	['admin/drive/files', ep___admin_drive_files],
-	['admin/drive/show-file', ep___admin_drive_showFile],
-	['admin/emoji/add-aliases-bulk', ep___admin_emoji_addAliasesBulk],
-	['admin/emoji/add', ep___admin_emoji_add],
-	['admin/emoji/copy', ep___admin_emoji_copy],
-	['admin/emoji/delete-bulk', ep___admin_emoji_deleteBulk],
-	['admin/emoji/delete', ep___admin_emoji_delete],
-	['admin/emoji/import-zip', ep___admin_emoji_importZip],
-	['admin/emoji/list-remote', ep___admin_emoji_listRemote],
-	['admin/emoji/list', ep___admin_emoji_list],
-	['admin/emoji/remove-aliases-bulk', ep___admin_emoji_removeAliasesBulk],
-	['admin/emoji/set-aliases-bulk', ep___admin_emoji_setAliasesBulk],
-	['admin/emoji/set-category-bulk', ep___admin_emoji_setCategoryBulk],
-	['admin/emoji/update', ep___admin_emoji_update],
-	['admin/federation/delete-all-files', ep___admin_federation_deleteAllFiles],
-	['admin/federation/refresh-remote-instance-metadata', ep___admin_federation_refreshRemoteInstanceMetadata],
-	['admin/federation/remove-all-following', ep___admin_federation_removeAllFollowing],
-	['admin/federation/update-instance', ep___admin_federation_updateInstance],
-	['admin/get-index-stats', ep___admin_getIndexStats],
-	['admin/get-table-stats', ep___admin_getTableStats],
-	['admin/get-user-ips', ep___admin_getUserIps],
-	['admin/invite', ep___admin_invite],
-	['admin/moderators/add', ep___admin_moderators_add],
-	['admin/moderators/remove', ep___admin_moderators_remove],
-	['admin/promo/create', ep___admin_promo_create],
-	['admin/queue/clear', ep___admin_queue_clear],
-	['admin/queue/deliver-delayed', ep___admin_queue_deliverDelayed],
-	['admin/queue/inbox-delayed', ep___admin_queue_inboxDelayed],
-	['admin/queue/stats', ep___admin_queue_stats],
-	['admin/relays/add', ep___admin_relays_add],
-	['admin/relays/list', ep___admin_relays_list],
-	['admin/relays/remove', ep___admin_relays_remove],
-	['admin/reset-password', ep___admin_resetPassword],
-	['admin/resolve-abuse-user-report', ep___admin_resolveAbuseUserReport],
-	['admin/send-email', ep___admin_sendEmail],
-	['admin/server-info', ep___admin_serverInfo],
-	['admin/show-moderation-logs', ep___admin_showModerationLogs],
-	['admin/show-user', ep___admin_showUser],
-	['admin/show-users', ep___admin_showUsers],
-	['admin/silence-user', ep___admin_silenceUser],
-	['admin/suspend-user', ep___admin_suspendUser],
-	['admin/unsilence-user', ep___admin_unsilenceUser],
-	['admin/unsuspend-user', ep___admin_unsuspendUser],
-	['admin/update-meta', ep___admin_updateMeta],
-	['admin/vacuum', ep___admin_vacuum],
-	['admin/delete-account', ep___admin_deleteAccount],
-	['admin/update-user-note', ep___admin_updateUserNote],
+	// ['admin/abuse-user-reports', ep___admin_abuseUserReports],
+	// ['admin/accounts/create', ep___admin_accounts_create],
+	// ['admin/accounts/delete', ep___admin_accounts_delete],
+	// ['admin/ad/create', ep___admin_ad_create],
+	// ['admin/ad/delete', ep___admin_ad_delete],
+	// ['admin/ad/list', ep___admin_ad_list],
+	// ['admin/ad/update', ep___admin_ad_update],
+	// ['admin/announcements/create', ep___admin_announcements_create],
+	// ['admin/announcements/delete', ep___admin_announcements_delete],
+	// ['admin/announcements/list', ep___admin_announcements_list],
+	// ['admin/announcements/update', ep___admin_announcements_update],
+	// ['admin/delete-all-files-of-a-user', ep___admin_deleteAllFilesOfAUser],
+	// ['admin/drive/clean-remote-files', ep___admin_drive_cleanRemoteFiles],
+	// ['admin/drive/cleanup', ep___admin_drive_cleanup],
+	// ['admin/drive/files', ep___admin_drive_files],
+	// ['admin/drive/show-file', ep___admin_drive_showFile],
+	// ['admin/emoji/add-aliases-bulk', ep___admin_emoji_addAliasesBulk],
+	// ['admin/emoji/add', ep___admin_emoji_add],
+	// ['admin/emoji/copy', ep___admin_emoji_copy],
+	// ['admin/emoji/delete-bulk', ep___admin_emoji_deleteBulk],
+	// ['admin/emoji/delete', ep___admin_emoji_delete],
+	// ['admin/emoji/import-zip', ep___admin_emoji_importZip],
+	// ['admin/emoji/list-remote', ep___admin_emoji_listRemote],
+	// ['admin/emoji/list', ep___admin_emoji_list],
+	// ['admin/emoji/remove-aliases-bulk', ep___admin_emoji_removeAliasesBulk],
+	// ['admin/emoji/set-aliases-bulk', ep___admin_emoji_setAliasesBulk],
+	// ['admin/emoji/set-category-bulk', ep___admin_emoji_setCategoryBulk],
+	// ['admin/emoji/update', ep___admin_emoji_update],
+	// ['admin/federation/delete-all-files', ep___admin_federation_deleteAllFiles],
+	// ['admin/federation/refresh-remote-instance-metadata', ep___admin_federation_refreshRemoteInstanceMetadata],
+	// ['admin/federation/remove-all-following', ep___admin_federation_removeAllFollowing],
+	// ['admin/federation/update-instance', ep___admin_federation_updateInstance],
+	// ['admin/get-index-stats', ep___admin_getIndexStats],
+	// ['admin/get-table-stats', ep___admin_getTableStats],
+	// ['admin/get-user-ips', ep___admin_getUserIps],
+	// ['admin/invite', ep___admin_invite],
+	// ['admin/moderators/add', ep___admin_moderators_add],
+	// ['admin/moderators/remove', ep___admin_moderators_remove],
+	// ['admin/promo/create', ep___admin_promo_create],
+	// ['admin/queue/clear', ep___admin_queue_clear],
+	// ['admin/queue/deliver-delayed', ep___admin_queue_deliverDelayed],
+	// ['admin/queue/inbox-delayed', ep___admin_queue_inboxDelayed],
+	// ['admin/queue/stats', ep___admin_queue_stats],
+	// ['admin/relays/add', ep___admin_relays_add],
+	// ['admin/relays/list', ep___admin_relays_list],
+	// ['admin/relays/remove', ep___admin_relays_remove],
+	// ['admin/reset-password', ep___admin_resetPassword],
+	// ['admin/resolve-abuse-user-report', ep___admin_resolveAbuseUserReport],
+	// ['admin/send-email', ep___admin_sendEmail],
+	// ['admin/server-info', ep___admin_serverInfo],
+	// ['admin/show-moderation-logs', ep___admin_showModerationLogs],
+	// ['admin/show-user', ep___admin_showUser],
+	// ['admin/show-users', ep___admin_showUsers],
+	// ['admin/silence-user', ep___admin_silenceUser],
+	// ['admin/suspend-user', ep___admin_suspendUser],
+	// ['admin/unsilence-user', ep___admin_unsilenceUser],
+	// ['admin/unsuspend-user', ep___admin_unsuspendUser],
+	// ['admin/update-meta', ep___admin_updateMeta],
+	// ['admin/vacuum', ep___admin_vacuum],
+	// ['admin/delete-account', ep___admin_deleteAccount],
+	// ['admin/update-user-note', ep___admin_updateUserNote],
 	['announcements', ep___announcements],
 	['antennas/create', ep___antennas_create],
 	['antennas/delete', ep___antennas_delete],

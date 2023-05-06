@@ -331,9 +331,9 @@ export default define(meta, paramDef, async (ps, me) => {
 		maintainerName: instance.maintainerName,
 		maintainerEmail: instance.maintainerEmail,
 
-		version: config.version,
+		version: config.version + '-v12c',
 
-		name: instance.name,
+		name: instance.name + '(v12-compatible-api)',
 		uri: config.url,
 		description: instance.description,
 		langs: instance.langs,
