@@ -121,18 +121,24 @@ app.use(views(_dirname + '/miauth-client', {
 }));
 
 router.get('/miauth/:token', async ctx => {
+	const query = ctx.request.query;
 	const token = ctx.params.token;
-	const permission = ctx.query.permission;
-	const callback = ctx.query.callback;
-	const icon = ctx.query.icon;
-	const name = ctx.query.name;
+	const callback = query.callback;
+	const permission = query.permission;
+	const icon = query.icon;
+	const name = query.name;
 
+	console.log(token);
+	console.log(query);
+	console.log(permission);
+	
 	await ctx.render('miauth', {
-		token,
-		permission,
-		callback,
-		icon,
-		name,
+		token: token,
+		// query: query,
+		permissions: permission,
+		callback: callback,
+		icon: icon,
+		name: name,
 	});
 });
 

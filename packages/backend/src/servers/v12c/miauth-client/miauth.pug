@@ -1,30 +1,30 @@
-html
+doctype html
+html(lang="en")
 	head
-		title yoiyami MiAuth client
-		//- script
-		//- 	-	let token = #{token}
-		//- 	-	let permissions = #{permission}
-		//- 	-	let callback = #{callback} || null 
-		//- 	-	let icon = #{icon}
-		//- 	-	let name = #{name}
-			//- include ./script.js
-		style 
+		meta(charset="UTF-8")
+		title MiAuth
+		style
 			include ./style.css
+
+		script
+			| let token = "#{token}" 
+
+	header
+		img(class="_item yylogo", src="/miauth-assets/yy-logo-a2.png", alt="yoiyami Logo")
+		div(class="header-txt _item")
+			p.title yoiyami MiAuth client
+			p.subtitle Version 0.1.0
 	body
-		//- script 
-		//- 	-
-		//- 		const token = #{token}
-		//- 	include ./script.js
-		header
-			img._item.yylogo(src="/miauth-assets/yy-logo-a2.png", alt="yoiyami Logo")
-			div.header-txt._item
-				p.title yoiyami MiAuth client
-				p.subtitle Version 0.1.0
-		p._step Please enter your API key.
-		div.apikey-container
+		p(class="_step") Please enter your API key.
+		.apikey-container
 			p.apikey-title API Key
-			input.apikey-input(type="text", name="apikey", value="", placeholder="API Key")
-		div.permission-container
-			p._step Requested Permissions:
+			input.apikey-input#input(type="text", name="apikey", placeholder="API Key")
+		.permission-container
+			p(class="_step") Requested Permissions: 
 			ul.parmission-list
-				li NONE
+				- const permissions_ = permissions.split(',')
+				each permission in permissions_
+					li= permission
+		input(type="button", value="Submit", onclick="post()")
+		script
+			include ./script.js

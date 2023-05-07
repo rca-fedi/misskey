@@ -1,18 +1,25 @@
-// let params = url.searchParams;
 
-// console.log(params);
-// let _permissions = params.get('permission');
-// let _callback = params.get('callback');
-// let _icon = params.get('icon');
-// let _name = params.get('name');
+const api = location.origin + '/api/auth/accept';
 
-// console.log("#{permission}");
-console.log(window.token);
-
-let permission_list = document.getElementById('permission-list');
-
-for (let permission of _permissions.split(',')) {
-		let li = document.createElement('li');
-		li.innerText = permission;
-		permission_list.appendChild(li);
+function post() {
+	const xhr = new XMLHttpRequest();
+	const input = document.getElementById('input');
+	const apikey = input.value;
+	const data = {
+		"i": apikey,
+		"t": token
+	};
+	//DEBUG
+	console.log(data);
+	console.log(JSON.stringify(data));
+	console.log(api);
+	xhr.onload = function() {
+		console.log(xhr.responseText);
+	};
+	xhr.onerror = function() {
+		// エラー処理する
+	};
+	xhr.open('POST', api,true);
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.send(JSON.stringify(data));
 }
