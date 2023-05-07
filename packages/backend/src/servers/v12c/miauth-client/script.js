@@ -7,7 +7,7 @@ function post() {
 	const apikey = input.value;
 	const data = {
 		"i": apikey,
-		"t": token
+		"token": token
 	};
 	//DEBUG
 	console.log(data);
