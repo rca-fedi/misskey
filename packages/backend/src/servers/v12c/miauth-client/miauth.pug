@@ -1,3 +1,4 @@
+//- yoiyami MiAuth client
 doctype html
 html(lang="en")
 	head
@@ -7,8 +8,11 @@ html(lang="en")
 			include ./style.css
 
 		script
-			| let token = "#{token}" 
-			| let permissions = "#{permissions}"
+			| let token_ = "#{token}" 
+			| let permissions_ = "#{permissions}"
+			| let icon_ = "#{icon}"
+			| let name_ = "#{name}"
+			| let callback_ = "#{callback}"
 
 	header
 		img(class="_item yylogo", src="/miauth-assets/yy-logo-a2.png", alt="yoiyami Logo")
@@ -16,6 +20,12 @@ html(lang="en")
 			p.title yoiyami MiAuth client
 			p.subtitle Version 0.1.0
 	body
+		p(class="_step") App info
+		.appinfo-container
+			img(class="appinfo-icon", src=icon, alt="icon")
+			div.appinfo-item
+				p.title #{name}
+				p.subtitle #{token}
 		p(class="_step") Please enter your API key.
 		.apikey-container
 			p.apikey-title API Key
