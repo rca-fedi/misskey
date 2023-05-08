@@ -8,7 +8,7 @@ export const meta = {
 
 	requireCredential: true,
 
-	secure: true,
+	// secure: true,
 
 	res: {
 		type: 'object',

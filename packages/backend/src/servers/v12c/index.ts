@@ -124,7 +124,7 @@ router.get('/miauth/:token', async ctx => {
 	const query = ctx.request.query;
 	const token = ctx.params.token;
 	const callback = query.callback;
-	const permission = query.permission;
+	const permission = query.permission ? query.permission : 'Error: permission is not specified.';
 	const icon = query.icon;
 	const name = query.name;
 
@@ -134,7 +134,6 @@ router.get('/miauth/:token', async ctx => {
 	
 	await ctx.render('miauth', {
 		token: token,
-		// query: query,
 		permissions: permission,
 		callback: callback,
 		icon: icon,

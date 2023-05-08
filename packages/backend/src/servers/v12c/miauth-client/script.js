@@ -1,13 +1,16 @@
 
-const api = location.origin + '/api/auth/accept';
+const api = location.origin + '/api/miauth/gen-token';
 
 function post() {
 	const xhr = new XMLHttpRequest();
 	const input = document.getElementById('input');
 	const apikey = input.value;
+	const permissions__ = permissions.split(',')
 	const data = {
 		"i": apikey,
-		"token": token
+		"session": token,
+		"name": "hoge(HARD)", //TODO: ハードコーディングやめる
+		"permission": permissions__,
 	};
 	//DEBUG
 	console.log(data);
