@@ -98,13 +98,21 @@ router.get('/identicon/:x', async ctx => {
 	ctx.body = fs.createReadStream(temp).on('close', () => cleanup());
 });
 
-// MiAuth Client
+// yoiyami simple auth client
 const _filename = fileURLToPath(import.meta.url);
 const _dirname = dirname(_filename);
 
-app.use(views(_dirname + '/miauth-client', {
+app.use(views(_dirname + '/simple-auth-client', {
 	extension: 'pug',
 }));
+
+router.get('/auth-assets/(.*)', async ctx => {
+	await send(ctx as any, ctx.path.replace('/auth-assets/', ''), {
+		root: `${_dirname}/auth-assets/`,
+	});
+});
+
+// miauth
 
 router.get('/miauth/:token', async ctx => {
 	const query = ctx.request.query;
@@ -127,13 +135,32 @@ router.get('/miauth/:token', async ctx => {
 	});
 });
 
-router.get('/miauth-assets/(.*)', async ctx => {
-	await send(ctx as any, ctx.path.replace('/miauth-assets/', ''), {
-		root: `${_dirname}/miauth-client/miauth-assets/`,
+// ------------------------------
+
+// App aurhentication
+
+router.get('/auth/:token', async ctx => {
+	// const query = ctx.request.query;
+	const token = ctx.params.token;
+	// const callback = query.callback;
+	// const permission = query.permission ? query.permission : 'Error: permission is not specified.';
+	// const icon = query.icon;
+	// const name = query.name;
+
+	console.log(token);
+	// console.log(query);
+	// console.log(permission);
+	
+	await ctx.render('appauth', {
+		token: token,
+		// permissions: permission,
+		// callback: callback,
+		// icon: icon,
+		// name: name,
 	});
 });
 
-// ------------------------------
+
 
 // Register router
 app.use(router.routes());

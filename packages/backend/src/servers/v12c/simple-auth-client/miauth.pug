@@ -5,7 +5,7 @@ html(lang="en")
 		meta(charset="UTF-8")
 		title MiAuth
 		style
-			include ./style.css
+			include ./miauth-style.css
 
 		script
 			| let token_ = "#{token}" 
@@ -15,7 +15,7 @@ html(lang="en")
 			| let callback_ = "#{callback}"
 
 	header
-		img(class="_item yylogo", src="/miauth-assets/yy-logo-a2.png", alt="yoiyami Logo")
+		img(class="_item yylogo", src="/auth-assets/yy-logo-a2.png", alt="yoiyami Logo")
 		div(class="header-txt _item")
 			p.title yoiyami MiAuth client
 			p.subtitle Version 0.1.0
@@ -38,4 +38,4 @@ html(lang="en")
 					li= permission
 		input(type="button", value="Submit", onclick="post()")
 		script
-			include ./script.js
+			include ./miauth-script.js
