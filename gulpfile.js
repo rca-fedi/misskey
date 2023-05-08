@@ -15,8 +15,8 @@ gulp.task('copy:backend:main:views', () =>
 	gulp.src('./packages/backend/src/servers/main/web/views/**/*').pipe(gulp.dest('./packages/backend/built/servers/main/web/views'))
 );
 
-gulp.task('copy:backend:v12c:miauth', () =>
-	gulp.src('./packages/backend/src/servers/v12c/miauth-client/**/*').pipe(gulp.dest('./packages/backend/built/servers/v12c/miauth-client'))
+gulp.task('copy:backend:v12c:simple-auth', () =>
+	gulp.src('./packages/backend/src/servers/v12c/simple-auth-client/**/*').pipe(gulp.dest('./packages/backend/built/servers/v12c/simple-auth-client'))
 );
 
 
@@ -91,7 +91,7 @@ gulp.task('build:backend:main:style', () => {
 // });
 
 gulp.task('build', gulp.parallel(
-	'copy:client:locales', 'copy:backend:main:views', 'copy:backend:v12c:miauth', 'build:backend:main:script', 'build:backend:main:style', 'copy:client:fonts', 'copy:client:fontawesome'
+	'copy:client:locales', 'copy:backend:main:views', 'copy:backend:v12c:simple-auth', 'build:backend:main:script', 'build:backend:main:style', 'copy:client:fonts', 'copy:client:fontawesome'
 ));
 
 gulp.task('default', gulp.task('build'));

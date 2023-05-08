@@ -108,7 +108,7 @@ app.use(views(_dirname + '/simple-auth-client', {
 
 router.get('/auth-assets/(.*)', async ctx => {
 	await send(ctx as any, ctx.path.replace('/auth-assets/', ''), {
-		root: `${_dirname}/auth-assets/`,
+		root: `${_dirname}/simple-auth-client/auth-assets/`,
 	});
 });
 
