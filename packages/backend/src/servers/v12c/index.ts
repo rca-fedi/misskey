@@ -102,20 +102,6 @@ router.get('/identicon/:x', async ctx => {
 const _filename = fileURLToPath(import.meta.url);
 const _dirname = dirname(_filename);
 
-// app.use(serve(`${_dirname}/../../../../../miauth-client/`));
-
-// app.use(async ctx => {
-// 	if (ctx.request.path === '/miauth') {
-// 		ctx.response.type = 'html';
-// 		ctx.body = fs.createReadStream(`${_dirname}/../../../../../miauth-client/miauth.html`);
-// 	}
-// });
-
-// router.get('/miauth/:token', async ctx => {
-// 	ctx.response.type = 'html';
-// 	ctx.body = fs.createReadStream(`${_dirname}/../../../../../miauth-client/miauth.html`);
-// });
-
 app.use(views(_dirname + '/miauth-client', {
 	extension: 'pug',
 }));
@@ -141,61 +127,16 @@ router.get('/miauth/:token', async ctx => {
 	});
 });
 
-// const miauthApp = new Koa();
-
-// miauthApp.use(views(_dirname + '/miauth-client', {
-// 	extension: 'pug',
-// }));
-
-// miauthApp.use(async ctx => {
-// 	const token = ctx.params.token;
-// 	const permission = ctx.query.permission;
-// 	const callback = ctx.query.callback;
-// 	const icon = ctx.query.icon;
-// 	const name = ctx.query.name;
-	
-// 	await ctx.render('miauth', {
-// 		token,
-// 		permission,
-// 		callback,
-// 		icon,
-// 		name,
-// 	});
-// });
-
 router.get('/miauth-assets/(.*)', async ctx => {
 	await send(ctx as any, ctx.path.replace('/miauth-assets/', ''), {
 		root: `${_dirname}/miauth-client/miauth-assets/`,
 	});
 });
 
-// router.get('/verify-email/:code', async ctx => {
-// 	const profile = await UserProfiles.findOneBy({
-// 		emailVerifyCode: ctx.params.code,
-// 	});
-
-// 	if (profile != null) {
-// 		ctx.body = 'Verify succeeded!';
-// 		ctx.status = 200;
-
-// 		await UserProfiles.update({ userId: profile.userId }, {
-// 			emailVerified: true,
-// 			emailVerifyCode: null,
-// 		});
-
-// 		publishMainStream(profile.userId, 'meUpdated', await Users.pack(profile.userId, { id: profile.userId }, {
-// 			detail: true,
-// 			includeSecrets: true,
-// 		}));
-// 	} else {
-// 		ctx.status = 404;
-// 	}
-// });
+// ------------------------------
 
 // Register router
 app.use(router.routes());
-
-// app.use(mount('/miauth', miauthApp as any)); //TODO: anyやめる
 
 // app.use(mount(webServer));
 
