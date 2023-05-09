@@ -160,8 +160,6 @@ router.get('/auth/:token', async ctx => {
 	});
 });
 
-
-
 // Register router
 app.use(router.routes());
 
