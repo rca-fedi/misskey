@@ -7,8 +7,8 @@ function post() {
 
 	const data = {
 		"i": apikey,
-		"session": token_,
-	};
+		"token": token_,
+	};	
 
 	const xhr = new XMLHttpRequest();
 	xhr.onload = function() {
