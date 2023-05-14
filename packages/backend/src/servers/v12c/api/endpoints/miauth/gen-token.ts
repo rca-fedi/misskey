@@ -10,6 +10,8 @@ export const meta = {
 
 	// secure: true,
 
+	kind: 'approve:new-token',
+
 	res: {
 		type: 'object',
 		optional: false, nullable: false,

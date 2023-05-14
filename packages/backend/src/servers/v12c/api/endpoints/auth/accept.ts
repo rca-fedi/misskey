@@ -11,7 +11,8 @@ export const meta = {
 	requireCredential: true,
 
 	// secure: true,
-	// Debug only
+
+	kind: 'approve:new-token',
 
 	errors: {
 		noSuchSession: {

@@ -31,5 +31,6 @@ export const kinds = [
 	'write:gallery',
 	'read:gallery-likes',
 	'write:gallery-likes',
+	'approve:new-token', // 新しいアクセストークンの承認（ほかとそろえた書き方を考えるべきかも）
 ];
 // IF YOU ADD KINDS(PERMISSIONS), YOU MUST ADD TRANSLATIONS (under _permissions).
