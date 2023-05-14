@@ -10,7 +10,8 @@ export const meta = {
 
 	requireCredential: true,
 
-	secure: true,
+	// secure: true,
+	// Debug only
 
 	errors: {
 		noSuchSession: {

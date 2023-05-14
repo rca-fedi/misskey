@@ -1,0 +1,110 @@
+
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
+
+html {
+	font-family: "Open Sans", "M PLUS 1p", sans-serif;
+}
+
+header {
+	display: flex;
+	background: linear-gradient(90deg, #ebcbd9 0%, #FFFFFF 100%);
+  align-items: center;
+	border-radius: 5px;
+}
+
+header .yylogo {
+	height: 100%;
+	max-height: 30px;
+}
+
+header ._item {
+	margin: 15px;
+}
+
+header .title {
+	font-size: 1em;
+	vertical-align: text-bottom;
+	color: #3a3a3a;
+	margin: 0px;
+}
+
+header .subtitle {
+	font-size: 0.7em;
+	vertical-align: text-bottom;
+	color: #3a3a3a8F;
+	margin: 0px;
+}
+
+._step {
+	margin-left: 12px;
+	font-size: larger;
+	margin-bottom: 0px;
+}
+
+.appinfo-container {
+	display: flex;
+	align-items: center;
+	padding: 12px;
+	margin: 12px;
+	border-bottom: #dfc0cd solid 2px;
+}
+
+.appinfo-container .appinfo-icon {
+	height: 100%;
+	max-height: 64px;
+	border: #3a3a3a8F solid 1px;
+	border-radius: 999px;
+}
+
+.appinfo-container .appinfo-item {
+	display: block;
+	margin-left: 12px;
+}
+
+.appinfo-container .title {
+	font-size: 1.3em;
+	vertical-align: text-bottom;
+	color: #3a3a3a;
+	margin: 0px;
+}
+
+.appinfo-container .subtitle {
+	font-size: 0.9em;
+	vertical-align: text-bottom;
+	color: #3a3a3a8F;
+	margin: 0px;
+}
+
+.apikey-container {
+	display: flex;
+	padding: 12px;
+	margin: 12px;
+	border-bottom: #dfc0cd solid 2px;
+}
+
+.apikey-title {
+	font-size: 0.7em;
+	padding-right: 12px;
+}
+
+.apikey-input {
+	border: #3a3a3a8F solid 1px;
+	border-radius: 5px;
+	width: calc( 100% - 64px );
+}
+
+.button-container {
+	display: flex;
+	justify-content: center;
+	margin: 12px;
+}
+
+.submit-button {
+	height: 54px;
+	width: 256px;
+	background-color: #ebd6de;
+	border-radius: 12px;
+	border-color: #DFC0CD;
+	font-size: large;
+	color: #3a3a3a;
+}

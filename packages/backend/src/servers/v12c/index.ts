@@ -10,6 +10,11 @@ import Router from '@koa/router';
 import mount from 'koa-mount';
 import koaLogger from 'koa-logger';
 import * as slow from 'koa-slow';
+import send from 'koa-send';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import serve from 'koa-static';
+import views from 'koa-views';
 
 import { IsNull } from 'typeorm';
 import config from '@/config/index.js';
@@ -93,28 +98,67 @@ router.get('/identicon/:x', async ctx => {
 	ctx.body = fs.createReadStream(temp).on('close', () => cleanup());
 });
 
-// router.get('/verify-email/:code', async ctx => {
-// 	const profile = await UserProfiles.findOneBy({
-// 		emailVerifyCode: ctx.params.code,
-// 	});
+// yoiyami simple auth client
+const _filename = fileURLToPath(import.meta.url);
+const _dirname = dirname(_filename);
 
-// 	if (profile != null) {
-// 		ctx.body = 'Verify succeeded!';
-// 		ctx.status = 200;
+app.use(views(_dirname + '/simple-auth-client', {
+	extension: 'pug',
+}));
 
-// 		await UserProfiles.update({ userId: profile.userId }, {
-// 			emailVerified: true,
-// 			emailVerifyCode: null,
-// 		});
+router.get('/auth-assets/(.*)', async ctx => {
+	await send(ctx as any, ctx.path.replace('/auth-assets/', ''), {
+		root: `${_dirname}/simple-auth-client/auth-assets/`,
+	});
+});
 
-// 		publishMainStream(profile.userId, 'meUpdated', await Users.pack(profile.userId, { id: profile.userId }, {
-// 			detail: true,
-// 			includeSecrets: true,
-// 		}));
-// 	} else {
-// 		ctx.status = 404;
-// 	}
-// });
+// miauth
+
+router.get('/miauth/:token', async ctx => {
+	const query = ctx.request.query;
+	const token = ctx.params.token;
+	const callback = query.callback;
+	const permission = query.permission ? query.permission : 'Error: permission is not specified.';
+	const icon = query.icon;
+	const name = query.name;
+
+	console.log(token);
+	console.log(query);
+	console.log(permission);
+	
+	await ctx.render('miauth', {
+		token: token,
+		permissions: permission,
+		callback: callback,
+		icon: icon,
+		name: name,
+	});
+});
+
+// ------------------------------
+
+// App aurhentication
+
+router.get('/auth/:token', async ctx => {
+	// const query = ctx.request.query;
+	const token = ctx.params.token;
+	// const callback = query.callback;
+	// const permission = query.permission ? query.permission : 'Error: permission is not specified.';
+	// const icon = query.icon;
+	// const name = query.name;
+
+	console.log(token);
+	// console.log(query);
+	// console.log(permission);
+	
+	await ctx.render('appauth', {
+		token: token,
+		// permissions: permission,
+		// callback: callback,
+		// icon: icon,
+		// name: name,
+	});
+});
 
 // Register router
 app.use(router.routes());

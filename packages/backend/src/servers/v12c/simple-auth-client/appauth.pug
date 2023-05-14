@@ -1,0 +1,43 @@
+//- yoiyami AppAuth client
+doctype html
+html(lang="en")
+	head
+		meta(charset="UTF-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		title AppAuth
+		style
+			include ./appauth-style.css
+
+		script
+			| let token_ = "#{token}" 
+			//- | let permissions_ = "#{permissions}"
+			//- | let icon_ = "#{icon}"
+			//- | let name_ = "#{name}"
+			//- | let callback_ = "#{callback}"
+
+	header
+		img(class="_item yylogo", src="/auth-assets/yy-logo-a2.png", alt="yoiyami Logo")
+		div(class="header-txt _item")
+			p.title yoiyami AppAuth client
+			p.subtitle Version 0.1.0
+	body
+		p(class="_step") App info
+		.appinfo-container
+			//- p#appname
+			div.appinfo-item
+				p#appnameid.appnameid
+				p#apptoken.apptoken #{token}
+		p(class="_step") Please enter your API key.
+		.apikey-container
+			p.apikey-title API Key
+			input.apikey-input#input(type="text", name="apikey", placeholder="API Key")
+		//- .permission-container
+		//- 	p(class="_step") Requested Permissions: 
+		//- 	ul.parmission-list
+		//- 		- const permissions_ = permissions.split(',')
+		//- 		each permission in permissions_
+		//- 			li= permission
+		.button-container
+			input(class="submit-button" type="button", value="Submit", onclick="post()")
+		script
+			include ./appauth-script.js
