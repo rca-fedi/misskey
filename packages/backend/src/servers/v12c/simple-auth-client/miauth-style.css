@@ -90,6 +90,21 @@ header .subtitle {
 .apikey-input {
 	border: #3a3a3a8F solid 1px;
 	border-radius: 5px;
+	width: calc( 100% - 64px );
 }
 
+.button-container {
+	display: flex;
+	justify-content: center;
+	margin: 12px;
+}
 
+.submit-button {
+	height: 54px;
+	width: 256px;
+	background-color: #ebd6de;
+	border-radius: 12px;
+	border-color: #DFC0CD;
+	font-size: large;
+	color: #3a3a3a;
+}

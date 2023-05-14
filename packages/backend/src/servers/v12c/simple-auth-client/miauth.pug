@@ -3,6 +3,7 @@ doctype html
 html(lang="en")
 	head
 		meta(charset="UTF-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
 		title MiAuth
 		style
 			include ./miauth-style.css
@@ -22,9 +23,9 @@ html(lang="en")
 	body
 		p(class="_step") App info
 		.appinfo-container
-			img(class="appinfo-icon", src=icon, alt="icon")
+			img(id="appicon", class="appinfo-icon", src=icon, alt="icon")
 			div.appinfo-item
-				p.title #{name}
+				p.title#appname #{name}
 				p.subtitle #{token}
 		p(class="_step") Please enter your API key.
 		.apikey-container
@@ -36,6 +37,7 @@ html(lang="en")
 				- const permissions_ = permissions.split(',')
 				each permission in permissions_
 					li= permission
-		input(type="button", value="Submit", onclick="post()")
+		.button-container
+			input(class="submit-button" type="button", value="Submit", onclick="post()")
 		script
 			include ./miauth-script.js
