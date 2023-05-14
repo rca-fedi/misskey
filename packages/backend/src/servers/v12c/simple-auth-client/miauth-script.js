@@ -44,7 +44,7 @@ function post() {
 		if (xhr.status == 200 || xhr.status == 204) {
 			//成功したときのやつ
 			if (callback_ !== '') { //callback
-				location.href = callback_ + '?token=' + token_;
+				location.href = callback_ + '?session=' + token_;
 			}
 		}
 		else {
