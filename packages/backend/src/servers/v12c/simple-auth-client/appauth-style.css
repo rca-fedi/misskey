@@ -49,26 +49,19 @@ header .subtitle {
 	border-bottom: #dfc0cd solid 2px;
 }
 
-.appinfo-container .appinfo-icon {
-	height: 100%;
-	max-height: 64px;
-	border: #3a3a3a8F solid 1px;
-	border-radius: 999px;
-}
-
 .appinfo-container .appinfo-item {
 	display: block;
 	margin-left: 12px;
 }
 
-.appinfo-container .title {
+.appinfo-container .appinfo-item .appnameid {
 	font-size: 1.3em;
 	vertical-align: text-bottom;
 	color: #3a3a3a;
 	margin: 0px;
 }
 
-.appinfo-container .subtitle {
+.appinfo-container .appinfo-item .apptoken {
 	font-size: 0.9em;
 	vertical-align: text-bottom;
 	color: #3a3a3a8F;
@@ -90,6 +83,21 @@ header .subtitle {
 .apikey-input {
 	border: #3a3a3a8F solid 1px;
 	border-radius: 5px;
+	width: calc( 100% - 64px );
 }
 
+.button-container {
+	display: flex;
+	justify-content: center;
+	margin: 12px;
+}
 
+.submit-button {
+	height: 54px;
+	width: 256px;
+	background-color: #ebd6de;
+	border-radius: 12px;
+	border-color: #DFC0CD;
+	font-size: large;
+	color: #3a3a3a;
+}

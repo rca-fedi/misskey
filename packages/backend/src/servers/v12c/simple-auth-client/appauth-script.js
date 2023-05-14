@@ -16,6 +16,7 @@ function fetchMeta() {
 		console.log(xhr.responseText);
 		const res = JSON.parse(xhr.responseText);
 		callback = res.app.callbackUrl;
+		updateAppInfo(res);
 	}
 	xhr.onerror = function() {
 		// エラー処理する
@@ -26,6 +27,11 @@ function fetchMeta() {
 
 }
 
+function updateAppInfo(res) {
+	const appnameid = document.getElementById('appnameid');
+
+	appnameid.innerText = res.app.name + ' (' + res.app.id + ')';
+}
 
 function post() {
 	const input = document.getElementById('input');
