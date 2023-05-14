@@ -37,11 +37,20 @@ function post() {
 
 	const xhr = new XMLHttpRequest();
 	xhr.onload = function() {
-		console.log(xhr.responseText);
-		const res = JSON.parse(xhr.responseText);
-		if (callback) {
-			location.href = callback + '?token=' + res.accessToken;
+		const xhr = new XMLHttpRequest();
+
+		xhr.onload = function() {
+			const res = JSON.parse(xhr.responseText);
+			if (callback) {
+				location.href = callback + '?token=' + res.accessToken;
+			}
 		}
+		xhr.onerror = function() {
+			// エラー処理する
+		}
+		xhr.open('POST', origin + '/api/auth/session/userkey', true);
+		xhr.setRequestHeader('Content-Type', 'application/json');
+		xhr.send(JSON.stringify(data_userkey));
 	}
 	xhr.onerror = function() {
 		// エラー処理とか書く
