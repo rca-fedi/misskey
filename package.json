@@ -31,6 +31,7 @@
 		"cleanall": "npm run clean-all"
 	},
 	"dependencies": {
+		"@r-ca/yoiyami-js": "1.0.2",
 		"execa": "5.1.1",
 		"gulp": "4.0.2",
 		"gulp-cssnano": "2.1.3",
