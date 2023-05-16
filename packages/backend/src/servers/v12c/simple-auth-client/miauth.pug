@@ -28,11 +28,11 @@ html(lang="en")
 				p.title#appname #{name}
 				p.subtitle #{token}
 		p(class="_step") Please enter your API key.
+		p(class="_step_addi") Required Permission: approve:new-token
 		.apikey-container
 			p.apikey-title API Key
 			input.apikey-input#input(type="text", name="apikey", placeholder="API Key")
 		.permission-container
-			p(class="_step") Requested Permissions: 
 			ul.parmission-list
 				- const permissions_ = permissions.split(',')
 				each permission in permissions_

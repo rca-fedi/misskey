@@ -41,6 +41,13 @@ header .subtitle {
 	margin-bottom: 0px;
 }
 
+._step_addi {
+	margin-left: 12px;
+	font-size: smaller;
+	margin-top: 0px;
+	color: #3a3a3a8F;
+}
+
 .appinfo-container {
 	display: flex;
 	align-items: center;
