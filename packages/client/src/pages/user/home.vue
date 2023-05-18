@@ -1,6 +1,6 @@
 <template>
 <MkSpacer :content-max="narrow ? 800 : 1100">
-	<div ref="rootEl" v-size="{ max: [500] }" class="ftskorzw" :class="{ wide: !narrow }">
+	<div id="head_tst" ref="rootEl" v-size="{ max: [500] }" class="ftskorzw" :class="{ wide: !narrow }">
 		<div class="main">
 			<!-- TODO -->
 			<!-- <div class="punished" v-if="user.isSuspended"><i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i> {{ i18n.ts.userSuspended }}</div> -->
@@ -133,6 +133,8 @@
 import { defineAsyncComponent, computed, inject, onMounted, onUnmounted, watch } from 'vue';
 import calcAge from 's-age';
 import * as misskey from '@r-ca/yoiyami-js';
+// import { getColorFromURL } from 'color-thief-node';
+import colorThief from 'colorthief';
 import XUserTimeline from './index.timeline.vue';
 import XNote from '@/components/MkNote.vue';
 import MkFollowButton from '@/components/MkFollowButton.vue';
@@ -208,6 +210,14 @@ onUnmounted(() => {
 		window.cancelAnimationFrame(parallaxAnimationId);
 	}
 });
+
+//ヘッダーからテーマカラーを取得
+console.log(props.user.bannerUrl);
+if (props.user.bannerUrl) {
+	const color = colorThief.getColor(props.user.bannerUrl);
+	console.log(color);
+}
+
 </script>
 
 <style lang="scss" scoped>
