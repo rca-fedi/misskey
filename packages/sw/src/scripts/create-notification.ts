@@ -265,8 +265,9 @@ export async function createEmptyNotification() {
 		const { t } = i18n;
 	
 		await self.registration.showNotification(
-			t('_notification.emptyPushNotificationMessage'),
+			t(new URL(origin).hostname),
 			{
+				body: `yoiyami`,
 				silent: true,
 				badge: iconUrl('null'),
 				tag: 'read_notification',
