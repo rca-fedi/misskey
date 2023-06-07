@@ -3,6 +3,7 @@
 <section
 	v-hotkey="keymap" class="dnpfarvg _narrow_"
 	:class="{ paged: isMainColumn, naked, active, isStacked, draghover, dragging, dropready }"
+	:style="{ backgroundImage: 'url(' + column.bg + ')' }" 
 	@dragover.prevent.stop="onDragover"
 	@dragleave="onDragleave"
 	@drop.prevent.stop="onDrop"
@@ -123,6 +124,11 @@ function getMenu() {
 					type: 'boolean',
 					label: i18n.ts.flexible,
 					default: props.column.flexible,
+				},
+				bg: {
+					type: 'string',
+					label: "背景画像(仮置きテキスト)",
+					default: props.column.bg,
 				},
 			});
 			if (canceled) return;
