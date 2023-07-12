@@ -40,20 +40,22 @@
 		<XPollEditor v-if="poll" v-model="poll" @destroyed="poll = null"/>
 		<XNotePreview v-if="showPreview" class="preview" :text="text"/>
 		<footer>
-			<button v-tooltip="i18n.ts.attachFile" class="_button" @click="chooseFileFrom"><i class="fas fa-photo-video"></i></button>
+			<!-- <button v-tooltip="i18n.ts.attachFile" class="_button" @click="chooseFileFrom"><i class="fas fa-photo-video"></i></button>
 			<button v-tooltip="i18n.ts.poll" class="_button" :class="{ active: poll }" @click="togglePoll"><i class="fas fa-poll-h"></i></button>
 			<button v-tooltip="i18n.ts.useCw" class="_button" :class="{ active: useCw }" @click="useCw = !useCw"><i class="fas fa-eye-slash"></i></button>
 			<button v-tooltip="i18n.ts.mention" class="_button" @click="insertMention"><i class="fas fa-at"></i></button>
 			<button v-tooltip="i18n.ts.hashtags" class="_button" :class="{ active: withHashtags }" @click="withHashtags = !withHashtags"><i class="fas fa-hashtag"></i></button>
 			<button v-if="$store.state.postFormFooterEmojiIconEnabled" v-tooltip="i18n.ts.emoji" class="_button" @click="insertEmoji"><i class="fas fa-laugh-squint"></i></button>
 			<button v-if="postFormActions.length > 0" v-tooltip="i18n.ts.plugin" class="_button" @click="showActions"><i class="fas fa-plug"></i></button>
+			<button v-tooltip="i18n.ts.previewNoteText" class="_button preview" :class="{ active: showPreview }" @click="showPreview = !showPreview"><i class="fas fa-file-code"></i></button>
+			<button v-if="$store.state.postFormFooterPostButtonEnabled" class="submit _buttonGradate" :disabled="!canPost" data-cy-open-post-form-submit @click="post"><i :class="reply ? 'fas fa-reply' : renote ? 'fas fa-quote-right' : 'fas fa-paper-plane'"></i></button> -->
+			<button v-for="item in postFormItemDef" v-tooltip=item.tooltip class="_button" :class=item.class @click="runFunc(item.click)"><i :class="item.icon"></i></button>
 			<button ref="visibilityButton" v-tooltip="i18n.ts.visibility" class="_button visibility" :disabled="channel != null" @click="setVisibility">
 				<span v-if="visibility === 'public'"><i class="fas fa-globe"></i></span>
 				<span v-if="visibility === 'home'"><i class="fas fa-home"></i></span>
 				<span v-if="visibility === 'followers'"><i class="fas fa-unlock"></i></span>
 				<span v-if="visibility === 'specified'"><i class="fas fa-envelope"></i></span>
 			</button>
-			<button v-tooltip="i18n.ts.previewNoteText" class="_button preview" :class="{ active: showPreview }" @click="showPreview = !showPreview"><i class="fas fa-file-code"></i></button>
 			<button v-if="$store.state.postFormFooterPostButtonEnabled" class="submit _buttonGradate" :disabled="!canPost" data-cy-open-post-form-submit @click="post"><i :class="reply ? 'fas fa-reply' : renote ? 'fas fa-quote-right' : 'fas fa-paper-plane'"></i></button>
 		</footer>
 		<MkEmojiPicker v-if="$store.state.postFormEmojiPickerNewStyleEnabled" @chosen="emojiChosen"></MkEmojiPicker>
@@ -65,7 +67,7 @@
 </template>
 
 <script lang="ts" setup>
-import { inject, watch, nextTick, onMounted, defineAsyncComponent } from 'vue';
+import { inject, watch, nextTick, onMounted, defineAsyncComponent, reactive } from 'vue';
 import * as mfm from 'mfm-js';
 import * as misskey from '@r-ca/yoiyami-js';
 import insertTextAtCursor from 'insert-text-at-cursor';
@@ -94,6 +96,7 @@ import { $i, getAccounts, openAccountMenu as openAccountMenu_ } from '@/account'
 import { uploadFile } from '@/scripts/upload';
 import { addPostQueue } from '@/scripts/post-queue';
 import * as clientLogger from '@/scripts/client-logger';
+import { postFormItemDef } from '@/postformItemDef';
 
 const modal = inject('modal');
 
@@ -127,6 +130,7 @@ const textareaEl = $ref<HTMLTextAreaElement | null>(null);
 const cwInputEl = $ref<HTMLInputElement | null>(null);
 const hashtagsInputEl = $ref<HTMLInputElement | null>(null);
 const visibilityButton = $ref<HTMLElement | null>(null);
+
 
 let posting = $ref(false);
 let text = $ref(props.initialText ?? '');
@@ -801,6 +805,16 @@ onMounted(() => {
 function emojiChosen(emoji: any):void {
 	insertTextAtCursor(textareaEl, emoji);
 }
+
+
+function runFunc(target: string):any {
+	switch (target):
+		case 'chooseFileFrom':
+			chooseFileFrom(ev);
+			break;
+		case 'togglePoll':
+}
+
 </script>
 
 <style lang="scss" scoped>
