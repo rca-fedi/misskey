@@ -33,6 +33,7 @@ export async function initPrimary() {
 			//1プロセスで起動してほしいのでforkせずにWorkerになってもらう
 			bootLogger.info('Initiating worker function...');
 			initWorker();
+			bootLogger.succ('yoiyami v12c is now listening to ' + bootConfig.v12c.url + '. (Port: ' + bootConfig.v12c.port + ')');
 		}
 		else {
 			await spawnWorkers(bootConfig.processes.v12c);

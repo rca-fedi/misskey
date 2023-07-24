@@ -38,6 +38,7 @@ export async function initPrimary(): Promise<void> {
 			//1プロセスで起動してほしいのでforkせずにWorkerになってもらう
 			bootLogger.info('Initiating worker function...');
 			initWorker();
+			bootLogger.succ('yoiyami main is now listening to ' + bootConfig.main.url + '. (Port: ' + bootConfig.main.port + ')');
 		}
 		else {
 			await spawnWorkers(bootConfig.processes.main);
