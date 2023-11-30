@@ -123,7 +123,7 @@
 		</div>
 		<div v-if="!narrow" class="sub">
 			<XPhotos :key="user.id" :user="user" />
-			<XActivity :key="user.id" :user="user" style="margin-top: var(--margin);" />
+			<XActivity :key="user.id" :user="user" style="margin-top: var(--margin);" v-if="showActivityGraph"/>
 		</div>
 	</div>
 </MkSpacer>
