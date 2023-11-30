@@ -113,7 +113,7 @@
 				</div>
 				<MkInfo v-else-if="$i && $i.id === user.id">{{ i18n.ts.userPagePinTip }}</MkInfo>
 				<template v-if="narrow">
-					<XPhotos :key="user.id" :user="user" />
+					<XPhotos :key="user.id" :user="user" v-if="showGallery"/>
 					<XActivity :key="user.id" :user="user" style="margin-top: var(--margin);" v-if="showActivityGraph"/>
 				</template>
 			</div>
@@ -122,7 +122,7 @@
 			</div>
 		</div>
 		<div v-if="!narrow" class="sub">
-			<XPhotos :key="user.id" :user="user" />
+			<XPhotos :key="user.id" :user="user" v-if="showGallery"/>
 			<XActivity :key="user.id" :user="user" style="margin-top: var(--margin);" v-if="showActivityGraph"/>
 		</div>
 	</div>
@@ -169,7 +169,15 @@ let bannerEl = $ref<null | HTMLElement>(null);
 // Customizations
 
 const showActivityGraph = $computed(() => {
-	return !defaultStore.state.userDetail_hideActivityGraph;
+	if (props.user.host != null) {
+		return !defaultStore.state.userDetail_hideActivityGraph_remote;
+	} else {
+		return !defaultStore.state.userDetail_hideActivityGraph;
+	}
+});
+
+const showGallery = $computed(() => {
+	return !defaultStore.state.userDetail_hideGallery;
 });
 
 const showFollowers = $computed(() => {
