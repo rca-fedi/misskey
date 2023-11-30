@@ -319,6 +319,14 @@ export const defaultStore = markRaw(new Storage('base', {
 		where: 'device',
 		default: true,
 	},
+	userDetail_hideActivityGraph_remote: {
+		where: 'device',
+		default: true,
+	},
+	userDetail_hideGallery: {
+		where: 'device',
+		default: false,
+	},
 	userDetail_hideFollowers: {
 		where: 'device',
 		default: false,
