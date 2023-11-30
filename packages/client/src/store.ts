@@ -330,7 +330,7 @@ export const defaultStore = markRaw(new Storage('base', {
 					enabled: false,
 					remoteOnly: false
 				},
-				hideNotes: {
+				hideNoteCount: {
 					enabled: false,
 					remoteOnly: false
 				},
