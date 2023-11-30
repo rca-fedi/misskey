@@ -27,6 +27,17 @@
 		<option value="specified">specified(ダイレクト)</option>
 	</FormRadios>
 
+	<FormSection>
+		<template #label>UI Customizations</template>
+		<FormSwitch v-model="uiCustomizations.userDetail.hideActivityGraph.enabled" class="_formBlock">ユーザーページ: アクティビティグラフを隠す</FormSwitch>
+		<FormSwitch v-model="uiCustomizations.userDetail.hideFollowers.enabled" class="_formBlock">ユーザーページ: フォロワーを隠す</FormSwitch>
+		<FormSwitch v-model="uiCustomizations.userDetail.hideFollowers.remoteOnly" class="_formBlock">ユーザーページ: フォロー中を隠す(リモートのみ)</FormSwitch>
+		<FormSwitch v-model="uiCustomizations.userDetail.hideFollowing.enabled" class="_formBlock">ユーザーページ: フォロー中を隠す</FormSwitch>
+		<FormSwitch v-model="uiCustomizations.userDetail.hideFollowing.remoteOnly" class="_formBlock">ユーザーページ: フォロー中を隠す(リモートのみ)</FormSwitch>
+		<FormSwitch v-model="uiCustomizations.userDetail.hideNoteCount.enabled" class="_formBlock">ユーザーページ: 投稿数を隠す</FormSwitch>
+		<FormSwitch v-model="uiCustomizations.userDetail.hideNoteCount.remoteOnly" class="_formBlock">ユーザーページ: 投稿数を隠す(リモートのみ)</FormSwitch>
+	</FormSection>
+
 </div>
 </template>
 	
@@ -36,6 +47,7 @@ import { defaultStore } from '@/store';
 import FormInfo from '@/components/MkInfo.vue';
 import FormSwitch from '@/components/form/switch.vue';
 import FormRadios from '@/components/form/radios.vue';
+import FormSection from '@/components/form/section.vue';
 
 const navBarChatIcon = computed(defaultStore.makeGetterSetter('navBarChatIcon'));
 const navBarReloadIcon = computed(defaultStore.makeGetterSetter('navBarReloadIcon'));
@@ -51,4 +63,6 @@ const postFormHeaderPostButtonEnabled = computed(defaultStore.makeGetterSetter('
 const navBarStyle = computed(defaultStore.makeGetterSetter('navBarStyle'));
 const debugMode = computed(defaultStore.makeGetterSetter('debugMode'));
 const visibilityWarning = computed(defaultStore.makeGetterSetter('visibilityWarning'));
+
+const uiCustomizations = computed(defaultStore.makeGetterSetter('uiCustomization'));
 </script>
