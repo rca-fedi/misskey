@@ -88,17 +88,17 @@
 						</dl>
 					</div>
 					<div class="status">
-						<MkA v-click-anime :to="userPage(user)" :class="{ active: page === 'index' }">
+						<MkA v-click-anime :to="userPage(user)" :class="{ active: page === 'index' }" v-if="!defaultStore.state.userDetail_hideNoteCount">
 							<b>{{ number(user.notesCount) }}</b>
 							<span>{{ i18n.ts.notes }}</span>
 						</MkA>
 						<MkA v-click-anime :to="userPage(user, 'following')"
-							:class="{ active: page === 'following' }">
+							:class="{ active: page === 'following' }" v-if="!defaultStore.state.userDetail_hideFollowing">
 							<b>{{ number(user.followingCount) }}</b>
 							<span>{{ i18n.ts.following }}</span>
 						</MkA>
 						<MkA v-click-anime :to="userPage(user, 'followers')"
-							:class="{ active: page === 'followers' }">
+							:class="{ active: page === 'followers' }" v-if="!defaultStore.state.userDetail_hideFollowers">
 							<b>{{ number(user.followersCount) }}</b>
 							<span>{{ i18n.ts.followers }}</span>
 						</MkA>
@@ -145,6 +145,7 @@ import { getScrollPosition } from '@/scripts/scroll';
 import { getUserMenu } from '@/scripts/get-user-menu';
 import number from '@/filters/number';
 import { userPage, acct as getAcct } from '@/filters/user';
+import { defaultStore } from '@/store';
 import * as os from '@/os';
 import { useRouter } from '@/router';
 import { i18n } from '@/i18n';
