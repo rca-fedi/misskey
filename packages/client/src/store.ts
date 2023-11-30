@@ -315,28 +315,35 @@ export const defaultStore = markRaw(new Storage('base', {
 		where: 'deviceAccount',
 		default: 'public' as 'public' | 'home' | 'followers' | 'specified',
 	},
-	uiCustomization: {
+	userDetail_hideActivityGraph: {
 		where: 'device',
-		default : {
-			userDetail: {
-				hideActivityGraph: {
-					enabled: true
-				},
-				hideFollowers: {
-					enabled: false,
-					remoteOnly: false
-				},
-				hideFollowing: {
-					enabled: false,
-					remoteOnly: false
-				},
-				hideNoteCount: {
-					enabled: false,
-					remoteOnly: false
-				},
-			}
-		}
+		default: true,
 	},
+	userDetail_hideFollowers: {
+		where: 'device',
+		default: false,
+	},
+	userDetail_hideFollowers_remote: {
+		where: 'device',
+		default: false,
+	},
+	userDetail_hideFollowing: {
+		where: 'device',
+		default: false,
+	},
+	userDetail_hideFollowing_remote: {
+		where: 'device',
+		default: false,
+	},
+	userDetail_hideNoteCount: {
+		where: 'device',
+		default: false,
+	},
+	userDetail_hideNoteCount_remote: {
+		where: 'device',
+		default: false,
+	},
+
 }));
 
 // TODO: 他のタブと永続化されたstateを同期
