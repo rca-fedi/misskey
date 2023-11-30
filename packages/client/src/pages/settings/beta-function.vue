@@ -38,6 +38,7 @@
 		<FormSwitch v-model="userDetail_hideNoteCount" class="_formBlock">ユーザーページ: 投稿数を隠す(ローカル)</FormSwitch>
 		<FormSwitch v-model="userDetail_hideNoteCount_remote" class="_formBlock">ユーザーページ: 投稿数を隠す(リモート)</FormSwitch>
 		<FormSwitch v-model="userDetail_hideGallery" class="_formBlock">ユーザーページ: ギャラリーを隠す</FormSwitch>
+		<FormSwitch v-model="userDetail_hideShowOnRemote" class="_formBlock">ユーザーページ: リモートユーザーへの警告を隠す</FormSwitch>
 	</FormSection>
 
 </div>
@@ -75,5 +76,6 @@ const userDetail_hideFollowing_remote = computed(defaultStore.makeGetterSetter('
 const userDetail_hideNoteCount = computed(defaultStore.makeGetterSetter('userDetail_hideNoteCount'));
 const userDetail_hideNoteCount_remote = computed(defaultStore.makeGetterSetter('userDetail_hideNoteCount_remote'));
 const userDetail_hideGallery = computed(defaultStore.makeGetterSetter('userDetail_hideGallery'));
+const userDetail_hideShowOnRemote = computed(defaultStore.makeGetterSetter('userDetail_hideShowOnRemote'));
 
 </script>

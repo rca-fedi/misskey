@@ -7,7 +7,7 @@
 			<!-- <div class="punished" v-if="user.isSilenced"><i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i> {{ i18n.ts.userSilenced }}</div> -->
 
 			<div class="profile">
-				<MkRemoteCaution v-if="user.host != null" :href="user.url" class="warn" />
+				<MkRemoteCaution v-if="showRemoteWarning" :href="user.url" class="warn" />
 
 				<div :key="user.id" class="_block main">
 					<div class="banner-container" :style="style">
@@ -210,6 +210,10 @@ const showStatusArea = $computed(() => {
 
 const showSubArea = $computed(() => {
 	return showGallery || showActivityGraph;
+});
+
+const showRemoteWarning = $computed(() => {
+	return (props.user.host != null) && !defaultStore.state.userDetail_hideShowOnRemote;
 });
 
 const style = $computed(() => {
