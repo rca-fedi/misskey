@@ -87,18 +87,18 @@
 							</dd>
 						</dl>
 					</div>
-					<div class="status">
-						<MkA v-click-anime :to="userPage(user)" :class="{ active: page === 'index' }" v-if="!defaultStore.state.userDetail_hideNoteCount">
+					<div class="status" v-if="showStatusArea">
+						<MkA v-click-anime :to="userPage(user)" :class="{ active: page === 'index' }" v-if="showNoteCount">
 							<b>{{ number(user.notesCount) }}</b>
 							<span>{{ i18n.ts.notes }}</span>
 						</MkA>
 						<MkA v-click-anime :to="userPage(user, 'following')"
-							:class="{ active: page === 'following' }" v-if="!defaultStore.state.userDetail_hideFollowing">
+							:class="{ active: page === 'following' }" v-if="showFollowing">
 							<b>{{ number(user.followingCount) }}</b>
 							<span>{{ i18n.ts.following }}</span>
 						</MkA>
 						<MkA v-click-anime :to="userPage(user, 'followers')"
-							:class="{ active: page === 'followers' }" v-if="!defaultStore.state.userDetail_hideFollowers">
+							:class="{ active: page === 'followers' }" v-if="showFollowers">
 							<b>{{ number(user.followersCount) }}</b>
 							<span>{{ i18n.ts.followers }}</span>
 						</MkA>
@@ -165,6 +165,41 @@ let parallaxAnimationId = $ref<null | number>(null);
 let narrow = $ref<null | boolean>(null);
 let rootEl = $ref<null | HTMLElement>(null);
 let bannerEl = $ref<null | HTMLElement>(null);
+
+// Customizations
+
+const showActivityGraph = $computed(() => {
+	return !defaultStore.state.userDetail_hideActivityGraph;
+});
+
+const showFollowers = $computed(() => {
+	if (props.user.host != null) {
+		return !defaultStore.state.userDetail_hideFollowers_remote;
+	} else {
+		return !defaultStore.state.userDetail_hideFollowers;
+	}
+});
+
+const showFollowing = $computed(() => {
+	if (props.user.host != null) {
+		return !defaultStore.state.userDetail_hideFollowing_remote;
+	} else {
+		return !defaultStore.state.userDetail_hideFollowing;
+	}
+});
+
+const showNoteCount = $computed(() => {
+	if (props.user.host != null) {
+		return !defaultStore.state.userDetail_hideNoteCount_remote;
+	} else {
+		return !defaultStore.state.userDetail_hideNoteCount;
+	}
+});
+
+const showStatusArea = $computed(() => {
+	return showFollowers || showFollowing || showNoteCount;
+});
+
 
 const style = $computed(() => {
 	if (props.user.bannerUrl == null) return {};
