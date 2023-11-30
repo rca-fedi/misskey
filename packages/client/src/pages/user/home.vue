@@ -121,7 +121,7 @@
 				<XUserTimeline :user="user" />
 			</div>
 		</div>
-		<div v-if="!narrow" class="sub">
+		<div v-if="!narrow && showSubArea" class="sub">
 			<XPhotos :key="user.id" :user="user" v-if="showGallery"/>
 			<XActivity :key="user.id" :user="user" style="margin-top: var(--margin);" v-if="showActivityGraph"/>
 		</div>
@@ -208,6 +208,9 @@ const showStatusArea = $computed(() => {
 	return showFollowers || showFollowing || showNoteCount;
 });
 
+const showSubArea = $computed(() => {
+	return showGallery || showActivityGraph;
+});
 
 const style = $computed(() => {
 	if (props.user.bannerUrl == null) return {};
